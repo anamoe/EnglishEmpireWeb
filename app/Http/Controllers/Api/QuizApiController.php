@@ -81,20 +81,23 @@ class QuizApiController extends Controller
     public function cek_jawaban(Request $request)
     {
         $pertanyaan = Question::find($request->id);
-        $poin = $pertanyaan->jawaban == $request->jawaban ? 1 : 0;
-        $history_poin = PoinStudent::where('user_id',auth()->user()->id)->where('question_id',$request->id)->first();
+        $poin = $pertanyaan->answer_key == $request->answer ? 1 : 0;
+        // return $poin;
+        $history_poin = PoinStudent::where('user_id',$request->id_user)->where('question_id',$request->id)->first();
+        // return $history_poin;
         $next_quiz = Question::where('sub_id',$pertanyaan->sub_id)->where('id', '>', $request->id)->orderBy('id')->first();
         if(!$history_poin){
             PoinStudent::create([
-                'user_id'=>auth()->user()->id,
-                'poin'=>$poin,
-                'question_id'=>$request->id
+                'user_id'=>$request->id_user,
+                'point'=>$poin,
+                'question_id'=>$request->id,
+                'answer_student'=>$request->answer,
             ]);
         }
 
         return response()->json([
-            'status'=> $pertanyaan->jawaban == $request->jawaban ? 'benar' : 'salah',
-            'jawaban_benar'=> $pertanyaan->jawaban,
+            'status'=> $pertanyaan->answer_key == $request->answer ? 'benar' : 'salah',
+            'jawaban_benar'=> $pertanyaan->answer_key,
             'next_quiz'=> $next_quiz ? true : false
         ]);
     }

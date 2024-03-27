@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -28,6 +29,21 @@ class AuthController extends Controller
             return redirect()->back()
                 ->with('error', 'id_number tidak ada atau belum terdaftar');
         }
+    }
+
+    public function loginview()
+    {
+        if(auth()->check()){
+            switch (Auth::user()->role) {
+                case 'admin':
+                    return redirect('/user');
+                    break;
+                default:
+                    return redirect('/login');
+                    break;
+            }
+        }
+        return view('login');
     }
 
 }

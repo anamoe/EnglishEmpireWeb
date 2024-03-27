@@ -13,7 +13,7 @@
     }
 
 
-  
+
 
     .imagemedia img {
         cursor: pointer;
@@ -31,7 +31,7 @@
             <div class="card">
 
                 <div class="card-body">
-  
+
 
                     <!-- Modal -->
                     <div class="modal fade" id="addRowModal" role="dialog" aria-hidden="true">
@@ -49,33 +49,30 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                 </div>
+
                                 <div class="modal-body">
-                                    <form action="{{url('kelolauser')}}" method="post" id="addUsers">
+                                    <form action="{{url('user')}}" method="post" id="addUsers" onsubmit="return validateForm()">
                                         @csrf
 
                                         <div class="row">
-
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
-                                                    <label>Role</label>
-                                                    <select name="role" class="form-control">
-                                                        <option value="siswa">Siswa</option>
-                                                   
-                                                    </select>
+                                                    <label>Full Name</label>
+                                                    <input id="addName" type="text" name="full_name" required class="form-control" placeholder="">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
-                                                    <label>Full Name</label>
-                                                    <input id="addName" type="text" name="nama" required class="form-control" placeholder="">
+                                                    <label>Nick Name</label>
+                                                    <input id="addNick" type="text" name="nick_name" required class="form-control" placeholder="">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
                                                     <label>Id Number</label>
-                                                    <input id="addemail" type="email" name="email" required class="form-control" placeholder="">
+                                                    <input id="addid" type="text" name="id_number" required class="form-control" placeholder="">
                                                 </div>
                                             </div>
 
@@ -86,13 +83,54 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label>School</label>
+                                                    <input id="addschool" type="text" name="school" required class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label>Date Birth</label>
+                                                    <input id="addbirth" type="date" name="date_birth" required class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label>No. Telp</label>
+                                                    <input id="addtelp" type="text" name="no_hp" required class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Program Course</label>
+                                                        <select id="courseProgram" name="course_program_id" required class="form-control" onchange="getClasses()">
+                                                            <option value="" disabled>Choose</option>
+                                                            <!-- Loop through your list of course programs and generate options -->
+                                                            @foreach($coursePrograms as $course)
+                                                                <option value="{{ $course->id }}">{{ $course->program }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label>Class</label>
+                                                    <select id="class" name="class_id" required class="form-control">
+                                                        <option value="">Choose</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="modal-footer no-bd">
+                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                                            <button class="btn btn-primary">Tambah</button>
                                         </div>
                                     </form>
                                 </div>
-                                <div class="modal-footer no-bd">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-                                    <button class="btn btn-primary" onclick="document.getElementById('addUsers').submit()">Tambah</button>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -110,21 +148,79 @@
                                 <div class="modal-body">`
                                     <form action="" id="updateuser" method="post">
                                         @csrf
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput" class="col-md-3 col-form-label">Full Name</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text" class="form-control input-full namainstansi" name="nama" id="namainput" placeholder="">
-                                            </div>
+                                        <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">Full Name</label>
+                                           
+                                                <input type="text" class="form-control input-full namainstansi" name="full_name" id="namainput" placeholder="">
+                                        </div>
 
                                         </div>
-                                        <div class="form-group form-inline">
-                                            <label for="inlineinput" class="col-md-3 col-form-label">ID Number</label>
-                                            <div class="col-md-9 p-0">
-                                                <input type="text" class="form-control input-full email" name="email" id="emailinput" placeholder="">
-                                            </div>
+                                        <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">Nick Name</label>
+                                            
+                                                <input type="text" class="form-control input-full email" name="nick_name" id="nickinput" placeholder="">                                         
+                                        </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">ID Number</label>
+                                            
+                                                <input type="text" class="form-control input-full email" name="id_number" id="idinput" placeholder="">
+                                            
+                                        </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">School</label>
+                                           
+                                                <input type="text" class="form-control input-full email" name="school" id="schoolinput" placeholder="">
+                                        </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">Number Phone</label>
+                                            
+                                                <input type="text" class="form-control" name="no_hp" id="noinput" placeholder="">
+                                        </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">Date Birth</label>
+                                          
+                                                <input type="date" class="form-control " name="date_birth" id="birthinput" placeholder="">
+                                           
 
                                         </div>
-                                     
+                                        </div>
+
+                                        <!-- <div class="col-sm-12">
+                                                    <div class="form-group form-group-default">
+                                                        <label for="inlineinput" class="col-md col-form-label">Program Course</label>
+                                                        <select id="coursePrograms" name="course_program_id" required class="form-control" onchange="getClasses_edit()">
+                                                            <option value="" disabled>Choose</option>
+                                                      
+                                                            @foreach($coursePrograms as $course)
+                                                                <option value="{{ $course->id }}">{{ $course->program }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label>Class</label>
+                                                    <select id="classs" name="class_id" required class="form-control">
+                                                        <option value="">Choose</option>
+                                                    </select>
+                                                </div>
+                                            </div> -->
+
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -166,14 +262,14 @@
                                                 <tbody>
 
                                                     @foreach ($users as $user)
-                                     
+
                                                     <tr>
                                                         <td>{{$user->full_name}}</td>
                                                         <td>{{$user->id_number}}</td>
                                                         <td>
-                                                        <div class="form-button-action">
+                                                            <div class="form-button-action">
                                                                 <button type="button" class="btn btn-sm" onclick="edit({{$user->id}})" data-toggle="modal" data-target="#editUsers" title="" data-original-title="Edit User">
-                                                                <i class="fe fe-edit "></i> 
+                                                                    <i class="fe fe-edit "></i>
                                                                 </button>
 
                                                                 <a href="{{url('hapususer'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="" data-original-title="Hapus User">
@@ -184,7 +280,7 @@
                                                             </div>
                                                         </td>
                                                     </tr>
-                                              
+
                                                     @endforeach
 
                                                 </tbody>
@@ -202,15 +298,15 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-body text-center font-18">
-                             
+
                                     <h4 class="padding-top-30 mb-30 weight-500">Apakah Anda Ingin Menghapus User?</h4>
                                     <div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
                                         <div class="col-6">
-                                            <button type="button" class="btn btn-secondary border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                                            <button type="button" class="btn btn-warning border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fe fe-info"></i></button>
                                             Tidak
                                         </div>
                                         <div class="col-6">
-                                            <a href="#" id="linkhapus" class="btn btn-primary border-radius-100 btn-block confirmation-btn"><i class="fa fa-check"></i></a>
+                                            <a href="#" id="linkhapus" class="btn btn-danger border-radius-100 btn-block confirmation-btn"><i class="fe fe-check"></i></a>
                                             Ya
                                         </div>
                                     </div>
@@ -227,16 +323,85 @@
 @endsection
 
 @section('js')
+
 <script>
+
+function getClasses() {
+        var programId = document.getElementById("courseProgram").value;
+      
+        var classSelect = document.getElementById("class");
+        classSelect.innerHTML = '<option value="">Loading...</option>';
+
+        // Make an AJAX request to fetch classes associated with the selected program
+        fetch(`http://localhost/EnglishEmpire/class/${programId}`)
+            .then(response => response.json())
+            .then(data => {
+                classSelect.innerHTML = '<option  disabled value="">Choose</option>';
+                data.forEach(classData => {
+                    var option = document.createElement("option");
+                    option.value = classData.id;
+                    option.text = classData.class;
+                    classSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching classes:', error);
+                classSelect.innerHTML = '<option value="">Failed to load classes</option>';
+            });
+    }
+
+    function getClasses_edit() {
+        var programId = document.getElementById("coursePrograms").value;
+      
+        var classSelect = document.getElementById("classs");
+        classSelect.innerHTML = '<option value="">Loading...</option>';
+
+        // Make an AJAX request to fetch classes associated with the selected program
+        fetch(`http://localhost/EnglishEmpire/class/${programId}`)
+            .then(response => response.json())
+            .then(data => {
+                classSelect.innerHTML = '<option  disabled value="">Choose</option>';
+                data.forEach(classData => {
+                    var option = document.createElement("option");
+                    option.value = classData.id;
+                    option.text = classData.class;
+                    classSelect.appendChild(option);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching classes:', error);
+                classSelect.innerHTML = '<option value="">Failed to load classes</option>';
+            });
+    }
     $(document).ready(function() {
+      
+
+
+
+        function validateForm() {
+            var inputs = document.getElementById("addUsers").getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                if (inputs[i].hasAttribute("required") && inputs[i].value.trim() === "") {
+                    alert("Please fill in all required fields.");
+                    return false;
+                }
+            }
+            return true;
+        }
 
         @if(session()->has('message'))
-   Swal.fire({
-      icon: 'success',
-      title: 'Berhasil',
-      text: "{{session()->get('message')}}",
-  })
-   @endif
+        Swal.fire({
+            icon: 'success',
+            title: 'Berhasil',
+            text: "{{session()->get('message')}}",
+        })
+        @elseif(session()->has('error'))
+        Swal.fire({
+            icon: 'error',
+            title: 'Gagal',
+            text: "{{session()->get('error')}}",
+        })
+        @endif
 
 
         $('#basic-datatables').DataTable({});
@@ -287,12 +452,23 @@
     function edit(id) {
         $('.input-full').removeClass('is-invalid')
         $('.invalidtoken').removeClass('d-block').removeClass('d-none').addClass('d-none')
-        axios.get("{{url('kelolauser')}}" + "/" + id)
+        axios.get("{{url('user')}}" + "/" + id)
             .then(function(response) {
-                $("#emailinput").val(response.data.email)
-                $("#namainput").val(response.data.name)
-                $("#passwordinput").val(response.data.password)
-                $("#updateuser").attr("action", "{{url('kelolauserup')}}" + "/" + response.data.id)
+                $("#namainput").val(response.data.full_name)
+                $("#idinput").val(response.data.id_number)
+                $("#schoolinput").val(response.data.school)
+                $("#noinput").val(response.data.no_hp)
+                $("#birthinput").val(response.data.date_birth)
+                $("#nickinput").val(response.data.nick_name)
+                $("#coursePrograms").val(response.data.course_program_id);
+                // $("#classs").val(response.data.class_id);
+               
+                var classId = response.data.class_id;
+                console.log(classId)
+           
+                $("#classs").val(classId);
+          
+                $("#updateuser").attr("action", "{{url('userupdate')}}" + "/" + response.data.id)
             })
     }
 
@@ -307,10 +483,9 @@
     }
 
     function hapus(url) {
-        
+
         var link_hapus = url.href
         $('#linkhapus').attr('href', link_hapus)
     }
-
 </script>
 @endsection

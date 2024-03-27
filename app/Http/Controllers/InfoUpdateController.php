@@ -2,21 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SlideInfo;
+use App\Models\InfoUpdate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
-class SlideInfoController extends Controller
+class InfoUpdateController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
-        $slideinfo =SlideInfo::all();
-        return view('slide-info.slideinfo',compact('slideinfo'));
+        $info =InfoUpdate::all();
+        return view('info-update.infoupdate',compact('info'));
     }
 
     /**
@@ -41,7 +38,7 @@ class SlideInfoController extends Controller
               ]);
 
 
-            $tujuan_upload = public_path('slide-info');
+            $tujuan_upload = public_path('info-update');
             $file = $request->file('gambar');
             $namaFile = Carbon::now()->format('Ymd') . $file->getClientOriginalName();
             $file->move($tujuan_upload, $namaFile);
@@ -49,11 +46,12 @@ class SlideInfoController extends Controller
             $namaFiles = $namaFile;
       
 
-         SlideInfo::create([
-            'image' => $namaFiles
+         InfoUpdate::create([
+            'image' => $namaFiles,
+            'link'=>$request->link
 
         ]);
-        return redirect()->back()->with('message', 'Slide Info Berhasil Ditambahkan');
+        return redirect()->back()->with('message', 'Info Update Berhasil Ditambahkan');
     }
 
     /**
@@ -62,9 +60,9 @@ class SlideInfoController extends Controller
     public function show(string $id)
     {
         //
-        $informasi = SlideInfo::find($id);
-        $informasi->image =url('public/slide-info/'.$informasi->image);
-        return view('slide-info.edit',compact('informasi'));
+        $informasi = InfoUpdate::find($id);
+        $informasi->image =url('public/info-update/'.$informasi->image);
+        return view('info-update.edit',compact('informasi'));
     }
 
     /**
@@ -86,22 +84,30 @@ class SlideInfoController extends Controller
         if($request->hasFile('gambar')){
 
 
-            $tujuan_upload = public_path('slide-info');
+            $tujuan_upload = public_path('info-update');
             $file = $request->file('gambar');
             $namaFile = Carbon::now()->format('Ymd') . $file->getClientOriginalName();
-            File::delete($tujuan_upload . '/' . SlideInfo::find($id)->image);
+            File::delete($tujuan_upload . '/' . InfoUpdate::find($id)->image);
             $file->move($tujuan_upload, $namaFile);
             // $req['gambar_layanan']=$namaFile;
             $namaFiles = $namaFile;
-            SlideInfo::where('id',$id)->update([
-                'image' => $namaFiles
+
+            InfoUpdate::where('id',$id)->update([
+                'image' => $namaFiles,
+                'link'=>$request->link
+    
+            ]);
+        }else{
+
+            InfoUpdate::where('id',$id)->update([
+                'link'=>$request->link
     
             ]);
         }
       
 
-        
-        return redirect('slideinfo')->with('message', 'Slide Info Berhasil Diupdate');
+      
+        return redirect('infoupdate')->with('message', 'Info Update Berhasil Diupdate');
     }
 
     /**
@@ -114,16 +120,16 @@ class SlideInfoController extends Controller
     {
         //
         // Informasi::destroy($id);
-        $tujuan_upload = public_path('slide-info');
-        $s = SlideInfo::where('id', $id)->first();
+        $tujuan_upload = public_path('info-update');
+        $s = InfoUpdate::where('id', $id)->first();
 
         if ($s) {
 
             File::delete($tujuan_upload . '/' . $s->image);
-            SlideInfo::destroy($id);
+            InfoUpdate::destroy($id);
         }
-        return redirect()->back()->with('message', 'Slide Info Berhasil Dihapus');
+        return redirect()->back()->with('message', 'Info Update Berhasil Dihapus');
     }
+
+
 }
-
-
