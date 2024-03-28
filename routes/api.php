@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthApiController;
+use App\Http\Controllers\Api\InfoApiController;
 use App\Http\Controllers\Api\QuizApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -24,3 +25,6 @@ Route::post('login', [AuthApiController::class,'login']);
 
 Route::get('quiz-soal/{sub_id}', [QuizApiController::class,'quiz']);
 Route::post('cekjawaban-quiz', [QuizApiController::class,'cek_jawaban']);
+
+Route::get('slide-info', [InfoApiController::class,'slide_info']);
+Route::get('info-update', [InfoApiController::class,'info_update']);
