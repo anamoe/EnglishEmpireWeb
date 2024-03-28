@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\InfoUpdate;
 use App\Models\MainCategory;
+use App\Models\PoinStudent;
+use App\Models\Question;
+use App\Models\Quiz;
 use App\Models\QuizCategory;
 use App\Models\SlideInfo;
 use App\Models\SubCategory;
@@ -13,12 +16,12 @@ use Illuminate\Http\Request;
 class InfoApiController extends Controller
 {
     //
-    public function slide_info(){
+    public function slide_info()
+    {
 
-        $slideinfo = SlideInfo::orderBy('id','desc')->get();
-        foreach($slideinfo as $p){
-            $p->image = asset('public/slide-info/'.$p->image);
-
+        $slideinfo = SlideInfo::orderBy('id', 'desc')->get();
+        foreach ($slideinfo as $p) {
+            $p->image = asset('public/slide-info/' . $p->image);
         }
 
         if ($slideinfo) {
@@ -33,14 +36,13 @@ class InfoApiController extends Controller
                 'data' => []
             ]);
         }
-
     }
 
-    public function info_update(){
-        $info = InfoUpdate::orderBy('id','desc')->get();
-        foreach($info as $p){
-            $p->image = asset('public/info-update/'.$p->image);
-
+    public function info_update()
+    {
+        $info = InfoUpdate::orderBy('id', 'desc')->get();
+        foreach ($info as $p) {
+            $p->image = asset('public/info-update/' . $p->image);
         }
 
         if ($info) {
@@ -55,15 +57,15 @@ class InfoApiController extends Controller
                 'data' => []
             ]);
         }
-
     }
 
-    public function TopSkor(){
-        
+    public function TopSkor()
+    {
     }
 
 
-    public function quiz_category(){
+    public function quiz_category()
+    {
         $quizcategory = QuizCategory::all();
         if ($quizcategory) {
 
@@ -77,11 +79,11 @@ class InfoApiController extends Controller
                 'data' => []
             ]);
         }
-
     }
 
-    public function main_category($id_category){
-        $main = MainCategory::where('quiz_category_id',$id_category)->get();
+    public function main_category($id_category)
+    {
+        $main = MainCategory::where('quiz_category_id', $id_category)->get();
 
         if ($main) {
 
@@ -95,17 +97,66 @@ class InfoApiController extends Controller
                 'data' => []
             ]);
         }
-        
     }
 
-    public function sub_category($id_main){
-        $sub = SubCategory::where('main_category_id',$id_main)->get();
+    public function sub_category($id_main)
+    {
+        $subcategories = SubCategory::where('main_category_id', $id_main)->get();
 
-        if ($sub) {
+
+
+
+        foreach ($subcategories as $subcategory) {
+            $all_quiz = Question::where('sub_id', $subcategory->id)->count();
+            // $all_quiz_get = Question::where('sub_id',$subcategory->id)->get();
+
+            $questions = Question::where('sub_id', $subcategory->id)->get();
+
+            // Hitung total jawaban benar dan salah
+            $total_correct_answers = PoinStudent::whereIn('question_id', $questions->pluck('id'))
+                ->where('point', 1)
+                ->count();
+            $total_incorrect_answers = PoinStudent::whereIn('question_id', $questions->pluck('id'))
+                ->where('point', 0)
+                ->count();
+
+            $subcategory->total_correct_answers = $total_correct_answers;
+            $subcategory->total_incorrect_answers = $total_incorrect_answers;
+            $quizzes = Quiz::where('sub_categories_id', $subcategory->id)->get();
+
+            // Jika daftar kuis kosong, tambahkan objek kuis manual dengan status 'Belum Dikerjakan'
+            if ($quizzes->isEmpty()) {
+                $quizzes->push(new Quiz([
+                    'sub_categories_id' => $subcategory->id,
+                    'user_id' => 1,
+                    'status_quiz' => 'Not Taken'
+                ]));
+            } else {
+                foreach ($quizzes as $quiz) {
+                    $quiz->status_quiz = 'finish';
+                    
+              
+                }
+            }
+
+            // Tambahkan properti quizzes ke objek SubCategory
+            $subcategory->quizzes = $quizzes;
+            $subcategory->total_quiz = $all_quiz;
+            // $subcategory->total_quiz_true = $all_quiz_true;
+            // $subcategory->total_quiz_false = $all_quiz_false;
+        }
+
+        return response()->json([
+            'code' => 200,
+            'data' => $subcategories
+        ]);
+
+
+        if ($subcategories) {
 
             return response()->json([
                 'code' => '200',
-                'data' => $sub
+                'data' => $subcategories
             ]);
         } else {
             return response()->json([
@@ -113,7 +164,5 @@ class InfoApiController extends Controller
                 'data' => []
             ]);
         }
-        
     }
-
 }

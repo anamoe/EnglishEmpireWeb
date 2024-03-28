@@ -205,7 +205,7 @@
         <div class="col-md-12  mt-5">
             <div class="card">
                 <div class="card-header bg-primary">
-                    <h6 class="text-white">Tambah Soal<div class="float-right kembalimateri" style="cursor :pointer;">X</div>
+                    <h6 class="text-white">Add<div class="float-right kembalimateri" style="cursor :pointer;">X</div>
                     </h6>
                 </div>
                 <div class="card-body">
@@ -213,8 +213,9 @@
                         @csrf
 
                         <div class="col-md-9 p-0">
-                            <input type="text" class="form-control input-full w-100" value="{{$sub_id}}" name="mapel_id" id="kelas_id" placeholder="Enter Input">
+                            <input type="hidden" class="form-control input-full w-100" value="{{$sub_id}}" name="mapel_id" id="kelas_id" placeholder="Enter Input">
                         </div>
+
 
                         <div class="form-group">
                             <label>Soal :</label>

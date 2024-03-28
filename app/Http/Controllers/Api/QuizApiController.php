@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\PoinStudent;
 use App\Models\Question;
+use App\Models\Quiz;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class QuizApiController extends Controller
@@ -12,6 +14,8 @@ class QuizApiController extends Controller
     //
     public function quiz($sub_id)
     {
+      
+
         $quizes = Question::where('sub_id',$sub_id);
         // dd($quiz);
         $banyak_quiz = $quizes->count();
@@ -80,15 +84,33 @@ class QuizApiController extends Controller
 
     public function cek_jawaban(Request $request)
     {
+        $status='';
+        // $cek = SubCategory::where('id',$sub_id)->first();
+        $cek = Quiz::where('sub_categories_id',$request->sub_id)->first();
+       if($cek){
+      
+        $status = 'selesai';
+       }else{
+        $status = 'belum';
+        Quiz::create([
+            'user_id'=>$request->user_id,
+            'sub_categories_id'=>$request->sub_id,
+            'status_test'=>'dimulai'
+        ]);
+       }
+
+    //    return $status;
+
+      
         $pertanyaan = Question::find($request->id);
         $poin = $pertanyaan->answer_key == $request->answer ? 1 : 0;
         // return $poin;
-        $history_poin = PoinStudent::where('user_id',$request->id_user)->where('question_id',$request->id)->first();
+        $history_poin = PoinStudent::where('user_id',$request->user_id)->where('question_id',$request->id)->first();
         // return $history_poin;
         $next_quiz = Question::where('sub_id',$pertanyaan->sub_id)->where('id', '>', $request->id)->orderBy('id')->first();
         if(!$history_poin){
             PoinStudent::create([
-                'user_id'=>$request->id_user,
+                'user_id'=>$request->user_id,
                 'point'=>$poin,
                 'question_id'=>$request->id,
                 'answer_student'=>$request->answer,
@@ -98,7 +120,8 @@ class QuizApiController extends Controller
         return response()->json([
             'status'=> $pertanyaan->answer_key == $request->answer ? 'benar' : 'salah',
             'jawaban_benar'=> $pertanyaan->answer_key,
-            'next_quiz'=> $next_quiz ? true : false
+            'next_quiz'=> $next_quiz ? true : false,
+            'status_create_quiz'=>$status
         ]);
     }
 }
