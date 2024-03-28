@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\InfoUpdate;
+use App\Models\MainCategory;
+use App\Models\QuizCategory;
 use App\Models\SlideInfo;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
 class InfoApiController extends Controller
@@ -58,4 +61,59 @@ class InfoApiController extends Controller
     public function TopSkor(){
         
     }
+
+
+    public function quiz_category(){
+        $quizcategory = QuizCategory::all();
+        if ($quizcategory) {
+
+            return response()->json([
+                'code' => '200',
+                'data' => $quizcategory
+            ]);
+        } else {
+            return response()->json([
+                'code' => '500',
+                'data' => []
+            ]);
+        }
+
+    }
+
+    public function main_category($id_category){
+        $main = MainCategory::where('quiz_category_id',$id_category)->get();
+
+        if ($main) {
+
+            return response()->json([
+                'code' => '200',
+                'data' => $main
+            ]);
+        } else {
+            return response()->json([
+                'code' => '500',
+                'data' => []
+            ]);
+        }
+        
+    }
+
+    public function sub_category($id_main){
+        $sub = SubCategory::where('main_category_id',$id_main)->get();
+
+        if ($sub) {
+
+            return response()->json([
+                'code' => '200',
+                'data' => $sub
+            ]);
+        } else {
+            return response()->json([
+                'code' => '500',
+                'data' => []
+            ]);
+        }
+        
+    }
+
 }
