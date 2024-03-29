@@ -123,6 +123,14 @@
                                                 </div>
                                             </div>
 
+                                            
+                                            <!-- <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Image</label>
+                                                    <input type="file" class="form-control input-full w-100" required name="gambar" id="isi_jawab"></textarea>
+                                                </div>
+                                            </div> -->
+
                                         </div>
                                         <div class="modal-footer no-bd">
                                             <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
@@ -146,7 +154,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">`
-                                    <form action="" id="updateuser" method="post">
+                                    <form action="" id="updateuser" method="post" enctype="multipart/form-data">
                                         @csrf
                                         <div class="col-sm-12">
                                         <div class="form-group form-group-default">
@@ -175,6 +183,17 @@
 
                                         <div class="col-sm-12">
                                         <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">Password</label>
+                                            
+                                                <input type="text" class="form-control input-full email" name="password" id="idinput" placeholder="">
+                                                
+                                            
+                                        </div>
+                                        </div>
+
+                        
+                                        <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
                                             <label for="inlineinput" class="col-md col-form-label">School</label>
                                            
                                                 <input type="text" class="form-control input-full email" name="school" id="schoolinput" placeholder="">
@@ -198,6 +217,18 @@
 
                                         </div>
                                         </div>
+                                        <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Image</label>
+                                                    <input type="file" class="form-control input-full w-100" required name="gambar" id="isi_jawab2"></textarea>
+                                                </div>
+                                            </div>
+
+                                            <div  iv class="text-center">
+                                                        <img class="img" id="loadfotoadd" src="" alt="Foto Thumbnail"
+                                                            style=" height:30%; width:30%;">                            
+                                            </div>
+
 
                                         <!-- <div class="col-sm-12">
                                                     <div class="form-group form-group-default">
@@ -461,10 +492,11 @@ function getClasses() {
                 $("#birthinput").val(response.data.date_birth)
                 $("#nickinput").val(response.data.nick_name)
                 $("#coursePrograms").val(response.data.course_program_id);
+                $("#loadfotoadd").attr("src", response.data.foto_profil);
                 // $("#classs").val(response.data.class_id);
                
                 var classId = response.data.class_id;
-                console.log(classId)
+                console.log(response.data.foto_profil)
            
                 $("#classs").val(classId);
           

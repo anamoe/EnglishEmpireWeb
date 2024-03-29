@@ -6,8 +6,10 @@ use App\Models\ClassCourse;
 use App\Models\CourseProgram;
 use App\Models\Student;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -87,6 +89,7 @@ class UserController extends Controller
         ->select('students.*','users.*')
         ->where('users.id',$id)
         ->first();
+        $user->foto_profil = asset('public/profil/'.$user->foto_profil);
         return response()->json($user);
     }
 
@@ -112,7 +115,73 @@ class UserController extends Controller
     {
         //
       
+        $namaFiles = '';
+        //
+        if($request->hasFile('gambar')){
 
+
+            $tujuan_upload = public_path('profil');
+            $file = $request->file('gambar');
+            $namaFile = Carbon::now()->format('Ymd') . $file->getClientOriginalName();
+            // File::delete($tujuan_upload . '/' . User::find($id)->foto_profil);
+            if ($request->file('gambar')->getClientOriginalName() == 'profil.jpg') {
+                // Jika foto profil yang diupload adalah default, tidak perlu menghapus foto lama
+                $namaFiles = $request->file('gambar')->getClientOriginalName();
+            } else {
+                // Jika foto profil yang diupload bukan default, hapus foto lama
+                File::delete($tujuan_upload . '/' . User::find($id)->foto_profil);
+                $file->move($tujuan_upload, $namaFile);
+                $namaFiles = $namaFile;
+            }
+            // $file->move($tujuan_upload, $namaFile);
+            // // $req['gambar_layanan']=$namaFile;
+            // $namaFiles = $namaFile;
+
+            
+        if($request->password){
+
+            User::where('id', '=', $id)->update([
+                'password' => bcrypt($request->password),
+                'full_name' => $request->full_name,
+                'nick_name' => $request->nick_name,
+                'id_number'=>$request->id_number,
+                'foto_profil'=>$namaFiles
+            ]);
+
+            Student::where('user_id',$id)->update([
+                'school' => $request->school,
+                'date_birth' => $request->date_birth,
+                'no_hp' => $request->no_hp,
+                // 'course_program_id'=>$request->course_program_id,
+                // 'class_id'=>$request->class_id
+                
+
+            ]);
+
+        }else{
+            
+            User::where('id', '=', $id)->update([
+                'full_name' => $request->full_name,
+                'nick_name' => $request->nick_name,
+                'id_number'=>$request->id_number,
+                'foto_profil'=>$namaFiles
+            ]);
+
+            Student::where('user_id',$id)->update([
+                'school' => $request->school,
+                'date_birth' => $request->date_birth,
+                'no_hp' => $request->no_hp,
+                // 'course_program_id'=>$request->course_program_id,
+                // 'class_id'=>$request->class_id
+                
+
+            ]);
+
+        }
+
+           
+        }else{
+            
         if($request->password){
 
             User::where('id', '=', $id)->update([
@@ -151,6 +220,11 @@ class UserController extends Controller
             ]);
 
         }
+
+          
+        }
+      
+
         return redirect()->back()->with('message', 'User Berhasil Diperbaharui');
     }
 
