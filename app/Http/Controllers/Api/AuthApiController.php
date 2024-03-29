@@ -22,7 +22,10 @@ class AuthApiController extends Controller
 
                 $users = DB::table('students')
                 ->leftjoin('users','students.user_id','users.id')
-                ->select('students.*','users.*')->where('users.id',$user->id)->first();
+                ->leftjoin('course_programs','students.course_program_id','course_programs.id')
+                ->leftjoin('class_courses','students.class_id','class_courses.id')
+                ->select('students.*','class_courses.class','course_programs.program','users.full_name','users.nick_name','users.foto_profil as profil_picture','users.id_number','users.role')->where('users.id',$user->id)->first();
+                $users->profil_picture = asset('public/profil/'.$user->foto_profil);
 
                 return response()->json([
                     'code' => '200',
