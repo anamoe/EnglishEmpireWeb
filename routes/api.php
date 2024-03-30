@@ -35,4 +35,4 @@ Route::get('main-category/{id_category}', [InfoApiController::class,'main_catego
 Route::get('sub-category/{id_main}', [InfoApiController::class,'sub_category']);
 
 
-// Route::post('userupdate/{id}',[UserController::class,'updated']);
+Route::get('schedule-student/{user_id}',[InfoApiController::class,'get_schedule']);

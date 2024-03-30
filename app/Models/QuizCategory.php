@@ -9,4 +9,5 @@ class QuizCategory extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
 }

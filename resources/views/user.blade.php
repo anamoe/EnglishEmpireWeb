@@ -1,5 +1,5 @@
 @extends('template.master')
-@section('judul','Kelola User')
+@section('judul','Account Student')
 @section('css')
 
 
@@ -40,9 +40,9 @@
                                 <div class="modal-header no-bd">
                                     <h5 class="modal-title">
                                         <span class="fw-mediumbold">
-                                            Tambah</span>
+                                            Add</span>
                                         <span class="fw-light">
-                                            User
+                                            Student
                                         </span>
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -315,10 +315,10 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center">
-                                            <h4 class="card-title">Siswa</h4>
+                                            <h4 class="card-title"></h4>
                                             <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
                                                 <i class="fa fa-plus"></i>
-                                                Tambah User
+                                               Add
                                             </button>
                                         </div>
                                     </div>
@@ -343,18 +343,20 @@
                                                         <td>{{$user->full_name}}</td>
                                                         <td>{{$user->id_number}}</td>
                                                         <td>
-                                                            <div class="form-button-action">
-                                                                <button type="button" class="btn btn-sm" onclick="edit({{$user->id}})" data-toggle="modal" data-target="#editUsers" title="" data-original-title="Edit User">
-                                                                    <i class="fe fe-edit "></i>
-                                                                </button>
-
-                                                                <a href="{{url('hapususer'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="" data-original-title="Hapus User">
-                                                                    <i class="fe fe-trash"></i>
-                                                                </a>
-
-
+                                                            <div style="display: flex; justify-content: space-between;">
+                                                            <a href="{{url('student-schedules',$user->id)}}"><button class="btn btn-primary" style="font-size: 12px; width: fit-content;">Student Schedule</button></a>
+                                                            
+                                                                <div class="form-button-action" style="margin-left: 8px;">
+                                                                    <button type="button" class="btn btn-sm" onclick="edit({{$user->id}})" data-toggle="modal" data-target="#editUsers" title="Edit User">
+                                                                        <i class="fe fe-edit"></i>
+                                                                    </button>
+                                                                    <a href="{{url('hapususer'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="Hapus User">
+                                                                        <i class="fe fe-trash"></i>
+                                                                    </a>
+                                                                </div>
                                                             </div>
                                                         </td>
+
                                                     </tr>
 
                                                     @endforeach

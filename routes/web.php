@@ -8,6 +8,7 @@ use App\Http\Controllers\MainCategoryController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizCategoryController;
 use App\Http\Controllers\SlideInfoController;
+use App\Http\Controllers\StudentScheduleController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use App\Models\CourseProgram;
@@ -43,6 +44,8 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
     Route::get('class/{id_course}',[UserController::class,'getclass']);
     Route::post('userupdate/{id}',[UserController::class,'updated']);
 
+    
+
 
     Route::resource('quizcategory',QuizCategoryController::class);
     Route::get('quizcategory/maincategory/{id_category}',[MainCategoryController::class,'index']);
@@ -70,5 +73,11 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
     Route::get('courseprogram/class/{id_course}',[ClassCourseController::class,'index']);
 
     Route::get('courseprogramdelete/{id}',[CourseProgramController::class,'destroy']);
+
+
+    Route::resource('student-schedule',StudentScheduleController::class);
+    Route::get('student-schedules/{user_id}',[StudentScheduleController::class,'index']);
+    Route::post('schedule-student-update/{id}',[StudentScheduleController::class,'updated']);
+    Route::get('schedule-student-delete/{id}',[StudentScheduleController::class,'destroys']);
 
 });
