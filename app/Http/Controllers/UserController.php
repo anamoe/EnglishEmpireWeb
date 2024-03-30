@@ -50,6 +50,8 @@ class UserController extends Controller
                 'password' => bcrypt($request->password),
                 'full_name' => $request->full_name,
                 'nick_name' => $request->nick_name,
+                'status_account' => $request->status_account,
+                'activate_date' => $request->activate_date,
                 'role' => 'student',
                 'foto_profil' => 'profil.jpg',
             ]);
@@ -145,7 +147,56 @@ class UserController extends Controller
                 'full_name' => $request->full_name,
                 'nick_name' => $request->nick_name,
                 'id_number'=>$request->id_number,
-                'foto_profil'=>$namaFiles
+                'foto_profil'=>$namaFiles,
+                'status_account' => $request->status_account,
+                'activate_date' => $request->activate_date,
+            ]);
+
+            Student::where('user_id',$id)->update([
+                'school' => $request->school,
+                'date_birth' => $request->date_birth,
+                'no_hp' => $request->no_hp,
+                'course_program_id'=>$request->course_program_id,
+                'class_id'=>$request->class_id
+                
+
+            ]);
+
+        }else{
+            
+            User::where('id', '=', $id)->update([
+                'full_name' => $request->full_name,
+                'nick_name' => $request->nick_name,
+                'id_number'=>$request->id_number,
+                'foto_profil'=>$namaFiles,
+                'status_account' => $request->status_account,
+                'activate_date' => $request->activate_date,
+            ]);
+
+            Student::where('user_id',$id)->update([
+                'school' => $request->school,
+                'date_birth' => $request->date_birth,
+                'no_hp' => $request->no_hp,
+                'course_program_id'=>$request->course_program_id,
+                'class_id'=>$request->class_id
+                
+
+            ]);
+
+        }
+
+           
+        }else{
+            
+        if($request->password){
+
+            User::where('id', '=', $id)->update([
+                'password' => bcrypt($request->password),
+                'full_name' => $request->full_name,
+                'nick_name' => $request->nick_name,
+                'id_number'=>$request->id_number,
+                'status_account' => $request->status_account,
+                'activate_date' => $request->activate_date,
             ]);
 
             Student::where('user_id',$id)->update([
@@ -164,49 +215,8 @@ class UserController extends Controller
                 'full_name' => $request->full_name,
                 'nick_name' => $request->nick_name,
                 'id_number'=>$request->id_number,
-                'foto_profil'=>$namaFiles
-            ]);
-
-            Student::where('user_id',$id)->update([
-                'school' => $request->school,
-                'date_birth' => $request->date_birth,
-                'no_hp' => $request->no_hp,
-                // 'course_program_id'=>$request->course_program_id,
-                // 'class_id'=>$request->class_id
-                
-
-            ]);
-
-        }
-
-           
-        }else{
-            
-        if($request->password){
-
-            User::where('id', '=', $id)->update([
-                'password' => bcrypt($request->password),
-                'full_name' => $request->full_name,
-                'nick_name' => $request->nick_name,
-                'id_number'=>$request->id_number
-            ]);
-
-            Student::where('user_id',$id)->update([
-                'school' => $request->school,
-                'date_birth' => $request->date_birth,
-                'no_hp' => $request->no_hp,
-                // 'course_program_id'=>$request->course_program_id,
-                // 'class_id'=>$request->class_id
-                
-
-            ]);
-
-        }else{
-            
-            User::where('id', '=', $id)->update([
-                'full_name' => $request->full_name,
-                'nick_name' => $request->nick_name,
-                'id_number'=>$request->id_number
+                'status_account' => $request->status_account,
+                'activate_date' => $request->activate_date,
             ]);
 
             Student::where('user_id',$id)->update([
@@ -223,6 +233,8 @@ class UserController extends Controller
 
           
         }
+
+        // return $u;
       
 
         return redirect()->back()->with('message', 'User Berhasil Diperbaharui');

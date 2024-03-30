@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\InfoApiController;
 use App\Http\Controllers\Api\QuizApiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,4 @@ Route::get('main-category/{id_category}', [InfoApiController::class,'main_catego
 Route::get('sub-category/{id_main}', [InfoApiController::class,'sub_category']);
 
 
+// Route::post('userupdate/{id}',[UserController::class,'updated']);

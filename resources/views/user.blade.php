@@ -102,6 +102,25 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label>Activate Date</label>
+                                                    <input id="activate_date" type="date" name="activate_date" required class="form-control" placeholder="">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label>Status Account</label>
+                                                    <select name="status_account" class="form-control">
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
+                                            </select>
+                                                       
+                                                </div>
+                                            </div>
+
+                                           
+                                            <div class="col-sm-12">
                                                     <div class="form-group form-group-default">
                                                         <label>Program Course</label>
                                                         <select id="courseProgram" name="course_program_id" required class="form-control" onchange="getClasses()">
@@ -217,9 +236,34 @@
 
                                         </div>
                                         </div>
+
                                         <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Image</label>
+                                        <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">Activate Date</label>
+                                          
+                                                <input type="date" class="form-control " name="activate_date" id="active_input" placeholder="">
+                                           
+
+                                        </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">Status Account</label>
+
+                                            <select name="status_account"  id="status_account_input"class="form-control">
+                                                <option value="active">Active</option>
+                                                <option value="inactive">Inactive</option>
+                                            </select>
+                                                                                
+                                           
+
+                                        </div>
+                                        </div>
+ 
+                                        <div class="col-sm-12">
+                                                <div class="form-group form-group-default"> 
+                                                   <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Image</label>
                                                     <input type="file" class="form-control input-full w-100" required name="gambar" id="isi_jawab2"></textarea>
                                                 </div>
                                             </div>
@@ -230,7 +274,7 @@
                                             </div>
 
 
-                                        <!-- <div class="col-sm-12">
+                                        <div class="col-sm-12">
                                                     <div class="form-group form-group-default">
                                                         <label for="inlineinput" class="col-md col-form-label">Program Course</label>
                                                         <select id="coursePrograms" name="course_program_id" required class="form-control" onchange="getClasses_edit()">
@@ -243,6 +287,7 @@
                                                     </div>
                                                 </div>
 
+                                                <!-- <label id="classs">Class</label> -->
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
                                                     <label>Class</label>
@@ -250,7 +295,7 @@
                                                         <option value="">Choose</option>
                                                     </select>
                                                 </div>
-                                            </div> -->
+                                            </div>
 
                                     </form>
                                 </div>
@@ -492,6 +537,8 @@ function getClasses() {
                 $("#birthinput").val(response.data.date_birth)
                 $("#nickinput").val(response.data.nick_name)
                 $("#coursePrograms").val(response.data.course_program_id);
+                $("#active_input").val(response.data.activate_date);
+                $("#status_account_input").val(response.data.status_account);
                 $("#loadfotoadd").attr("src", response.data.foto_profil);
                 // $("#classs").val(response.data.class_id);
                

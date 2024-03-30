@@ -128,11 +128,13 @@ class InfoApiController extends Controller
             if ($quizzes->isEmpty()) {
                 $quizzes->push(new Quiz([
                     'sub_categories_id' => $subcategory->id,
-                    'user_id' => 1,
+                 
+                    // 'user_id' => $request-,
                     'status_quiz' => 'Not Taken'
                 ]));
             } else {
                 foreach ($quizzes as $quiz) {
+                    $quiz->sub_categories_id = $subcategory->id;
                     $quiz->status_quiz = 'finish';
                     
               
