@@ -12,26 +12,26 @@ use Illuminate\Http\Request;
 class QuizApiController extends Controller
 {
     //
-    public function quiz($sub_id)
+    public function quiz(Request $request)
     {
       
 
-        $quizes = Question::where('sub_id',$sub_id);
+        $quizes = Question::where('sub_id',$request->sub_id);
         // dd($quiz);
         $banyak_quiz = $quizes->count();
-        $history_pertanyaan = Question::cek_history($sub_id)->latest('poin_students.id')->first();
+        $history_pertanyaan = Question::cek_history($request->sub_id)->latest('poin_students.id')->first();
         if(!$history_pertanyaan){
             $quiz = $quizes->first();
         }else{
             $quiz = $quizes->where('id', '>', $history_pertanyaan->pid)->orderBy('id')->first();
             if(!$quiz){
-                $poin = PoinStudent::cek_poin($sub_id);
-                return ["selamat menyelsaikan quiz",$poin,$sub_id];
-                return view('user.quiz_soal.quiz_end',compact('id','poin'));
+                $poin = PoinStudent::cek_poin($request->sub_id,$request->user_id);
+                return ["selamat menyelsaikan quiz",$poin,$request->sub_id];
+                // return view('user.quiz_soal.quiz_end',compact('id','poin'));
             }
         }
         $no_quiz;
-        $all_quiz = Question::where('sub_id',$sub_id)->get();
+        $all_quiz = Question::where('sub_id',$request->sub_id)->get();
         $all_questions = [];
         foreach ($all_quiz as $n => $q) {
             $shuffled_options = $q->ganda->shuffle();
@@ -55,7 +55,7 @@ class QuizApiController extends Controller
             "all_questions" => $all_questions,
             "banyak_quiz" => $banyak_quiz,
             // "no_quiz"=>$no_quiz,
-            "sub_id"=>$sub_id
+            "sub_id"=>$request->sub_id
 
         ];
     
