@@ -89,34 +89,120 @@ class InfoApiController extends Controller
 
     public function quiz_category()
     {
-        $quizcategory = QuizCategory::all();
-        foreach ($quizcategory as $quiz) {
-            $quiz->total_main = MainCategory::where('quiz_category_id', $quiz->id)->count();
-            // $quiz->save();
-            $main_category = MainCategory::where('quiz_category_id', $quiz->id)->get();
 
-            foreach ($main_category as $sub) {
-                $sub->total_sub = SubCategory::where('main_category_id', $sub->id)->count();
-            }
+        
+//         $totalmain=0;
+//         $totalsub=0;
+$quizCategories = QuizCategory::with('mainCategories.subCategories')->get();
 
-            $quiz->main_category = $main_category;
-            // $quiz->total = $main_category->total_sub;
+// $results = [];
 
+// foreach ($quizCategories as $quizCategory) {
+//     echo "Quiz Category: {$quizCategory->name}" . PHP_EOL;
+
+//     // Menghitung dan menampilkan jumlah kategori utama
+//     $totalMainCategories = $quizCategory->mainCategories->count();
+//     echo "Total Main Categories: {$totalMainCategories}" . PHP_EOL;
+
+//     // Menghitung dan menampilkan jumlah subkategori per kategori utama
+//     $totalSubCategories = 0;
+//     foreach ($quizCategory->mainCategories as $mainCategory) {
+//         echo "- Main Category: {$mainCategory->name}" . PHP_EOL;
+//         $totalSubCategories += $mainCategory->subCategories->count();
+//     }
+//     echo "-- Total Sub Categories: {$totalSubCategories}" . PHP_EOL;
+
+//     // Menambahkan hasil ke dalam array
+//     $results[] = [
+//         'quiz_category' => $quizCategory->name,
+//         'total_main_categories' => $totalMainCategories,
+//         'total_sub_categories' => $totalSubCategories,
+//     ];
+// }
+
+// return $results;
+
+foreach ($quizCategories as $quizCategory) {
+
+$quizCategories = QuizCategory::with('mainCategories.subCategories')->get();
+
+$results = [];
+
+foreach ($quizCategories as $quizCategory) {
+    $totalMainCategories = $quizCategory->mainCategories->count();
+    $totalSubCategories = 0;
+
+    foreach ($quizCategory->mainCategories as $mainCategory) {
+        $totalSubCategories += $mainCategory->subCategories->count();
+    }
+
+    $mainCategoriesData = [];
+
+    foreach ($quizCategory->mainCategories as $mainCategory) {
+        $subCategoriesData = [];
+
+        foreach ($mainCategory->subCategories as $subCategory) {
+            $subCategoriesData[] = [
+                'id' => $subCategory->id,
+                'main_category_id' => $subCategory->main_category_id,
+                'sub' => $subCategory->sub,
+                'waktu_pengerjaan' => $subCategory->waktu_pengerjaan,
+                'created_at' => $subCategory->created_at,
+                'updated_at' => $subCategory->updated_at
+            ];
         }
 
+        $mainCategoriesData[] = [
+            'id' => $mainCategory->id,
+            'main' => $mainCategory->main,
+            'quiz_category_id' => $mainCategory->quiz_category_id,
+            'created_at' => $mainCategory->created_at,
+            'updated_at' => $mainCategory->updated_at,
+            'sub_categories' => $subCategoriesData
+        ];
+    }
 
-        if ($quizcategory) {
+    $results[] = [
+        'id' => $quizCategory->id,
+        'category' => $quizCategory->category,
+        'created_at' => $quizCategory->created_at,
+        'updated_at' => $quizCategory->updated_at,
+        'main_categories' => $mainCategoriesData,
+        'total_main_categories' => $totalMainCategories,
+        'total_sub_categories' => $totalSubCategories
+    ];
+}
+}
 
-            return response()->json([
-                'code' => '200',
-                'data' => $quizcategory
-            ]);
-        } else {
-            return response()->json([
-                'code' => '500',
-                'data' => []
-            ]);
-        }
+return response()->json([
+    'code' => 200,
+    'data' => $results
+]);
+
+    // $totalMainCategories = $quizCategory->mainCategories->count();
+    // $totalSubCategories = 0;
+
+    // foreach ($quizCategory->mainCategories as $mainCategory) {
+    //     $totalSubCategories += $mainCategory->subCategories->count();
+       
+
+    // }
+    // }
+
+    //     if ($quizCategories) {
+
+    //         return response()->json([
+    //             'code' => '200',
+    //             'data' =>$quizCategories,
+    //             // 'total_main_category' =>$totalmain,
+    //             // 'total_sub_category'=>$totalsub
+    //         ]);
+    //     } else {
+    //         return response()->json([
+    //             'code' => '500',
+    //             'data' => []
+    //         ]);
+    //     }
     }
 
     public function main_category($id_category)
