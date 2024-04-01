@@ -26,7 +26,13 @@ class QuizApiController extends Controller
             $quiz = $quizes->where('id', '>', $history_pertanyaan->pid)->orderBy('id')->first();
             if(!$quiz){
                 $poin = PoinStudent::cek_poin($request->sub_id,$request->user_id);
-                return ["selamat menyelsaikan quiz",$poin,$request->sub_id];
+
+                return response()->json([
+                    'code' => '200',
+                    'data' => $poin
+                ]);
+                // return [
+                //     "selamat menyelsaikan quiz",];
                 // return view('user.quiz_soal.quiz_end',compact('id','poin'));
             }
         }
@@ -51,6 +57,7 @@ class QuizApiController extends Controller
     
        
         // Buat array asosiatif untuk menggabungkan semua data
+    
         $response = [
             "all_questions" => $all_questions,
             "banyak_quiz" => $banyak_quiz,
@@ -58,8 +65,11 @@ class QuizApiController extends Controller
             "sub_id"=>$request->sub_id
 
         ];
-    
-        return response()->json($response);
+        return response()->json([
+            'code' => '200',
+            'data' => $response
+        ]);
+        // return response()->json($response);
         // foreach($all_quiz as $n=>$q){
         //     if($q->id == $quiz->id){
         //         $no_quiz = $n+1;

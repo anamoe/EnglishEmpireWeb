@@ -36,3 +36,7 @@ Route::get('sub-category/{id_main}', [InfoApiController::class,'sub_category']);
 
 
 Route::get('schedule-student/{user_id}',[InfoApiController::class,'get_schedule']);
+
+Route::get('student-report/{user_id}',[InfoApiController::class,'studen_report']);
+Route::get('getlist_skor/{user_id}',[InfoApiController::class,'getlist_skor']);
+

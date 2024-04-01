@@ -16,7 +16,7 @@
         
       </a>
       <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-        <a class="dropdown-item" href="{{url('profile')}}">Profile</a>
+        <!-- <a class="dropdown-item" href="{{url('profile')}}">Profile</a> -->
         <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
 
           Logout

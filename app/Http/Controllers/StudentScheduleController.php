@@ -35,7 +35,7 @@ class StudentScheduleController extends Controller
     {
         //
         StudentSchedule::create(["user_id" => $request->user_id,"date" => $request->date,
-        "homework" => $request->homework,"session" => $request->session]);
+        "homework" => $request->homework,"session" => $request->session,"note" => 'None']);
         return redirect()->back()->with('message', 'Schedule Student Berhasil Ditambahkan');
     }
 
