@@ -367,15 +367,23 @@ class InfoApiController extends Controller
 
     public function topskor(){
 
-        $totalScores = PoinStudent::select('users.id as user_id', 'users.full_name','students.school','course_programs.program','class_courses.class', DB::raw('SUM(poin_students.point) as total_score'))
+        $totalScores = PoinStudent::select('users.id as user_id','users.foto_profil', 'users.full_name','students.school','course_programs.program','class_courses.class', DB::raw('SUM(poin_students.point) as total_score'))
         ->join('users', 'users.id', '=', 'poin_students.user_id')
         ->join('students', 'students.user_id', '=', 'users.id')
         ->join('course_programs', 'students.course_program_id', '=', 'course_programs.id')
         ->join('class_courses', 'students.class_id', '=', 'class_courses.id')
-        ->groupBy('users.id', 'users.full_name','students.school','class_courses.class','course_programs.program')->orderBy('total_score','desc')
+        ->groupBy('users.id', 'users.full_name','students.school','class_courses.class','course_programs.program','users.foto_profil')
+        ->orderBy('total_score','desc')
         ->get();
+        foreach($totalScores as $v){
+            $v->profil_picture = asset('public/profil/'.$v->foto_profil);
 
-    return $totalScores;
+        }
+
+        return response()->json([
+            'code' => '200',
+            'data' => $totalScores,
+        ]);
         
     }
 }
