@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Notif;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -44,6 +45,14 @@ class AuthController extends Controller
             }
         }
         return view('login');
+    }
+
+    public function notifikasi(){
+        $notif = new Notif();
+        $token='d66IdZpVQVKpu3fuFrtuuh:APA91bEb-EUmG1-mzvSFVV9SMIc373NF5bT7s4_lDKkPh8RY6-TFX93WLfsLwi-PZSP-4x8F5Dgubc0gYHKTttdDZbha_HGlUnPPXfMdXp4eJ8qSgnwZNaOcJAGuY62GBGATTa3gTb0U';
+        $notif->sendNotifAll($token,"pesan1.","pesan2",
+         "Notifikasi " );
+         
     }
 
 }

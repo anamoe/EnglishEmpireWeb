@@ -13,6 +13,7 @@ use App\Models\SlideInfo;
 use App\Models\StudentSchedule;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class InfoApiController extends Controller
 {
@@ -82,9 +83,7 @@ class InfoApiController extends Controller
         }
     }
 
-    public function TopSkor()
-    {
-    }
+   
 
 
     public function quiz_category()
@@ -364,5 +363,19 @@ class InfoApiController extends Controller
             'data' => $skor,
 
         ]);
+    }
+
+    public function topskor(){
+
+        $totalScores = PoinStudent::select('users.id as user_id', 'users.full_name','students.school','course_programs.program','class_courses.class', DB::raw('SUM(poin_students.point) as total_score'))
+        ->join('users', 'users.id', '=', 'poin_students.user_id')
+        ->join('students', 'students.user_id', '=', 'users.id')
+        ->join('course_programs', 'students.course_program_id', '=', 'course_programs.id')
+        ->join('class_courses', 'students.class_id', '=', 'class_courses.id')
+        ->groupBy('users.id', 'users.full_name','students.school','class_courses.class','course_programs.program')->orderBy('total_score','desc')
+        ->get();
+
+    return $totalScores;
+        
     }
 }

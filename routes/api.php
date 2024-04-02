@@ -39,4 +39,5 @@ Route::get('schedule-student/{user_id}',[InfoApiController::class,'get_schedule'
 
 Route::get('student-report/{user_id}',[InfoApiController::class,'studen_report']);
 Route::get('getlist_skor/{user_id}',[InfoApiController::class,'getlist_skor']);
+Route::get('topskor',[InfoApiController::class,'topskor']);
 
