@@ -195,7 +195,7 @@
                                         <div class="form-group form-group-default">
                                             <label for="inlineinput" class="col-md col-form-label">ID Number</label>
                                             
-                                                <input type="text" class="form-control input-full email" name="id_number" id="idinput" placeholder="">
+                                                <input type="text" class="form-control input-full id_number" name="id_number" id="idinput" placeholder="">
                                             
                                         </div>
                                         </div>
@@ -204,7 +204,7 @@
                                         <div class="form-group form-group-default">
                                             <label for="inlineinput" class="col-md col-form-label">Password</label>
                                             
-                                                <input type="text" class="form-control input-full email" name="password" id="idinput" placeholder="">
+                                                <input type="text" class="form-control input-full password" name="password" id="passinput" placeholder="">
                                                 
                                             
                                         </div>
@@ -274,7 +274,7 @@
                                             </div>
 
 
-                                        <div class="col-sm-12">
+                                        <!-- <div class="col-sm-12">
                                                     <div class="form-group form-group-default">
                                                         <label for="inlineinput" class="col-md col-form-label">Program Course</label>
                                                         <select id="coursePrograms" name="course_program_id" required class="form-control" onchange="getClasses_edit()">
@@ -287,15 +287,15 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- <label id="classs">Class</label> -->
+                                          
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
                                                     <label>Class</label>
-                                                    <select id="classs" name="class_id" required class="form-control">
+                                                    <select id="class_edit" name="class_id" required class="form-control">
                                                         <option value="">Choose</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                     </form>
                                 </div>
@@ -331,6 +331,8 @@
                                                     <tr>
                                                         <th style="color:#000000;">Name</th>
                                                         <th style="color:#000000;">ID Number</th>
+                                                        <th style="color:#000000;">Program</th>
+                                                        <th style="color:#000000;">Class</th>
                                                         <th style="width: 10% ;color:#000000;">Action</th>
                                                     </tr>
                                                 </thead>
@@ -342,6 +344,8 @@
                                                     <tr>
                                                         <td>{{$user->full_name}}</td>
                                                         <td>{{$user->id_number}}</td>
+                                                        <td>{{$user->program}}</td>
+                                                        <td>{{$user->class}}</td>
                                                         <td>
                                                             <div style="display: flex; justify-content: space-between;">
                                                             <a href="{{url('student-schedules',$user->id)}}"><button class="btn btn-primary" style="font-size: 12px; width: fit-content;">Student Schedule</button></a>
@@ -428,10 +432,12 @@ function getClasses() {
             });
     }
 
+
+
     function getClasses_edit() {
         var programId = document.getElementById("coursePrograms").value;
       
-        var classSelect = document.getElementById("classs");
+        var classSelect = document.getElementById("class_edit");
         classSelect.innerHTML = '<option value="">Loading...</option>';
 
         // Make an AJAX request to fetch classes associated with the selected program
@@ -545,9 +551,10 @@ function getClasses() {
                 // $("#classs").val(response.data.class_id);
                
                 var classId = response.data.class_id;
+                console.log(classId)
                 console.log(response.data.foto_profil)
            
-                $("#classs").val(classId);
+                $("#class_edit").val(classId);
           
                 $("#updateuser").attr("action", "{{url('userupdate')}}" + "/" + response.data.id)
             })

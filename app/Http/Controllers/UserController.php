@@ -28,7 +28,10 @@ class UserController extends Controller
         $class = ClassCourse::all();
         $users = DB::table('students')
         ->leftjoin('users','students.user_id','users.id')
-        ->select('students.*','users.*')->get();
+        ->leftjoin('class_courses','students.class_id','class_courses.id')
+        ->leftjoin('course_programs','students.course_program_id','course_programs.id')
+        ->select('students.*','course_programs.program','class_courses.class','users.*')->get();
+        // return $users;
         return view('user',compact('users','coursePrograms','class'));
     }
 
@@ -43,8 +46,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-        // return $request;
-
         if (User::where('id_number', '=', $request->id_number)->first() == false) {
             $request->merge([
                 'password' => bcrypt($request->password),
@@ -117,6 +118,8 @@ class UserController extends Controller
     {
         //
       
+        // return $request;
+
         $namaFiles = '';
         //
         if($request->hasFile('gambar')){
@@ -156,8 +159,8 @@ class UserController extends Controller
                 'school' => $request->school,
                 'date_birth' => $request->date_birth,
                 'no_hp' => $request->no_hp,
-                'course_program_id'=>$request->course_program_id,
-                'class_id'=>$request->class_id
+                // 'course_program_id'=>$request->course_program_id,
+                // 'class_id'=>$request->class_id
                 
 
             ]);
@@ -177,8 +180,8 @@ class UserController extends Controller
                 'school' => $request->school,
                 'date_birth' => $request->date_birth,
                 'no_hp' => $request->no_hp,
-                'course_program_id'=>$request->course_program_id,
-                'class_id'=>$request->class_id
+                // 'course_program_id'=>$request->course_program_id,
+                // 'class_id'=>$request->class_id
                 
 
             ]);
