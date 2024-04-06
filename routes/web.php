@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Route;
 // });
 Route::post('/postlogin', [AuthController::class, 'login']);
 Route::get('/login', [AuthController::class, 'loginview']);
+Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/', [AuthController::class, 'loginview']);
 
 

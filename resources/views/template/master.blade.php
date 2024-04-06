@@ -52,13 +52,13 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-              <a href="{{url('logout')}}"method="GET" class="btn btn-primary" onclick="event.preventDefault();
-              document.getElementById('logout-form').submit();">
+              <a href="{{url('logout')}}"method="GET" class="btn btn-primary" 
+             >
             Logout</a>
             
-            <form id="logout-form" action="{{ url('logout') }}" method="POST" >
+            <!-- <form id="logout-form" action="{{ url('logout') }}" method="GET" >
               @csrf
-            </form>
+            </form> -->
           </div>
         </div>
       </div>

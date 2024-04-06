@@ -218,8 +218,8 @@
 
 
                         <div class="form-group">
-                            <label>Soal :</label>
-                            <textarea class="summernote_dessription" name="soal" id="isi_materi"></textarea>
+                            <label>Soal:</label>
+                            <textarea class="dessription" name="soal" id="isi_materi"></textarea>
                         </div>
 
                         <div class="form-group">
@@ -342,13 +342,13 @@
     $(document).ready(function() {
         $('textarea').summernote({
             toolbar: [
-                ['style', ['style']],
+                // ['style', ['style']],
                 ['font', ['bold', 'underline', 'clear']],
                 ['fontname', ['fontname']],
                 ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video', 'audio']],
+                // ['para', ['ul', 'ol', 'paragraph']],
+                // ['table', ['table']],
+                // ['insert', ['link', 'picture', 'video', 'audio']],
                 ['view', ['fullscreen', 'codeview', 'help']],
             ],
 

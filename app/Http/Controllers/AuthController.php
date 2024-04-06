@@ -47,6 +47,11 @@ class AuthController extends Controller
         return view('login');
     }
 
+    public function logout(){
+        Auth::logout();
+        return redirect('/');
+    }
+
     public function notifikasi(){
         $notif = new Notif();
         $token='d66IdZpVQVKpu3fuFrtuuh:APA91bEb-EUmG1-mzvSFVV9SMIc373NF5bT7s4_lDKkPh8RY6-TFX93WLfsLwi-PZSP-4x8F5Dgubc0gYHKTttdDZbha_HGlUnPPXfMdXp4eJ8qSgnwZNaOcJAGuY62GBGATTa3gTb0U';
