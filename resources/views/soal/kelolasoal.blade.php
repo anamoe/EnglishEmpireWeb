@@ -205,7 +205,9 @@
         <div class="col-md-12  mt-5">
             <div class="card">
                 <div class="card-header bg-primary">
+                    
                     <h6 class="text-white">Add<div class="float-right kembalimateri" style="cursor :pointer;">X</div>
+                    
                     </h6>
                 </div>
                 <div class="card-body">
@@ -215,6 +217,17 @@
                         <div class="col-md-9 p-0">
                             <input type="hidden" class="form-control input-full w-100" value="{{$sub_id}}" name="mapel_id" id="kelas_id" placeholder="Enter Input">
                         </div>
+
+                        <div class="form-group">
+                            <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Audio(Optional)</label>
+                            <input type="file" class="form-control input-full w-100" required name="suara" id="isi_jawab" accept="audio/*">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Image(Optional)</label>
+                            <input type="file" class="form-control input-full w-100" required name="gambar" id="isi_jawab" accept="image/*">
+                        </div>
+
 
 
                         <div class="form-group">

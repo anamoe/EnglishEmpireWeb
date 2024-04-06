@@ -40,6 +40,8 @@ class QuizApiController extends Controller
         $all_quiz = Question::where('sub_id',$request->sub_id)->get();
         $all_questions = [];
         foreach ($all_quiz as $n => $q) {
+            $q->image = asset('public/question/image/'.$q->image);
+            $q->audio = asset('public/question/audio/'.$q->audio);
             $shuffled_options = $q->ganda->shuffle();
             $formatted_question = [
                 "question" => $q,

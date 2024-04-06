@@ -35,6 +35,7 @@
         <div class="col-md-12  mt-5">
            <div class="card">
               <div class="card-header bg-primary">
+                
                  <h6 class="text-white">Edit Soal<div class="float-right kembalimateri" style="cursor :pointer;">X</div> </h6>
               </div>
               <div class="card-body">
@@ -44,6 +45,24 @@
 
                     
 
+                    <div  iv class="text-center">
+                                    <img class="img" id="loadfotoadd" src="{{$s->image}}" alt="Foto Thumbnail"
+                                        style=" height:30%; width:30%;">                            
+                        </div>
+
+                                                    <audio controls>
+                            <source src="{{$s->audio}}" type="audio/mpeg"> 
+                            </audio>
+
+                            <div class="form-group">
+                            <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Audio(Optional)</label>
+                            <input type="file" class="form-control input-full w-100" required name="suara" id="isi_jawab" accept="audio/*">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Image(Optional)</label>
+                            <input type="file" class="form-control input-full w-100" required name="gambar" id="isi_jawab" accept="image/*">
+                        </div>
                     <div class="form-group">
                        <label>Soal :</label>
                        <textarea class="summernote_dessription" name="soal" id="isi_materi">{{$s->quest}}</textarea>
@@ -92,6 +111,20 @@
 @endsection
 
 @section('js')
+<script>
+    var audioPlayer = document.getElementById('audioPlayer');
+
+    function playAudio() {
+    audioPlayer.play();
+    event.preventDefault(); // Mencegah aksi standar formulir
+}
+
+function pauseAudio() {
+    audioPlayer.pause();
+    event.preventDefault(); // Mencegah aksi standar formulir
+}
+
+</script>
 
 
 <script>
@@ -113,13 +146,13 @@ function tambahjawaban() {
 
       $('.summernote_jaw').summernote({
         toolbar: [
-          ['style', ['style']],
+        //   ['style', ['style']],
           ['font', ['bold', 'underline', 'clear']],
           ['fontname', ['fontname']],
           ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video','audio']],
+        //   ['para', ['ul', 'ol', 'paragraph']],
+        //   ['table', ['table']],
+        //   ['insert', ['link', 'picture', 'video','audio']],
           ['view', ['fullscreen', 'codeview', 'help']],
         ],
 
@@ -165,13 +198,13 @@ $('.searchbox-input').keyup( function () {
 $(document).ready(function() {
     $('textarea').summernote({
         toolbar: [
-          ['style', ['style']],
+        //   ['style', ['style']],
           ['font', ['bold', 'underline', 'clear']],
           ['fontname', ['fontname']],
           ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video','audio']],
+        //   ['para', ['ul', 'ol', 'paragraph']],
+        //   ['table', ['table']],
+        //   ['insert', ['link', 'picture', 'video','audio']],
           ['view', ['fullscreen', 'codeview', 'help']],
         ],
 

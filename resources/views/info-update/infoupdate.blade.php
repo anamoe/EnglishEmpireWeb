@@ -200,8 +200,9 @@
 
                         <div class="form-group">
                             <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Image</label>
-                            <input type="file" class="form-control input-full w-100" required name="gambar" id="isi_jawab"></textarea>
+                            <input type="file" class="form-control input-full w-100" required name="gambar" id="isi_jawab" accept="image/*">
                         </div>
+                       
 
                         <div class="form-group">
                             <label>Link Instagram :</label>
