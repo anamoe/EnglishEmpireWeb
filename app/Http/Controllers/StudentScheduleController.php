@@ -35,7 +35,7 @@ class StudentScheduleController extends Controller
     {
         //
         StudentSchedule::create(["user_id" => $request->user_id,"date" => $request->date,
-        "homework" => $request->homework,"session" => $request->session,"note" => 'None']);
+        "homework" => 'None',"session" => $request->session,"note" => 'None']);
         return redirect()->back()->with('message', 'Schedule Student Berhasil Ditambahkan');
     }
 
@@ -68,6 +68,7 @@ class StudentScheduleController extends Controller
         //
         StudentSchedule::where('id',$id)->update([
             'note' => $request->note,
+            'homework' => $request->homework,
    
         ]);
         return redirect()->back()->with('message', 'Note Schedule Student Berhasil Diperbaharui');

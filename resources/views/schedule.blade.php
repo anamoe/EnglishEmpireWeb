@@ -61,13 +61,13 @@
                                                     <input id="addSesi" type="text" name="session" required class="form-control" placeholder="">
                                                 </div>
                                             </div>
-
+<!-- 
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
                                                     <label>HomeWork</label>
                                                     <input id="addid" type="text" name="homework" required class="form-control" placeholder="">
                                                 </div>
-                                            </div>
+                                            </div> -->
                                             <input value="{{$user_id}}" type="hidden" name="user_id" required class="form-control" placeholder="">
                                         
                                             <div class="col-sm-12">
@@ -122,6 +122,18 @@
 
                                         <div class="col-sm-12">
                                         <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">Homework</label>
+                                            <div class="form-group form-group-default">
+                                                 
+                                                    <input id="homework" type="text" name="homework" required class="form-control" placeholder="">
+                                                </div>        
+                                           
+
+                                        </div>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
                                             <label for="inlineinput" class="col-md col-form-label">Note</label>
 
                                             <select name="note"  id="note_input"class="form-control">
@@ -135,6 +147,7 @@
 
                                         </div>
                                         </div>
+ 
  
                                      
 
@@ -329,6 +342,7 @@
         axios.get("{{url('student-schedule')}}" + "/" + id)
             .then(function(response) {
                 $("#note_input").val(response.data.note)
+                $("#homework").val(response.data.homework)
 
           
                 $("#updateuser").attr("action", "{{url('schedule-student-update')}}" + "/" + response.data.id)
