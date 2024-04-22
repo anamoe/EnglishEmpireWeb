@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\InfoUpdate;
 use App\Models\MainCategory;
+use App\Models\Message;
 use App\Models\PoinStudent;
 use App\Models\Question;
 use App\Models\Quiz;
@@ -298,7 +299,7 @@ class InfoApiController extends Controller
     {
         $session = StudentSchedule::where('user_id', $user_id)->count();
         $presence = StudentSchedule::where('note', 'Present')->where('user_id', $user_id)->count();
-        $alpha = StudentSchedule::where('note', "Aplha")->where('user_id', $user_id)->count();
+        $alpha = StudentSchedule::where('note', 'Alpha')->where('user_id', $user_id)->count();
         $permit = StudentSchedule::where('note', "Permit")->where('user_id', $user_id)->count();
         $sick = StudentSchedule::where('note', 'Sick')->where('user_id', $user_id)->count();
         $remaining = StudentSchedule::where('note', 'None')->where('user_id', $user_id)->count();
@@ -385,5 +386,15 @@ class InfoApiController extends Controller
             'data' => $totalScores,
         ]);
         
+    }
+
+    public function message_notification(){
+        $m= Message::orderBy('id','desc')->get();
+
+        return response()->json([
+            'code' => '200',
+            'data' => $m,
+        ]);
+
     }
 }

@@ -5,6 +5,7 @@ use App\Http\Controllers\ClassCourseController;
 use App\Http\Controllers\CourseProgramController;
 use App\Http\Controllers\InfoUpdateController;
 use App\Http\Controllers\MainCategoryController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuizCategoryController;
 use App\Http\Controllers\SlideInfoController;
@@ -80,5 +81,9 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
     Route::get('student-schedules/{user_id}',[StudentScheduleController::class,'index']);
     Route::post('schedule-student-update/{id}',[StudentScheduleController::class,'updated']);
     Route::get('schedule-student-delete/{id}',[StudentScheduleController::class,'destroys']);
+
+    
+    Route::resource('message',MessageController::class);
+
 
 });

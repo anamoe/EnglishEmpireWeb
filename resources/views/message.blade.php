@@ -1,5 +1,5 @@
 @extends('template.master')
-@section('judul','Schedule')
+@section('judul','Message')
 @section('css')
 
 
@@ -42,7 +42,7 @@
                                         <span class="fw-mediumbold">
                                             Add</span>
                                         <span class="fw-light">
-                                            Schedule
+                                            Message
                                         </span>
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -51,29 +51,22 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <form action="{{url('student-schedule')}}" method="post" id="addUsers" onsubmit="return validateForm()">
+                                    <form action="{{url('message')}}" method="post" id="addUsers" onsubmit="return validateForm()">
                                         @csrf
 
                                         <div class="row">
+                                           
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
-                                                    <label>Session</label>
-                                                    <input id="addSesi" type="text" name="session" required class="form-control" placeholder="">
+                                                    <label>Message</label>
+                                                    <input id="message" type="text" name="message" required class="form-control" placeholder="">
                                                 </div>
                                             </div>
-<!-- 
+                                         
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
-                                                    <label>HomeWork</label>
-                                                    <input id="addid" type="text" name="homework" required class="form-control" placeholder="">
-                                                </div>
-                                            </div> -->
-                                            <input value="{{$user_id}}" type="hidden" name="user_id" required class="form-control" placeholder="">
-                                        
-                                            <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label>Date</label>
-                                                    <input id="activate_date" type="date" name="date" required class="form-control" placeholder="">
+                                                    <label>Type Message</label>
+                                                    <input id="type_message" type="text" name="type_message" required class="form-control" placeholder="">
                                                 </div>
                                             </div>
 <!-- 
@@ -106,11 +99,11 @@
                     </div>
 
                     <!-- Modal -->
-                    <div class="modal fade" id="editUsers" tabindex="-1" role="dialog" aria-labelledby="editTokenTitle" aria-hidden="true">
+                    <!-- <div class="modal fade" id="editUsers" tabindex="-1" role="dialog" aria-labelledby="editTokenTitle" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit User</h5>
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Message</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -161,7 +154,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="tab-content mt-2 mb-3" id="pills-with-icon-tabContent">
                         <div class="tab-pane fade show active" id="pills-home-icon" role="tabpanel" aria-labelledby="pills-home-tab-icon">
@@ -170,10 +163,10 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <div class="d-flex align-items-center">
-                                               <h3> {{$user->full_name}}</h3>
+                                         
                                             <button class="btn btn-primary btn-round ml-auto" data-toggle="modal" data-target="#addRowModal">
                                                 <i class="fa fa-plus"></i>
-                                          Add Schedule
+                                          Add Message
                                             </button>
                                         </div>
                                     </div>
@@ -184,25 +177,23 @@
                                             <table id="add-row" class="display table table-striped table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th style="color:#000000;">Session</th>
-                                                        <th style="color:#000000;">Date</th>
-                                                        <th style="color:#000000;">Note</th>
-                                                        <th style="color:#000000;">Homework</th>
+                                                        <th style="color:#000000;">Message</th>
+                                                        <th style="color:#000000;">Type Message</th>
+                                                    
                                                         <th style="width: 10% ;color:#000000;">Action</th>
                                                     </tr>
                                                 </thead>
 
                                                 <tbody>
 
-                                                    @foreach ($schedule as $user)
+                                                    @foreach ($m as $user)
 
                                                     <tr>
-                                                        <td>{{$user->session}}</td>
-                                                        <td>{{$user->date}}</td>
-                                                        <td>{{$user->note}}</td>
-                                                        <td>{{$user->homework}}</td>
+                                                        <td>{{$user->message}}</td>
+                                                        <td>{{$user->type_message}}</td>
+                                                
                                                         <td>
-                                                            <div class="form-button-action">
+                                                            <!-- <div class="form-button-action">
                                                                 <button type="button" class="btn btn-sm" onclick="edit({{$user->id}})" data-toggle="modal" data-target="#editUsers" title="" data-original-title="Edit User">
                                                                     <i class="fe fe-edit "></i>
                                                                 </button>
@@ -212,7 +203,7 @@
                                                                 </a>
 
 
-                                                            </div>
+                                                            </div> -->
                                                         </td>
                                                     </tr>
 
@@ -234,7 +225,7 @@
                             <div class="modal-content">
                                 <div class="modal-body text-center font-18">
 
-                                    <h4 class="padding-top-30 mb-30 weight-500">Apakah Anda Ingin Menghapus User?</h4>
+                                    <h4 class="padding-top-30 mb-30 weight-500">Apakah Anda Ingin Menghapus ?</h4>
                                     <div class="padding-bottom-30 row" style="max-width: 170px; margin: 0 auto;">
                                         <div class="col-6">
                                             <button type="button" class="btn btn-warning border-radius-100 btn-block confirmation-btn" data-dismiss="modal"><i class="fe fe-info"></i></button>

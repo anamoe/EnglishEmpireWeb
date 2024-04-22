@@ -1,5 +1,13 @@
 
 <ul class="navbar-nav flex-fill w-100 mb-2">
+    <li class="nav-item w-100 {{ request()->is('message*') ? 'active' : '' }}">
+        <a class="nav-link" href="{{url('/message')}}">
+            <img class="" src="{{asset('public/icon/star.png')}}" alt="User Avatar " style="height:20px; width:20px;">
+            <span class="ml-3 item-text"> Message Notification</span>
+        </a>
+    </li>
+</ul>
+<ul class="navbar-nav flex-fill w-100 mb-2">
     <li class="nav-item w-100 active">
         <a class="nav-link" href="{{url('/slideinfo')}}">
             

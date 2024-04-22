@@ -36,7 +36,7 @@
                                     <form action="{{url('class')}}" id="buatmapel" method="post">
                                         @csrf
                                         <div class="form-group form-inline">
-                                            <label for="namamapel" class="col-md-3 col-form-label">Program Course</label>
+                                            <label for="namamapel" class="col-md-3 col-form-label">Class Course</label>
                                             <div class="col-md-9 p-0">
                                                 <input type="text" class="form-control input-full w-100" name="class" id="namamapel" placeholder="Enter Input">
                                             </div>
@@ -46,7 +46,7 @@
 
 
                                         <div class="text-danger invalidmapel d-none">
-                                            Nama Game Sudah ada
+                                        
                                         </div>
 
 
