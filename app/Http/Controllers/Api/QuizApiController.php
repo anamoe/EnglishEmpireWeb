@@ -17,6 +17,7 @@ class QuizApiController extends Controller
       
 
         $quizes = Question::where('sub_id',$request->sub_id);
+        $sub = SubCategory::where('id',$request->sub_id)->first();
         // dd($quiz);
         $banyak_quiz = $quizes->count();
         $history_pertanyaan = Question::cek_history($request->sub_id)->latest('poin_students.id')->first();
@@ -45,7 +46,8 @@ class QuizApiController extends Controller
             $shuffled_options = $q->ganda->shuffle();
             $formatted_question = [
                 "question" => $q,
-                "shuffled_options" => $shuffled_options
+               
+                // "shuffled_options" => $shuffled_options
             ];
             $all_questions[] = $formatted_question;
         }
@@ -64,7 +66,8 @@ class QuizApiController extends Controller
             "all_questions" => $all_questions,
             "banyak_quiz" => $banyak_quiz,
             // "no_quiz"=>$no_quiz,
-            "sub_id"=>$request->sub_id
+            "sub_id"=>$request->sub_id,
+            "waktu_pengerjaan" => $sub->waktu_pengerjaan,
 
         ];
         return response()->json([
