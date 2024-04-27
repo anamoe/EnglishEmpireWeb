@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthApiController;
+use App\Http\Controllers\Api\ExamApiController;
 use App\Http\Controllers\Api\InfoApiController;
 use App\Http\Controllers\Api\QuizApiController;
 use App\Http\Controllers\UserController;
@@ -27,6 +28,11 @@ Route::post('login', [AuthApiController::class,'login']);
 Route::get('quiz-soal', [QuizApiController::class,'quiz']);
 Route::post('cekjawaban-quiz', [QuizApiController::class,'cek_jawaban']);
 Route::get('submit-quiz', [QuizApiController::class,'submit_quiz']);
+
+
+Route::get('quiz-soal-exam', [ExamApiController::class,'quiz_exam']);
+Route::post('cekjawaban-quiz-exam', [ExamApiController::class,'cek_jawaban_exam']);
+Route::get('submit-quiz-exam', [ExamApiController::class,'submit_quiz_exam']);
 
 Route::get('slide-info', [InfoApiController::class,'slide_info']);
 Route::get('info-update', [InfoApiController::class,'info_update']);

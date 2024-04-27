@@ -320,6 +320,11 @@ class InfoApiController extends Controller
     public function getlist_skor($user_id)
     {
 
+        $skor_total = PoinStudent::where('user_id', $user_id)
+                                        ->sum('point');
+
+            // return $skor_poin;
+
 
         $skor = Quiz::join('sub_categories', 'quizzes.sub_categories_id', 'sub_categories.id')
             ->select('sub_categories.sub', 'quizzes.*')
@@ -356,6 +361,7 @@ class InfoApiController extends Controller
             return response()->json([
                 'code' => '200',
                 'data' => $skor,
+                'skor_total'=>$skor_total
             ]);
             
 
@@ -384,6 +390,7 @@ class InfoApiController extends Controller
         return response()->json([
             'code' => '200',
             'data' => $totalScores,
+            
         ]);
         
     }
