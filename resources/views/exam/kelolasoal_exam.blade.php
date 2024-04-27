@@ -77,7 +77,7 @@
                     <div class="col-md-12">
 
                         <div class="row px-2 py-3 listmateri card mx-1 mt-3">
-                        <form class="form" id="formkirim" method="POST" action="{{url('hapus-all')}}">
+                        <form class="form" id="formkirim" method="POST" action="{{url('hapus-exam-all')}}">
                                 @csrf
                                 <div class="container">
                                     <div class="row">

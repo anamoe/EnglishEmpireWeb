@@ -328,6 +328,8 @@ class QuestionExamController extends Controller
                 //melakukan update ceklist yg dipilih/all
                 foreach ($ceklist as $questionId) {
                     $question = QuestionExam::find($questionId);
+
+                    // return $question;
             
                     // Hapus file audio jika ada
                     if ($question->audio) {
