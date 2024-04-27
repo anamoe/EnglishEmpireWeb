@@ -39,10 +39,18 @@ class QuizApiController extends Controller
         }
         $no_quiz;
         $all_quiz = Question::where('sub_id',$request->sub_id)->get();
+        // return $all_quiz;s
         $all_questions = [];
         foreach ($all_quiz as $n => $q) {
             $q->image = asset('public/question/image/'.$q->image);
             $q->audio = asset('public/question/audio/'.$q->audio);
+            $q->quest = strip_tags($q->quest);
+
+            foreach ($q['ganda'] as &$ganda) {
+                $ganda['answer'] = strip_tags($ganda['answer']);
+            }
+
+            
             $shuffled_options = $q->ganda->shuffle();
             $formatted_question = [
                 "question" => $q,
@@ -110,7 +118,7 @@ class QuizApiController extends Controller
         Quiz::create([
             'user_id'=>$request->user_id,
             'sub_categories_id'=>$request->sub_id,
-            'status_test'=>'start'
+            'status_test'=>'started'
         ]);
        }
 

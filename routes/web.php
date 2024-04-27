@@ -3,10 +3,12 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassCourseController;
 use App\Http\Controllers\CourseProgramController;
+use App\Http\Controllers\ExamController;
 use App\Http\Controllers\InfoUpdateController;
 use App\Http\Controllers\MainCategoryController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\QuestionExamController;
 use App\Http\Controllers\QuizCategoryController;
 use App\Http\Controllers\SlideInfoController;
 use App\Http\Controllers\StudentScheduleController;
@@ -84,6 +86,18 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
 
     
     Route::resource('message',MessageController::class);
+
+    Route::resource('exam',ExamController::class);
+
+    Route::get('kelolasoal_exam_delete/{id}',[QuestionExamController::class,'destroy']);
+    Route::post('hapus-exam-all',[QuestionExamController::class,'hapus_select']);
+    Route::get('soal_exam/{id}',[QuestionExamController::class,'viewsoal']);
+    Route::get('soal_exam_list/{exam_id}',[QuestionExamController::class,'soal']);
+
+    Route::resource('kelolasoal_exam',QuestionExamController::class);
+
+
+
 
 
 });
