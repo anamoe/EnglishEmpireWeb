@@ -26,6 +26,7 @@ Route::post('login', [AuthApiController::class,'login']);
 
 Route::get('quiz-soal', [QuizApiController::class,'quiz']);
 Route::post('cekjawaban-quiz', [QuizApiController::class,'cek_jawaban']);
+Route::get('submit-quiz', [QuizApiController::class,'submit_quiz']);
 
 Route::get('slide-info', [InfoApiController::class,'slide_info']);
 Route::get('info-update', [InfoApiController::class,'info_update']);

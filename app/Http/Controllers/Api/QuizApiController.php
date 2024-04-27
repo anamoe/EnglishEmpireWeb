@@ -104,13 +104,13 @@ class QuizApiController extends Controller
         $cek = Quiz::where('sub_categories_id',$request->sub_id)->first();
        if($cek){
       
-        $status = 'selesai';
+        $status = 'finish';
        }else{
-        $status = 'belum';
+        $status = 'not_finish';
         Quiz::create([
             'user_id'=>$request->user_id,
             'sub_categories_id'=>$request->sub_id,
-            'status_test'=>'dimulai'
+            'status_test'=>'start'
         ]);
        }
 
@@ -138,5 +138,19 @@ class QuizApiController extends Controller
             'next_quiz'=> $next_quiz ? true : false,
             'status_create_quiz'=>$status
         ]);
+    }
+
+    public function submit_quiz(Request $request){
+
+        Quiz::where('sub_categories_id',$request->sub_id)->update([
+            'status_test'=>'finish'
+        ]);
+
+        return response()->json([
+            'code' => '200',
+            'message' => "Quiz Complete",
+        ]);
+
+
     }
 }

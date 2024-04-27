@@ -264,7 +264,7 @@ class InfoApiController extends Controller
             } else {
                 foreach ($quizzes as $quiz) {
                     $quiz->sub_categories_id = $subcategory->id;
-                    $quiz->status_quiz = 'finish';
+                    $quiz->status_quiz = $quiz->status_test;
                 }
             }
 
