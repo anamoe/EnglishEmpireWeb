@@ -35,6 +35,7 @@ class ExamController extends Controller
         //
         Exam::create([
             "title" => $request->title,
+            "waktu_pengerjaan" => $request->waktu_pengerjaan,
             'course_program_id' => $request->course_program_id,
             'class_id' => $request->class_id
         ]);
@@ -65,6 +66,7 @@ class ExamController extends Controller
         //
         Exam::where('id', '=', $id)->update([
             "title" => $request->title,
+            "waktu_pengerjaan" => $request->waktu_pengerjaan,
             // 'course_program_id' => $request->course_program_id,
             // 'class_id' => $request->class_id
         ]);

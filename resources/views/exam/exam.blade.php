@@ -41,7 +41,12 @@
                                                 <input type="text" class="form-control input-full w-100" name="title" id="namamapel" placeholder="Enter Input">
                                             </div>
                                         </div>
-
+                                        <div class="form-group form-inline">
+                                            <label for="namamapel" class="col-md-3 col-form-label">Waktu Pengerjaan</label>
+                                            <div class="col-md-9 p-0">
+                                                <input type="text" class="form-control input-full w-100" name="waktu_pengerjaan" id="namamapel" placeholder="Enter Input">
+                                            </div>
+                                        </div>
                                         <div class="col-sm-12">
                                                     <div class="form-group form-group-default">
                                                         <label>Program Course</label>
@@ -97,6 +102,12 @@
                                                 <input type="text" class="form-control input-full" name="title" id="editnamamapel" placeholder="Enter Input">
                                             </div>
                                         </div>
+                                        <div class="form-group form-inline">
+                                            <label for="namamapel" class="col-md-3 col-form-label">Waktu Pengerjaan</label>
+                                            <div class="col-md-9 p-0">
+                                                <input type="text" class="form-control input-full" name="waktu_pengerjaan" id="editwaktu" placeholder="Enter Input">
+                                            </div>
+                                        </div>
 
 
 
@@ -149,7 +160,7 @@
                     <div class="mapel card-stats card-round col-sm-12 col-md-4">
                         <div class="card card-body">
                             <div class="float-right py-2 mt--2">
-                                <i onclick="hapus('{{$v->id}}','{{$v->title}}')" class="fe fe-trash float-right text-danger"></i>
+                                <i onclick="hapus('{{$v->id}}','{{$v->title}}','{{$v->waktu}}')" class="fe fe-trash float-right text-danger"></i>
                                 <i onclick="edit('{{$v->id}}','{{$v->title}}')" class="fe fe-edit float-right text-primary"></i>
 
                             </div>
@@ -164,6 +175,7 @@
                                         <p class="card-category">{{$v->title}}</p>
                                         <p class="card-category">{{$v->program}}</p>
                                         <p class="card-category">{{$v->class}}</p>
+                                        <p class="card-category">{{$v->waktu_pengerjaan}} Menit</p>
                                     </div>
                                 </div>
                             </a>
@@ -235,8 +247,9 @@ function getClasses() {
         }
     }
 
-    function edit(id, mapel) {
+    function edit(id, mapel,waktu) {
         $("#updatemapel #editnamamapel").val(mapel)
+        $("#updatemapel #editwaktu").val(waktu)
         $("#updatemapel").attr("action", "{{url('exam')}}" + "/" + id)
         $("#editMapel").modal("show")
     }

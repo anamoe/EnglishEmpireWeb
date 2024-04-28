@@ -20,7 +20,7 @@ class ExamApiController extends Controller
         $sub = Exam::where('id',$request->exam_id)->first();
         // dd($quiz);
         $banyak_quiz = $quizes->count();
-        $history_pertanyaan = QuestionExam::cek_history($request->sub_id)->latest('poin_students.id')->first();
+        $history_pertanyaan = QuestionExam::cek_history($request->exam_id,$request->user_id)->latest('poin_student_exams.id')->first();
         if(!$history_pertanyaan){
             $quiz = $quizes->first();
         }else{

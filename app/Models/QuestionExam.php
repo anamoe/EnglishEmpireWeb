@@ -15,10 +15,10 @@ class QuestionExam extends Model
         return $this->hasMany(AnswerExam::class,'quest_exam_id');
     }
 
-    public static function cek_history($sub_id){
-        return  Question::join('poin_students','poin_students.question_id','questions.id')
-        ->where('questions.sub_id',$sub_id)
-        ->where('poin_students.user_id',1)
-        ->select('poin_students.*','questions.id as pid');
+    public static function cek_history($exam_id,$user_id){
+        return  QuestionExam::join('poin_student_exams','poin_student_exams.question_id','question_exams.id')
+        ->where('question_exams.exam_id',$exam_id)
+        ->where('poin_student_exams.user_id',$user_id)
+        ->select('poin_student_exams.*','question_exams.id as pid');
     }
 }

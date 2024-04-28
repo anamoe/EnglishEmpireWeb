@@ -24,7 +24,7 @@ class QuizApiController extends Controller
         $sub = SubCategory::where('id',$request->sub_id)->first();
         // dd($quiz);
         $banyak_quiz = $quizes->count();
-        $history_pertanyaan = Question::cek_history($request->sub_id)->latest('poin_students.id')->first();
+        $history_pertanyaan = Question::cek_history($request->sub_id,$request->user_id)->latest('poin_students.id')->first();
         if(!$history_pertanyaan){
             $quiz = $quizes->first();
         }else{

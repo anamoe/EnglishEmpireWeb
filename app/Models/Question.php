@@ -16,10 +16,10 @@ class Question extends Model
         return $this->hasMany(Answer::class);
     }
 
-    public static function cek_history($sub_id){
+    public static function cek_history($sub_id,$user_id){
         return  Question::join('poin_students','poin_students.question_id','questions.id')
-        ->where('questions.sub_id',$sub_id)
-        ->where('poin_students.user_id',1)
+        ->where('questions.sub_id',$sub_id,$user_id)
+        ->where('poin_students.user_id',)
         ->select('poin_students.*','questions.id as pid');
     }
 }
