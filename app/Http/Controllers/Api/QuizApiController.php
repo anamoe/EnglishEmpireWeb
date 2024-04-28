@@ -154,14 +154,42 @@ class QuizApiController extends Controller
 
     public function submit_quiz(Request $request){
 
-        Quiz::where('sub_categories_id',$request->sub_id)->update([
-            'status_test'=>'finish'
-        ]);
+        $q=Quiz::where('sub_categories_id',$request->sub_id)->where('user_id',$request->user_id)->first();
 
-        return response()->json([
-            'code' => '200',
-            'message' => "Quiz Complete",
-        ]);
+        if($q){
+
+            $ques=  Question::join('poin_students','poin_students.question_id','questions.id')
+            ->where('questions.sub_id',$request->sub_id,)
+            ->where('poin_students.user_id',$request->user_id)
+            ->select('poin_students.*','questions.id as pid')->get();
+            $point_saya = [
+                "total_quiz"=>$ques->count(),
+                "true_quiz"=>$ques->where('point','!=',0)->count(),
+                "false_quiz"=>$ques->where('point','==',0)->count(),
+                "score"=>$ques->sum('point'),
+                "sub_id"=>$request->sub_id,
+                "user_id"=>$request->user_id
+            ];
+            // return $point_saya;
+
+            $q->update([
+                'status_test'=>'finish'
+            ]);
+    
+            return response()->json([
+                'code' => '200',
+                'message' => "Quiz Complete",
+                'data' => $point_saya,
+            ]);
+
+        }else{
+            return response()->json([
+                'code' => '404',
+                'message' => "Not Found",
+            ]);
+        }
+        
+      
 
 
     }
