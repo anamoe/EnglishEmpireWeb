@@ -59,7 +59,7 @@ class QuizCategoryController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        Quiz::where('id', '=', $id)->update(["category" => $request->category]);
+        QuizCategory::where('id', '=', $id)->update(["category" => $request->category]);
         return redirect()->back()->with('message', 'Quiz Category Berhasil Diubah');
     }
 
