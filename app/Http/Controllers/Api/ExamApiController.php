@@ -44,7 +44,7 @@ class ExamApiController extends Controller
         foreach ($all_quiz as $n => $q) {
             $q->image = asset('public/question_exam/image/'.$q->image);
             $q->audio = asset('public/question_exam/audio/'.$q->audio);
-            $q->quest = strip_tags($q->quest);
+            $q->quest_exam = strip_tags($q->quest_exam);
 
             foreach ($q['ganda'] as &$ganda) {
                 $ganda['answer'] = strip_tags($ganda['answer']);
@@ -130,7 +130,7 @@ class ExamApiController extends Controller
         // return $poin;
         $history_poin = PoinStudentExam::where('user_id',$request->user_id)->where('question_id',$request->id)->first();
         // return $history_poin;
-        $next_quiz = QuestionExam::where('sub_id',$pertanyaan->sub_id)->where('id', '>', $request->id)->orderBy('id')->first();
+        $next_quiz = QuestionExam::where('exam_id',$pertanyaan->exam_id)->where('id', '>', $request->id)->orderBy('id')->first();
         if(!$history_poin){
             PoinStudentExam::create([
                 'user_id'=>$request->user_id,
@@ -143,23 +143,47 @@ class ExamApiController extends Controller
         return response()->json([
             'status'=> $pertanyaan->answer_key == $request->answer ? 'benar' : 'salah',
             'jawaban_benar'=> $pertanyaan->answer_key,
-            'next_quiz'=> $next_quiz ? true : false,
+            'next_quiz_exam'=> $next_quiz ? true : false,
             'status_create_quiz'=>$status
         ]);
     }
 
     public function submit_quiz_exam(Request $request){
 
-        QuizExam::where('exam_id',$request->exam_id)->update([
-            'status_test'=>'finish'
-        ]);
+        $q=QuizExam::where('exam_id',$request->exam_id)->where('user_id',$request->user_id)->first();
 
-        return response()->json([
-            'code' => '200',
-            'message' => "Quiz Complete",
-        ]);
+        if($q){
 
+            $ques=  QuestionExam::join('poin_student_exams','poin_student_exams.question_id','question_exams.id')
+            ->where('question_exams.exam_id',$request->exam_id,)
+            ->where('poin_student_exams.user_id',$request->user_id)
+            ->select('poin_student_exams.*','question_exams.id as pid')->get();
+            $point_saya = [
+                "total_quiz"=>$ques->count(),
+                "true_quiz"=>$ques->where('point','!=',0)->count(),
+                "false_quiz"=>$ques->where('point','==',0)->count(),
+                "score"=>$ques->sum('point'),
+                "exam_id"=>$request->exam_id,
+                "user_id"=>$request->user_id
+            ];
+            // return $point_saya;
+
+            $q->update([
+                'status_test'=>'finish'
+            ]);
+    
+            return response()->json([
+                'code' => '200',
+                'message' => "Exam Complete",
+                'data' => $point_saya,
+            ]);
+
+        }else{
+            return response()->json([
+                'code' => '404',
+                'message' => "Not Found",
+            ]);
+        }
 
     }
-
 }

@@ -109,7 +109,7 @@ public function updateUserProfile(Request $request)
 
         return response()->json([
             'code' => '200',
-            'foto'=>$users,
+            'data'=>$users,
             'message' => 'Profil pengguna dan Foto berhasil diperbarui'
         ]);
 
