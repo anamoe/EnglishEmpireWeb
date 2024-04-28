@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::post('login', [AuthApiController::class,'login']);
+Route::post('profil-update', [AuthApiController::class,'updateUserProfile']);
 
 Route::get('quiz-soal', [QuizApiController::class,'quiz']);
 Route::post('cekjawaban-quiz', [QuizApiController::class,'cek_jawaban']);
