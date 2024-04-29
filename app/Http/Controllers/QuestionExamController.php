@@ -313,7 +313,7 @@ class QuestionExamController extends Controller
             $tujuan_upload_audio = public_path('question_exam/image');
             File::delete($tujuan_upload_audio . '/' . QuestionExam::find($id)->image);
     
-             AnswerExam::where('question_id',$id)->delete();
+             AnswerExam::where('quest_exam_id',$id)->delete();
             QuestionExam::where('id',$id)->delete();
     
             return redirect()->back()->with("message","Soal berhasil dihapus");
