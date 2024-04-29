@@ -228,7 +228,7 @@ class InfoApiController extends Controller
         }
     }
 
-    public function sub_category($id_main)
+    public function sub_category(Request $request,$id_main)
     {
         $subcategories = SubCategory::where('main_category_id', $id_main)->get();
 
@@ -242,16 +242,16 @@ class InfoApiController extends Controller
             $questions = Question::where('sub_id', $subcategory->id)->get();
 
             // Hitung total jawaban benar dan salah
-            $total_correct_answers = PoinStudent::whereIn('question_id', $questions->pluck('id'))
+            $total_correct_answers = PoinStudent::where('user_id',$request->user_id)->whereIn('question_id', $questions->pluck('id'))
                 ->where('point', 1)
                 ->count();
-            $total_incorrect_answers = PoinStudent::whereIn('question_id', $questions->pluck('id'))
+            $total_incorrect_answers = PoinStudent::where('user_id',$request->user_id)->whereIn('question_id', $questions->pluck('id'))
                 ->where('point', 0)
                 ->count();
 
             $subcategory->total_correct_answers = $total_correct_answers;
             $subcategory->total_incorrect_answers = $total_incorrect_answers;
-            $quizzes = Quiz::where('sub_categories_id', $subcategory->id)->get();
+            $quizzes = Quiz::where('sub_categories_id', $subcategory->id)->where('user_id',$request->user_id)->get();
 
             // Jika daftar kuis kosong, tambahkan objek kuis manual dengan status 'Belum Dikerjakan'
             if ($quizzes->isEmpty()) {

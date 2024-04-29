@@ -12,6 +12,58 @@ use Illuminate\Http\Request;
 class ExamApiController extends Controller
 {
     //
+
+    public function list_exam(Request $request){
+
+        $exam = Exam::all();
+
+        foreach ($exam as $subcategory) {
+            $all_quiz = QuestionExam::where('exam_id', $subcategory->id)->count();
+            // $all_quiz_get = Question::where('sub_id',$subcategory->id)->get();
+
+            $questions = QuestionExam::where('exam_id', $subcategory->id)->get();
+
+            // Hitung total jawaban benar dan salah
+            $total_correct_answers = PoinStudentExam::where('user_id',$request->user_id)->whereIn('question_id', $questions->pluck('id'))
+                ->where('point', 1)
+                ->count();
+            $total_incorrect_answers = PoinStudentExam::where('user_id',$request->user_id)->whereIn('question_id', $questions->pluck('id'))
+                ->where('point', 0)
+                ->count();
+
+            $subcategory->total_correct_answers = $total_correct_answers;
+            $subcategory->total_incorrect_answers = $total_incorrect_answers;
+            $quizzes = QuizExam::where('exam_id', $subcategory->id)->where('user_id',$request->user_id)->get();
+
+            // Jika daftar kuis kosong, tambahkan objek kuis manual dengan status 'Belum Dikerjakan'
+            if ($quizzes->isEmpty()) {
+                $quizzes->push(new QuizExam([
+                    'exam_id' => $subcategory->id,
+
+                    // 'user_id' => $request-,
+                    'status_quiz' => 'Not Taken'
+                ]));
+            } else {
+                foreach ($quizzes as $quiz) {
+                    $quiz->exam_id = $subcategory->id;
+                    $quiz->status_quiz = $quiz->status_test;
+                }
+            }
+
+            // Tambahkan properti quizzes ke objek SubCategory
+            $subcategory->quizzes = $quizzes;
+            $subcategory->total_quiz = $all_quiz;
+            // $subcategory->total_quiz_true = $all_quiz_true;
+            // $subcategory->total_quiz_false = $all_quiz_false;
+        }
+
+        return response()->json([
+            'code' => 200,
+            'data' => $exam
+        ]);
+
+
+    }
     public function quiz_exam(Request $request)
     {
       

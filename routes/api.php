@@ -31,6 +31,7 @@ Route::post('cekjawaban-quiz', [QuizApiController::class,'cek_jawaban']);
 Route::get('submit-quiz', [QuizApiController::class,'submit_quiz']);
 
 
+Route::get('list-exam', [ExamApiController::class,'list_exam']);
 Route::get('quiz-soal-exam', [ExamApiController::class,'quiz_exam']);
 Route::post('cekjawaban-quiz-exam', [ExamApiController::class,'cek_jawaban_exam']);
 Route::get('submit-quiz-exam', [ExamApiController::class,'submit_quiz_exam']);
