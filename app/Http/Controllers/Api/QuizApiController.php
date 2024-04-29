@@ -165,7 +165,8 @@ class QuizApiController extends Controller
             $point_saya = [
                 "total_quiz"=>$ques->count(),
                 "true_quiz"=>$ques->where('point','!=',0)->count(),
-                "false_quiz"=>$ques->where('point','==',0)->count(),
+                "false_quiz"=>$ques->where('point','==',0)->where('answer_student','!=',null)->count(),
+                "not_answer_quiz"=>$ques->where('answer_student','==',null)->count(),
                 "score"=>$ques->sum('point'),
                 "sub_id"=>$request->sub_id,
                 "user_id"=>$request->user_id
@@ -194,71 +195,6 @@ class QuizApiController extends Controller
 
     }
 
-    public function exam(Request $request)
-    {
-        $exam = Exam::where('class_id', $request->class_id)->get();
-
-
-
-
-        foreach ($exam as $subcategory) {
-            $all_quiz = QuestionExam::where('exam_id', $subcategory->id)->count();
-            // $all_quiz_get = Question::where('sub_id',$subcategory->id)->get();
-
-            $questions = QuestionExam::where('exam_id', $subcategory->id)->get();
-
-            // Hitung total jawaban benar dan salah
-            $total_correct_answers = PoinStudentExam::whereIn('question_id', $questions->pluck('id'))
-                ->where('point', 1)
-                ->count();
-            $total_incorrect_answers = PoinStudentExam::whereIn('question_id', $questions->pluck('id'))
-                ->where('point', 0)
-                ->count();
-
-            $subcategory->total_correct_answers = $total_correct_answers;
-            $subcategory->total_incorrect_answers = $total_incorrect_answers;
-            $quizzes = QuizExam::where('exam_id', $subcategory->id)->get();
-
-            // Jika daftar kuis kosong, tambahkan objek kuis manual dengan status 'Belum Dikerjakan'
-            if ($quizzes->isEmpty()) {
-                $quizzes->push(new Quiz([
-                    'exam_id' => $subcategory->id,
-
-                    // 'user_id' => $request-,
-                    'status_quiz' => 'Not Taken'
-                ]));
-            } else {
-                foreach ($quizzes as $quiz) {
-                    $quiz->sub_categories_id = $subcategory->id;
-                    $quiz->status_quiz = $quiz->status_test;
-                }
-            }
-
-            // Tambahkan properti quizzes ke objek SubCategory
-            $subcategory->quizzes = $quizzes;
-            $subcategory->total_quiz = $all_quiz;
-            // $subcategory->total_quiz_true = $all_quiz_true;
-            // $subcategory->total_quiz_false = $all_quiz_false;
-        }
-
-        return response()->json([
-            'code' => 200,
-            'data' => $exam
-        ]);
-
-
-        if ($exam) {
-
-            return response()->json([
-                'code' => '200',
-                'data' => $exam
-            ]);
-        } else {
-            return response()->json([
-                'code' => '500',
-                'data' => []
-            ]);
-        }
-    }
+  
 
 }
