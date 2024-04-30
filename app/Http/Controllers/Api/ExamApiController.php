@@ -237,5 +237,26 @@ class ExamApiController extends Controller
             ]);
         }
 
+
+       
+    }
+    public function list_jawaban_exam(Request $request){
+
+        $hasil = PoinStudentExam::
+        leftjoin('question_exams','poin_student_exams.question_id','question_exams.id')
+        // ->with(['question_exams.ganda']) 
+        ->leftjoin('exams','question_exams.exam_id','exams.id')
+        ->select('question_exams.*','exams.*','poin_student_exams.*')->where('poin_student_exams.user_id',$request->user_id)->where('exam_id',$request->exam_id)->get();
+        foreach($hasil as $v){
+            $hasils = QuestionExam::with('ganda')->where('id',$v->question_id)->get();
+            $v->ganda =$hasils;
+            // return $hasil;
+            
+        }
+        
+
+      
+        return $hasil;
+
     }
 }

@@ -54,25 +54,15 @@ class QuizApiController extends Controller
                 $ganda['answer'] = strip_tags($ganda['answer']);
             }
 
-            
-            $shuffled_options = $q->ganda->shuffle();
             $formatted_question = [
                 "question" => $q,
                
-                // "shuffled_options" => $shuffled_options
+             
             ];
             $all_questions[] = $formatted_question;
         }
     
-        // Cari indeks pertanyaan saat ini
-        $current_question_index = array_search($quiz, array_column($all_questions, 'question'));
-    
-        // Menentukan pertanyaan sebelumnya dan berikutnya
-        $previous_question_index = $current_question_index - 1;
-        $next_question_index = $current_question_index + 1;
-    
-       
-        // Buat array asosiatif untuk menggabungkan semua data
+
     
         $response = [
             "all_questions" => $all_questions,
@@ -86,27 +76,7 @@ class QuizApiController extends Controller
             'code' => '200',
             'data' => $response
         ]);
-        // return response()->json($response);
-        // foreach($all_quiz as $n=>$q){
-        //     if($q->id == $quiz->id){
-        //         $no_quiz = $n+1;
-        //     }
-        // }
-        // $shuffled_options = $quiz->ganda->shuffle();
-        // $formatted_quiz = [
-        //     "quiz" => $quiz,
-        //     "pilgan" => $shuffled_options,
-        //     "banyak_quiz" => $banyak_quiz,
-        //     "no_quiz"=>$no_quiz,
-        //     "sub_id"=>$sub_id
-
-
-        // ];
-    
-        // return response()->json($formatted_quiz);
-        // return[$quiz,$quiz->ganda->shuffle()];
-        // return [$quiz,$quiz->ganda->shuffle(),$banyak_quiz,$sub_id,$no_quiz];
-        // return view('user.quiz_soal.quiz_soal',compact('id','quiz','banyak_quiz','no_quiz'));
+     
     }
 
     public function cek_jawaban(Request $request)
@@ -192,6 +162,26 @@ class QuizApiController extends Controller
         
       
 
+
+    }
+
+    public function list_jawaban_quiz(Request $request){
+
+        $hasil = PoinStudent::
+        leftjoin('questions','poin_students.question_id','questions.id')
+        // ->with(['question_exams.ganda']) 
+        ->leftjoin('sub_categories','questions.sub_id','sub_categories.id')
+        ->select('questions.*','sub_categories.*','poin_students.*')->where('poin_students.user_id',$request->user_id)->where('sub_id',$request->sub_id)->get();
+        foreach($hasil as $v){
+            $hasils = Question::with('ganda')->where('id',$v->question_id)->get();
+            $v->ganda =$hasils;
+            // return $hasil;
+            
+        }
+        
+
+      
+        return $hasil;
 
     }
 
