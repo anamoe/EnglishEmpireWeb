@@ -174,7 +174,7 @@ class QuizApiController extends Controller
         ->select('questions.*','sub_categories.*','poin_students.*')->where('poin_students.user_id',$request->user_id)->where('sub_id',$request->sub_id)->get();
         foreach($hasil as $v){
             $hasils = Question::with('ganda')->where('id',$v->question_id)->get();
-            $v->ganda =$hasils;
+            $v->quiz =$hasils;
             // return $hasil;
             
         }

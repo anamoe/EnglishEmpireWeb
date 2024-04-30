@@ -249,7 +249,7 @@ class ExamApiController extends Controller
         ->select('question_exams.*','exams.*','poin_student_exams.*')->where('poin_student_exams.user_id',$request->user_id)->where('exam_id',$request->exam_id)->get();
         foreach($hasil as $v){
             $hasils = QuestionExam::with('ganda')->where('id',$v->question_id)->get();
-            $v->ganda =$hasils;
+            $v->exam =$hasils;
             // return $hasil;
             
         }
