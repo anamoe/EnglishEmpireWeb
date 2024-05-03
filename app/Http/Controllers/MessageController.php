@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Message;
+use App\Models\Notif;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 class MessageController extends Controller
 {
@@ -30,6 +33,12 @@ class MessageController extends Controller
     {
         //
         Message::create($request->all());
+        $notif = new Notif;
+        $id_user=User::all();
+        $token=['c_RYGF1nR1u9uCNW1F1wl4:APA91bHPj4t_O1QtO1TrrE8VsDGNkFSwzSporty_KGKUgzuIWU3aZTrsZDb0GvL_QejQIDMIQvl7AFI9UV95vtp8Af0LxCpRyRxAQqKjRWw8XZSfVdGLqfMN7J1TVlAP5dZejErEXxyg'];
+        $tokenList = Arr::pluck($id_user, 'token');
+        $notif->sendNotifAll($tokenList,"pesan1.",$request->message,
+         "Notifikasi " );
 
         
         return redirect()->back()->with('message', ' Berhasil Ditambahkan');

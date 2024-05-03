@@ -28,6 +28,10 @@ class AuthApiController extends Controller
                 ->select('students.*','class_courses.class','course_programs.program','users.full_name','users.nick_name','users.foto_profil as profil_picture','users.id_number','users.role')->where('users.id',$user->id)->first();
                 $users->profil_picture = asset('public/profil/'.$user->foto_profil);
 
+                $user->update([
+                    'token_fcm'=>$request->token_fcm
+                ]);
+
                 return response()->json([
                     'code' => '200',
                     'message' => "Berhasil",

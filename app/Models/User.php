@@ -20,7 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'full_name',
         'nick_name',
-        'password','id_number','role','activate_date','status_account'
+        'password','id_number','role','activate_date','status_account','token_fcm'
     ];
 
     /**

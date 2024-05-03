@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AuthApiController;
 use App\Http\Controllers\Api\ExamApiController;
 use App\Http\Controllers\Api\InfoApiController;
 use App\Http\Controllers\Api\QuizApiController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -53,4 +54,8 @@ Route::get('student-report/{user_id}',[InfoApiController::class,'studen_report']
 Route::get('getlist_skor/{user_id}',[InfoApiController::class,'getlist_skor']);
 Route::get('topskor/{class_id}',[InfoApiController::class,'topskor']);
 Route::get('message_notification',[InfoApiController::class,'message_notification']);
+
+
+Route::get('notif',[AuthController::class,'notifikasi']);
+
 

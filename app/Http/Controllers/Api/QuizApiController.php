@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Answer;
 use App\Models\Exam;
 use App\Models\PoinStudent;
 use App\Models\PoinStudentExam;
@@ -100,13 +101,14 @@ class QuizApiController extends Controller
 
       
         $pertanyaan = Question::find($request->id);
+        $multiplechoice= Answer::where('question_id',$request->id)->get();
         $poin = $pertanyaan->answer_key == $request->answer ? 1 : 0;
         // return $poin;
         $history_poin = PoinStudent::where('user_id',$request->user_id)->where('question_id',$request->id)->first();
         // return $history_poin;
         $next_quiz = Question::where('sub_id',$pertanyaan->sub_id)->where('id', '>', $request->id)->orderBy('id')->first();
         if(!$history_poin){
-            PoinStudent::create([
+           $p= PoinStudent::create([
                 'user_id'=>$request->user_id,
                 'point'=>$poin,
                 'question_id'=>$request->id,
@@ -114,11 +116,16 @@ class QuizApiController extends Controller
             ]);
         }
 
+
+
         return response()->json([
             'status'=> $pertanyaan->answer_key == $request->answer ? 'benar' : 'salah',
             'jawaban_benar'=> $pertanyaan->answer_key,
             'next_quiz'=> $next_quiz ? true : false,
-            'status_create_quiz'=>$status
+            'answer_student'=> PoinStudent::where('question_id',$request->id)->first()->answer_student,
+            'status_create_quiz'=>$status,
+            'question'=>$pertanyaan,
+            'multiplechoice'=>$multiplechoice,
         ]);
     }
 

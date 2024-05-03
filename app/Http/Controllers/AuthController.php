@@ -54,9 +54,11 @@ class AuthController extends Controller
 
     public function notifikasi(){
         $notif = new Notif();
-        $token='d66IdZpVQVKpu3fuFrtuuh:APA91bEb-EUmG1-mzvSFVV9SMIc373NF5bT7s4_lDKkPh8RY6-TFX93WLfsLwi-PZSP-4x8F5Dgubc0gYHKTttdDZbha_HGlUnPPXfMdXp4eJ8qSgnwZNaOcJAGuY62GBGATTa3gTb0U';
-        $notif->sendNotifAll($token,"pesan1.","pesan2",
+        $token=['c_RYGF1nR1u9uCNW1F1wl4:APA91bHPj4t_O1QtO1TrrE8VsDGNkFSwzSporty_KGKUgzuIWU3aZTrsZDb0GvL_QejQIDMIQvl7AFI9UV95vtp8Af0LxCpRyRxAQqKjRWw8XZSfVdGLqfMN7J1TVlAP5dZejErEXxyg'];
+        $notif->sendNotifAll($token,"pesan1.","mas dul nub",
          "Notifikasi " );
+
+         return 'kenek';
          
     }
 
