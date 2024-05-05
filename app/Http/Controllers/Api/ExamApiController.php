@@ -214,9 +214,10 @@ class ExamApiController extends Controller
             ->where('poin_student_exams.user_id',$request->user_id)
             ->select('poin_student_exams.*','question_exams.id as pid')->get();
             $point_saya = [
-                "total_quiz"=>$ques->count(),
-                "true_quiz"=>$ques->where('point','!=',0)->count(),
-                "false_quiz"=>$ques->where('point','==',0)->count(),
+                "total_exam"=>$ques->count(),
+                "true_exam"=>$ques->where('point','!=',0)->count(),
+                "false_exam"=>$ques->where('point','==',0)->count(),
+                "not_answer_xam"=>$ques->where('answer_student','==',null)->count(),
                 "score"=>$ques->sum('point'),
                 "exam_id"=>$request->exam_id,
                 "user_id"=>$request->user_id
