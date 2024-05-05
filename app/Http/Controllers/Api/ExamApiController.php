@@ -107,7 +107,7 @@ class ExamApiController extends Controller
             $formatted_question = [
                 "question" => $q,
                
-                // "shuffled_options" => $shuffled_options
+                "shuffled_options" => $shuffled_options
             ];
             $all_questions[] = $formatted_question;
         }

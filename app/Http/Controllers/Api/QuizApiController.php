@@ -55,10 +55,12 @@ class QuizApiController extends Controller
                 $ganda['answer'] = strip_tags($ganda['answer']);
             }
 
+            
+            $shuffled_options = $q->ganda->shuffle();
             $formatted_question = [
                 "question" => $q,
                
-             
+                "shuffled_options" => $shuffled_options
             ];
             $all_questions[] = $formatted_question;
         }

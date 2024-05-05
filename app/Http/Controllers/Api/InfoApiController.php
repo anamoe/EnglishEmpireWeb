@@ -252,6 +252,7 @@ class InfoApiController extends Controller
             $subcategory->total_correct_answers = $total_correct_answers;
             $subcategory->total_incorrect_answers = $total_incorrect_answers;
             $quizzes = Quiz::where('sub_categories_id', $subcategory->id)->where('user_id',$request->user_id)->get();
+            // return $quizzes;
 
             // Jika daftar kuis kosong, tambahkan objek kuis manual dengan status 'Belum Dikerjakan'
             if ($quizzes->isEmpty()) {
