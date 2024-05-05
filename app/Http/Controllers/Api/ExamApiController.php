@@ -100,14 +100,17 @@ class ExamApiController extends Controller
 
             foreach ($q['ganda'] as &$ganda) {
                 $ganda['answer'] = strip_tags($ganda['answer']);
+              
             }
+            $shuffled_options = $q->ganda->shuffle();
+            $q->ganda_acak = $shuffled_options;
 
             
-            $shuffled_options = $q->ganda->shuffle();
+           
             $formatted_question = [
                 "question" => $q,
                
-                "shuffled_options" => $shuffled_options
+                // "shuffled_options" => $shuffled_options
             ];
             $all_questions[] = $formatted_question;
         }

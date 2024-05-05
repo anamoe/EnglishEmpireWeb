@@ -57,10 +57,14 @@ class QuizApiController extends Controller
 
             
             $shuffled_options = $q->ganda->shuffle();
+            $q->ganda_acak = $shuffled_options;
+
+            
+           
             $formatted_question = [
                 "question" => $q,
                
-                "shuffled_options" => $shuffled_options
+                // "shuffled_options" => $shuffled_options
             ];
             $all_questions[] = $formatted_question;
         }
