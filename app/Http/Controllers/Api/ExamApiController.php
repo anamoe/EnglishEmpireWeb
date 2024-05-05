@@ -217,7 +217,7 @@ class ExamApiController extends Controller
                 "total_exam"=>$ques->count(),
                 "true_exam"=>$ques->where('point','!=',0)->count(),
                 "false_exam"=>$ques->where('point','==',0)->count(),
-                "not_answer_xam"=>$ques->where('answer_student','==',null)->count(),
+                "not_answer_exam"=>$ques->where('answer_student','==',null)->count(),
                 "score"=>$ques->sum('point'),
                 "exam_id"=>$request->exam_id,
                 "user_id"=>$request->user_id
