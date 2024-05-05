@@ -47,8 +47,18 @@ class QuizApiController extends Controller
         // return $all_quiz;s
         $all_questions = [];
         foreach ($all_quiz as $n => $q) {
-            $q->image = asset('public/question/image/'.$q->image);
-            $q->audio = asset('public/question/audio/'.$q->audio);
+            if($q->image==''){
+                $q->image ='';
+            }else{
+                $q->image = asset('public/question/image/'.$q->image);
+
+            }
+            if($q->audio==''){
+                $q->audio ='';
+            }else{
+                $q->audio = asset('public/question/audio/'.$q->audio);
+
+            }
             $q->quest = strip_tags($q->quest);
 
             foreach ($q['ganda'] as &$ganda) {
