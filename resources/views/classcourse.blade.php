@@ -66,7 +66,7 @@
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Quiz Categor</h5>
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Quiz Category</h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
@@ -137,7 +137,7 @@
                                 <i onclick="edit('{{$v->id}}','{{$v->class}}')" class="fe fe-edit float-right text-primary"></i>
 
                             </div>
-                            <a href=""  class="row align-items-center">
+                            <a href="{{url('class_peruser',$v->id)}}"  class="row align-items-center">
                                 <div class="col-icon">
                                     <div class="icon-big text-center icon-info bubble-shadow-large">
                                     <i class="fa-solid fa-gamepad-modern"></i>

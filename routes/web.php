@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassCourseController;
+use App\Http\Controllers\ClasUserController;
 use App\Http\Controllers\CourseProgramController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\InfoUpdateController;
@@ -45,10 +46,13 @@ Route::get('/', [AuthController::class, 'loginview']);
 Route::middleware(['middleware' => 'admin'])->group(function () {
     // Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::resource('user',UserController::class);
+
+
     Route::get('class/{id_course}',[UserController::class,'getclass']);
     Route::post('userupdate/{id}',[UserController::class,'updated']);
 
-    
+    Route::resource('class_user',ClasUserController::class);
+    Route::get('class_peruser/{class_id}',[ClasUserController::class,'index_class']);
 
 
     Route::resource('quizcategory',QuizCategoryController::class);
