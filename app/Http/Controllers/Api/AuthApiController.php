@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class AuthApiController extends Controller
 {
@@ -75,19 +76,22 @@ public function updateUserProfile(Request $request)
 
         $oldPhoto = $user->foto;
 
-        if($oldPhoto!='default.jpg'){
+    //     if($oldPhoto!='default.jpg'){
 
       
-        if (!empty($oldPhoto)) {
-            $oldPhotoPath = public_path('profil') . '/' . $oldPhoto;
-            if (file_exists($oldPhotoPath)) {
-                unlink($oldPhotoPath);
-            }
-        }
-    }
-      
+    //     if (!empty($oldPhoto)) {
+    //         $oldPhotoPath = public_path('profil') . '/' . $oldPhoto;
+    //         if (file_exists($oldPhotoPath)) {
+    //             unlink($oldPhotoPath);
+    //         }
+    //     }
+    // }
+    $tujuan_upload = public_path('profil');
         $image = $request->file('profil_picture');
         $imageName = time().'.'.$image->getClientOriginalExtension();
+        File::delete($tujuan_upload . '/' . User::find($request->id_user)->foto_profil);
+        // return $imageName;
+
         $image->move(public_path('profil'), $imageName);
 
         
@@ -110,11 +114,11 @@ public function updateUserProfile(Request $request)
         ->leftjoin('users','students.user_id','users.id')
         ->leftjoin('course_programs','students.course_program_id','course_programs.id')
         ->leftjoin('class_courses','students.class_id','class_courses.id')
-        ->select('students.*','class_courses.class','course_programs.program','users.full_name','users.nick_name','users.foto_profil as profil_picture','users.id_number','users.role')
+        ->select('students.*','class_courses.class','course_programs.program','users.full_name','users.nick_name','users.foto_profil','users.id_number','users.role')
         ->where('users.id',$user->id)->first();
 
         // return $users;
-        $users->profil_picture = asset('public/profil/'.$user->profil_picture);
+        $users->profil_picture = asset('public/profil/'.$user->foto_profil);
 
         return response()->json([
             'code' => '200',
