@@ -56,6 +56,9 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
 
 
     Route::resource('quizcategory',QuizCategoryController::class);
+    Route::get('class_quiz_category/{class_id}',[QuizCategoryController::class,'index_class']);
+
+
     Route::get('quizcategory/maincategory/{id_category}',[MainCategoryController::class,'index']);
     Route::resource('quizcategory/maincategory',MainCategoryController::class);
     Route::resource('quizcategory/maincategory/subcategorys',SubCategoryController::class);
@@ -92,6 +95,8 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
     Route::resource('message',MessageController::class);
 
     Route::resource('exam',ExamController::class);
+    Route::get('class_exam/{class_id}',[ExamController::class,'index_class']);
+
 
     Route::get('kelolasoal_exam_delete/{id}',[QuestionExamController::class,'destroy']);
     Route::post('hapus-exam-all',[QuestionExamController::class,'hapus_select']);

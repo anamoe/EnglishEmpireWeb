@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassCourse;
+use App\Models\CourseProgram;
 use App\Models\Quiz;
 use App\Models\QuizCategory;
 use Illuminate\Http\Request;
@@ -11,12 +13,22 @@ class QuizCategoryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    // public function index()
+    // {
+    //     //
+    //     $categoryquiz = QuizCategory::all();
+        
+    //     return view('categoryquiz',compact('categoryquiz'));
+    // }
+
+    public function index_class($class_id)
     {
         //
-        $categoryquiz = QuizCategory::all();
+        $class = ClassCourse::where('id',$class_id)->first();
+        $coursePrograms = CourseProgram::where('id',$class->course_program_id )->first();
+        $categoryquiz = QuizCategory::where('class_id',$class_id)->get();
         
-        return view('categoryquiz',compact('categoryquiz'));
+        return view('categoryquiz',compact('categoryquiz','class'));
     }
 
     /**
@@ -33,7 +45,7 @@ class QuizCategoryController extends Controller
     public function store(Request $request)
     {
         //
-        QuizCategory::create(["category" => $request->category]);
+        QuizCategory::create(["category" => $request->category,"class_id"=>$request->class_id]);
         return redirect()->back()->with('message', 'Quiz Category Berhasil Ditambahkan');
     }
 

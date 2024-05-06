@@ -41,8 +41,8 @@
                                                 <input type="text" class="form-control input-full w-100" name="category" id="namamapel" placeholder="Enter Input">
                                             </div>
                                         </div>
+                                        <input type="hidden" class="form-control input-full w-100" name="class_id" id="namamapel"value="{{$class->id}}">
 
-                                       
 
 
                                         <div class="text-danger invalidmapel d-none">

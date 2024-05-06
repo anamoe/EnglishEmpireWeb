@@ -47,27 +47,31 @@
                                                 <input type="text" class="form-control input-full w-100" name="waktu_pengerjaan" id="namamapel" placeholder="Enter Input">
                                             </div>
                                         </div>
-                                        <div class="col-sm-12">
+                                            <input type="hidden" class="form-control input-full w-100" name="class_id" id="namamapel"value="{{$class->id}}">
+
+                                        <input type="hidden" class="form-control input-full w-100" name="course_program_id" id="namamapel"value="{{$coursePrograms->id}}">
+
+                                        <!-- <div class="col-sm-12">
                                                     <div class="form-group form-group-default">
                                                         <label>Program Course</label>
                                                         <select id="courseProgram" name="course_program_id" required class="form-control" onchange="getClasses()">
                                                             <option value="" disabled>Choose</option>
-                                                            <!-- Loop through your list of course programs and generate options -->
+                                                         
                                                             @foreach($coursePrograms as $course)
-                                                                <option value="{{ $course->id }}">{{ $course->program }}</option>
+                                                                <option value=""</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
-                                                </div>
+                                                </div> -->
 
-                                            <div class="col-sm-12">
+                                            <!-- <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
                                                     <label>Class</label>
                                                     <select id="class" name="class_id" required class="form-control">
                                                         <option value="">Choose</option>
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
 
 

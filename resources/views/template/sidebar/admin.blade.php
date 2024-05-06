@@ -51,7 +51,7 @@
  -->
 
 
-<ul class="navbar-nav flex-fill w-100 mb-2">
+<!-- <ul class="navbar-nav flex-fill w-100 mb-2">
   <li class="nav-item w-100 active">
     <a class="nav-link" href="{{url('quizcategory')}}">
      
@@ -61,9 +61,9 @@
       <span class="ml-3 item-text">Quiz Category</span>
     </a>
   </li>
-</ul>
+</ul> -->
 
-<ul class="navbar-nav flex-fill w-100 mb-2">
+<!-- <ul class="navbar-nav flex-fill w-100 mb-2">
     <li class="nav-item w-100 active">
         <a class="nav-link" href="{{url('/exam')}}">
             
@@ -71,7 +71,7 @@
             <span class="ml-3 item-text"> Exam</span>
         </a>
     </li>
-</ul>
+</ul> -->
 
 
 <!-- <ul class="navbar-nav flex-fill w-100 mb-2">

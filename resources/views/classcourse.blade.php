@@ -132,6 +132,7 @@
 
                     <div class="mapel card-stats card-round col-sm-12 col-md-4">
                         <div class="card card-body">
+                        {{$v->class}}
                             <div class="float-right py-2 mt--2">
                                 <i onclick="hapus('{{$v->id}}','{{$v->class}}')" class="fe fe-trash float-right text-danger"></i>
                                 <i onclick="edit('{{$v->id}}','{{$v->class}}')" class="fe fe-edit float-right text-primary"></i>
@@ -145,7 +146,33 @@
                                 </div>
                                 <div class="col col-stats ml-3 ml-sm-0">
                                     <div class="numbers">
-                                        <p class="card-category">{{$v->class}}</p>
+                                        <p class="card-category">Data Siswa</p>
+                             
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{url('class_quiz_category',$v->id)}}"  class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-large">
+                                    <i class="fa-solid fa-gamepad-modern"></i>
+                                    </div>
+                                </div>
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="card-category">Quiz Category</p>
+                                    </div>
+                                </div>
+                            </a>
+
+                            <a href="{{url('class_exam',$v->id)}}"  class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-large">
+                                    <i class="fa-solid fa-gamepad-modern"></i>
+                                    </div>
+                                </div>
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="card-category">Exam</p>
                                     </div>
                                 </div>
                             </a>

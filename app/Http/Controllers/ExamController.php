@@ -2,21 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ClassCourse;
 use App\Models\CourseProgram;
 use App\Models\Exam;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     //
+    //     $e = Exam::leftjoin('class_courses', 'exams.class_id', 'class_courses.id')
+    //         ->leftjoin('course_programs', 'exams.course_program_id', 'course_programs.id')
+    //         ->select('course_programs.program', 'class_courses.class', 'exams.*')->get();
+    //     $coursePrograms = CourseProgram::all();
+
+    //     return view('exam.exam', compact('e', 'coursePrograms'));
+    // }
+
+    public function index_class($class_id)
     {
         //
+        $class = ClassCourse::where('id',$class_id)->first();
+        $coursePrograms = CourseProgram::where('id',$class->course_program_id )->first();
         $e = Exam::leftjoin('class_courses', 'exams.class_id', 'class_courses.id')
-            ->leftjoin('course_programs', 'exams.course_program_id', 'course_programs.id')
+            ->leftjoin('course_programs', 'exams.course_program_id', 'course_programs.id')->where('class_id',$class_id)
             ->select('course_programs.program', 'class_courses.class', 'exams.*')->get();
-        $coursePrograms = CourseProgram::all();
+        // $coursePrograms = CourseProgram::all();
 
-        return view('exam.exam', compact('e', 'coursePrograms'));
+        return view('exam.exam', compact('e', 'coursePrograms','class'));
     }
 
     /**
