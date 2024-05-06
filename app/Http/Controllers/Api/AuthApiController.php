@@ -27,6 +27,7 @@ class AuthApiController extends Controller
                 ->leftjoin('class_courses','students.class_id','class_courses.id')
                 ->select('students.*','class_courses.class','course_programs.program',
                 'users.full_name','users.nick_name','users.foto_profil as profil_picture','users.token_fcm',
+                'users.activate_date','users.status_account',
                 'users.id_number','users.role')->where('users.id',$user->id)->first();
                 $users->profil_picture = asset('public/profil/'.$user->foto_profil);
 
