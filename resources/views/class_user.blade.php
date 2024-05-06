@@ -118,9 +118,9 @@
 
                                                 </div>
                                             </div>
-                                        <input type="text" class="form-control input-full w-100" name="class_id" id="namamapel"value="{{$class->id}}">
+                                        <input type="hidden" class="form-control input-full w-100" name="class_id" id="namamapel"value="{{$class->id}}">
 
-                                        <input type="text" class="form-control input-full w-100" name="course_program_id" id="namamapel"value="{{$coursePrograms->id}}">
+                                        <input type="hidden" class="form-control input-full w-100" name="course_program_id" id="namamapel"value="{{$coursePrograms->id}}">
 
 
 
