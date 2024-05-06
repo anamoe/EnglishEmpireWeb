@@ -415,7 +415,7 @@ function getClasses() {
         classSelect.innerHTML = '<option value="">Loading...</option>';
 
         // Make an AJAX request to fetch classes associated with the selected program
-        fetch(`http://localhost/EnglishEmpire/class/${programId}`)
+        fetch(`https://englishempire.web.id/class/${programId}`)
             .then(response => response.json())
             .then(data => {
                 classSelect.innerHTML = '<option  disabled value="">Choose</option>';
@@ -441,7 +441,7 @@ function getClasses() {
         classSelect.innerHTML = '<option value="">Loading...</option>';
 
         // Make an AJAX request to fetch classes associated with the selected program
-        fetch(`http://localhost/EnglishEmpire/class/${programId}`)
+        fetch(`https://englishempire.web.id/class/${programId}`)
             .then(response => response.json())
             .then(data => {
                 classSelect.innerHTML = '<option  disabled value="">Choose</option>';
