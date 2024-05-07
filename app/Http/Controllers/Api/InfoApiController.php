@@ -87,13 +87,13 @@ class InfoApiController extends Controller
    
 
 
-    public function quiz_category()
+    public function quiz_category(Request $request)
     {
 
 
         //         $totalmain=0;
         //         $totalsub=0;
-        $quizCategories = QuizCategory::with('mainCategories.subCategories')->get();
+        $quizCategories = QuizCategory::with('mainCategories.subCategories')->where('class_id',$request->class_id)->get();
 
         // $results = [];
 
@@ -124,7 +124,7 @@ class InfoApiController extends Controller
 
         foreach ($quizCategories as $quizCategory) {
 
-            $quizCategories = QuizCategory::with('mainCategories.subCategories')->get();
+            $quizCategories = QuizCategory::with('mainCategories.subCategories')->where('class_id',$request->class_id)->get();
 
             $results = [];
 
@@ -165,6 +165,7 @@ class InfoApiController extends Controller
                 $results[] = [
                     'id' => $quizCategory->id,
                     'category' => $quizCategory->category,
+                    'class_id' => $quizCategory->class_id,
                     'created_at' => $quizCategory->created_at,
                     'updated_at' => $quizCategory->updated_at,
                     'main_categories' => $mainCategoriesData,
