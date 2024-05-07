@@ -15,7 +15,7 @@ class ExamApiController extends Controller
 
     public function list_exam(Request $request){
 
-        $exam = Exam::all();
+        $exam = Exam::where('class_id',$request->class_id)->get();
 
         foreach ($exam as $subcategory) {
             $all_quiz = QuestionExam::where('exam_id', $subcategory->id)->count();
