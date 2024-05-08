@@ -21,6 +21,11 @@ class AuthApiController extends Controller
         if ($user) {
     
             if (password_verify($request->password, $user->password)) {
+                if($request->token_fcm){
+                    $user->update([
+                        'token_fcm'=>$request->token_fcm
+                    ]);
+                 }
 
                 $users = DB::table('students')
                 ->leftjoin('users','students.user_id','users.id')
@@ -32,11 +37,7 @@ class AuthApiController extends Controller
                 'users.id_number','users.role')->where('users.id',$user->id)->first();
                 $users->profil_picture = asset('public/profil/'.$user->foto_profil);
 
-            //  if($request->token_fcm){
-                $user->update([
-                    'token_fcm'=>$request->token_fcm
-                ]);
-            //  }
+            
 
                 return response()->json([
                     'code' => '200',
