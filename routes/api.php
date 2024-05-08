@@ -55,7 +55,7 @@ Route::get('getlist_skor/{user_id}',[InfoApiController::class,'getlist_skor']);
 Route::get('getlist_skor_exam/{user_id}',[InfoApiController::class,'getlist_skor_exam']);
 Route::get('list_skor_asigment/{user_id}',[InfoApiController::class,'list_skor_asigment']);
 
-Route::get('topskor/{class_id}',[InfoApiController::class,'topskor']);
+Route::get('topskor',[InfoApiController::class,'topskor']);
 Route::get('message_notification',[InfoApiController::class,'message_notification']);
 
 
