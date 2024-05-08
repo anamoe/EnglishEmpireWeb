@@ -29,8 +29,7 @@ class Notif
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => $field,
             CURLOPT_HTTPHEADER => array(
-                'Authorization: key
-                =AAAAGd0tx5U:APA91bHL1PWaMPOUwNkR_Cw8XaLtMP-Nj0lGcbpXZ_HGDp44y9SycDWNZW4mZorbTZImfsAjRZNGujjAv_BgkFJpyE75acmF678Tp8mxRDG0MZbB1N_a5cnF8oLYMS49vCKiRqboIj3q',
+                'Authorization: key=AAAAqk6eu-E:APA91bFo-mk7B0w7XyOSSq_35yhAOd5-_BRHf_GcUFGKCJwSXDvEJtkHIZnjSLCFjIR4nGvErSox2ci1q1m_V31Cw724-JB_5tJNa7JNUSl-GtVq5vyRv-CCAHrF8ePAnR_sCHeJYQRR',
                 'Content-Type: application/json'
             ),
         ));

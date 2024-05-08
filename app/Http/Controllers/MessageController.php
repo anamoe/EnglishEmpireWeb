@@ -42,7 +42,7 @@ class MessageController extends Controller
             $notif->sendNotifOne($id_user->token_fcm,"pesan1.",$request->message,
              "Notifikasi " );
            
-             return redirect()->back()->with('message', ' Berhasil Ditambahkan pesan KeUser');
+             return redirect()->back()->with('message', ' Berhasil Ditambahkan pesan Ke : '.$id_user->full_name.' '.$id_user->token_fcm);
         }else{
             Message::create([
                 'message'=>$request->message,
@@ -51,10 +51,10 @@ class MessageController extends Controller
             $notif = new Notif;
             $id_user=User::all();
             $token=['c_RYGF1nR1u9uCNW1F1wl4:APA91bHPj4t_O1QtO1TrrE8VsDGNkFSwzSporty_KGKUgzuIWU3aZTrsZDb0GvL_QejQIDMIQvl7AFI9UV95vtp8Af0LxCpRyRxAQqKjRWw8XZSfVdGLqfMN7J1TVlAP5dZejErEXxyg'];
-            $tokenList = Arr::pluck($id_user, 'token');
+            $tokenList = Arr::pluck($id_user, 'token_fcm');
             $notif->sendNotifAll($tokenList,"pesan1.",$request->message,
              "Notifikasi " );
-             return redirect()->back()->with('message', ' Berhasil Ditambahkan Ke sEMUA');
+             return redirect()->back()->with('message', ' Berhasil Ditambahkan Ke Semua');
         }
 
         
