@@ -479,8 +479,8 @@ class InfoApiController extends Controller
         
     }
 
-    public function message_notification(){
-        $m= Message::orderBy('id','desc')->get();
+    public function message_notification(Request $request){
+        $m= Message::orderBy('id','desc')->where('user_id',$request->user_id)->orWhere('type_message','All')->get();
 
         return response()->json([
             'code' => '200',

@@ -63,27 +63,38 @@
                                                 </div>
                                             </div>
                                          
-                                            <div class="col-sm-12">
+                                            <!-- <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
                                                     <label>Type Message</label>
                                                     <input id="type_message" type="text" name="type_message" required class="form-control" placeholder="">
                                                 </div>
-                                            </div>
-<!-- 
+                                            </div> -->
+
                                             <div class="col-sm-12">
                                                 <div class="form-group form-group-default">
-                                                    <label>Note</label>
-                                                    <select name="status_account" class="form-control">
-                                                <option value="Alpha">Alpha</option>
-                                                <option value="Sick">Sick</option>
-                                                <option value="Prsent">Present</option>
-                                                <option value="None">None</option>
+                                                    <label>Type Message</label>
+                                                    <select name="type_message" class="form-control">
+                                                <option value="All">All</option>
+                                                <option value="One">One</option>
+                              
                                             </select>
                                                        
                                                 </div>
-                                            </div> -->
+                                            </div>
 
-                                     
+                                            <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label>List User</label>
+                                        
+                                            <select id="" name="user_id" required class="form-control input-full">
+                                                <option value="" disabled>Choose</option>
+                                            
+                                                @foreach($user as $s)
+                                                    <option value="{{ $s->id }}">{{ $s->full_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                            </div>
                                             
                                          
                                         </div>
