@@ -18,8 +18,11 @@
                         </div>
                     </div>
 
-                    <div class="col-md-8">
+                    <div class="col-md-4">
                         <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Tambah Sub Category</button>
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addCopyQuest">Copy Add Question Sub Category</button>
                     </div>
 
                     <!-- Modal -->
@@ -61,6 +64,65 @@
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                                     <button type="button" class="btn btn-primary" onclick="tambahMapel()">
+                                        Buat</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                        <!-- Modal copy add -->
+                        <div class="modal fade" id="addCopyQuest" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Copy Quest Add Sub Category</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{url('quizcategory/maincategory/subcategory_copy')}}" id="buatmapelcopy" method="post">
+                                        @csrf
+                                        <div class="form-group form-inline">
+                                            <label for="namamapelcopy" class="col-md-3 col-form-label"> Sub Category</label>
+                                            <div class="col-md-9 p-0">
+                                                <input type="text" class="form-control input-full w-100" name="sub" id="namamapel" placeholder="Enter Input">
+                                            </div>
+                                        </div>
+
+                                       
+                                        <div class="form-group form-inline">
+                                            <label for="namamapelcopy" class="col-md-3 col-form-label">Waktu Pengerjaan</label>
+                                            <div class="col-md-9 p-0">
+                                                <input type="text" class="form-control input-full" name="waktu_pengerjaan" id="namamapel2" placeholder="Enter Input">
+                                            </div>
+                                        </div>
+
+                                    
+                                        <div class="form-group form-inline">
+                                            <label for="inlineinput" class="col-md-3 col-form-label">List Quiz SubCategory Copy</label>
+                                            <select id="coursePrograms" name="sub_id_copy" required class="form-control input-full">
+                                                <option value="" disabled>Choose</option>
+                                            
+                                                @foreach($sub as $s)
+                                                    <option value="{{ $s->id }}">{{ $s->sub }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                              
+
+
+                                        <input type="hidden" class="form-control input-full w-100" name="main_id" id="namamapel"value="{{$id_main}}">
+                                        <div class="text-danger invalidmapel d-none">
+                                            Nama Game Sudah ada
+                                        </div>
+
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                    <button type="button" class="btn btn-primary" onclick="tambahMapelCopy()">
                                         Buat</button>
                                 </div>
                             </div>
@@ -202,17 +264,25 @@
             $("#buatmapel").submit()
         }
     }
+    function tambahMapelCopy() {
+        $('#buatmapelcopy .input-full').removeClass('is-invalid')
+        if ($('#buatmapelcopy .input-full').val() == "") {
+            $('#buatmapelcopy .input-full').addClass('is-invalid')
+        } else {
+            $("#buatmapelcopy").submit()
+        }
+    }
 
-    function edit(id, mapel2) {
+    function edit(id,mapel, mapel2) {
         $("#updatemapel #editnamamapel").val(mapel)
         $("#updatemapel #editnamamapel2").val(mapel2)
-        $("#updatemapel").attr("action", "{{url('quizcategory')}}" + "/" + id)
+        $("#updatemapel").attr("action", "{{url('quizcategory/maincategory/subcategorys')}}" + "/" + id)
         $("#editMapel").modal("show")
     }
 
     function hapus(id, mapel) {
         $("#hapusmapel .map").html(mapel)
-        $("#deletemapel").attr("action", "{{url('quizcategory')}}" + "/" + id)
+        $("#deletemapel").attr("action", "{{url('quizcategory/maincategory/subcategorys')}}" + "/" + id)
         $("#hapusmapel").modal("show")
     }
 

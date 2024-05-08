@@ -7,10 +7,14 @@ use App\Models\InfoUpdate;
 use App\Models\MainCategory;
 use App\Models\Message;
 use App\Models\PoinStudent;
+use App\Models\PoinStudentExam;
 use App\Models\Question;
+use App\Models\QuestionExam;
 use App\Models\Quiz;
 use App\Models\QuizCategory;
+use App\Models\QuizExam;
 use App\Models\SlideInfo;
+use App\Models\Student;
 use App\Models\StudentSchedule;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -373,6 +377,84 @@ class InfoApiController extends Controller
 
         ]);
     }
+
+    public function getlist_skor_exam($user_id)
+    {
+
+        $skor_total = PoinStudentExam::where('user_id', $user_id)
+                                        ->sum('point');
+
+            // return $skor_poin;
+
+
+        $skor = QuizExam::join('exams', 'quiz_exams.exam_id', 'exams.id')
+            ->select('exams.title', 'quiz_exams.*')
+            ->where('user_id', $user_id)
+            ->get();
+
+            foreach ($skor as $quiz) {
+                $questions = QuestionExam::where('exam_id', $quiz->exam_id)->get();
+            
+                foreach ($questions as $question) {
+                    $skor_poin = PoinStudentExam::where('user_id', $user_id)
+                                        ->where('question_id', $question->id)
+                                        ->sum('point');
+                    
+                    // Konversi skor ke integer jika skornya adalah string
+                    $question->skor = is_numeric($skor_poin) ? (int)$skor_poin : $skor_poin;
+                }
+            
+                // Hitung total skor untuk kategori saat ini
+                $subtotal = 0;
+            
+                foreach ($questions as $question) {
+                    // Tambahkan skor setiap pertanyaan ke subtotal
+                    $subtotal += $question->skor;
+                }
+            
+                // Tambahkan subtotal ke objek kuis
+                $quiz->total_skor = $subtotal;
+            
+                // Tambahkan pertanyaan dan skornya ke objek kuis
+                // $quiz->questions = $questions;
+            }
+            
+            return response()->json([
+                'code' => '200',
+                'data' => $skor,
+                'skor_total'=>$skor_total
+            ]);
+            
+
+        return response()->json([
+            'code' => '200',
+            'data' => $skor,
+
+        ]);
+    }
+
+    public function list_skor_asigment($user_id)
+    {
+
+        $skor_total = StudentSchedule::where('user_id', $user_id)->whereNot('homework','none')
+                                        ->sum('skor');
+
+        $asignmen = StudentSchedule::where('user_id', $user_id)->whereNot('homework','none')->get();
+
+       
+            
+            return response()->json([
+                'code' => '200',
+                'data' => $asignmen,
+                'skor_total'=>$skor_total
+            ]);
+            
+
+     
+    }
+
+
+
 
     public function topskor($class_id){
 

@@ -23,12 +23,13 @@ class QuizCategoryController extends Controller
 
     public function index_class($class_id)
     {
+        // return $program_id;
         //
         $class = ClassCourse::where('id',$class_id)->first();
         $coursePrograms = CourseProgram::where('id',$class->course_program_id )->first();
         $categoryquiz = QuizCategory::where('class_id',$class_id)->get();
         
-        return view('categoryquiz',compact('categoryquiz','class'));
+        return view('categoryquiz',compact('categoryquiz','coursePrograms','class'));
     }
 
     /**

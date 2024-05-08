@@ -63,6 +63,8 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
     Route::resource('quizcategory/maincategory',MainCategoryController::class);
     Route::resource('quizcategory/maincategory/subcategorys',SubCategoryController::class);
     Route::get('quizcategory/maincategory/subcategory/{id_main}',[SubCategoryController::class,'indexs']);
+    Route::post('quizcategory/maincategory/subcategory_copy',[SubCategoryController::class,'store_copy']);
+    // Route::get('quizcategory/maincategory/subcategory_destroy/{id}',[SubCategoryController::class,'destroys']);
 
     Route::get('quizcategory/maincategory/subcategory/quiz/{sub_id}',[QuestionController::class,'soal']);
     Route::resource('kelolasoal',QuestionController::class);

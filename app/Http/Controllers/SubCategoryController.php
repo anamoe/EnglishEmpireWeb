@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Answer;
+use App\Models\Question;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
 
@@ -29,11 +31,49 @@ class SubCategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+    public function store_copy(Request $request)
+    {
+        //
+        $dataquest =Question::where('sub_id',$request->sub_id_copy)->get();
+
+        // return $dataquest;
+        $s  =SubCategory::create(["sub" => $request->sub,"main_category_id" => $request->main_id,'waktu_pengerjaan'=>$request->waktu_pengerjaan]);
+        foreach($dataquest as $d){
+
+            $newQuestion = Question::create([
+                'sub_id' => $s->id, 
+                'quest' => $d->quest, 
+                'audio' => $d->audio, 
+                'image' => $d->image, 
+                'answer_key' => $d->answer_key, 
+   
+            ]);
+
+            $answer =Answer::where('question_id',$d->id)->get();
+        
+            foreach ($answer as $answere) {
+           
+                Answer::create([
+                    'question_id' => $newQuestion->id, 
+                    'answer' => $answere->answer, 
+                
+                ]);
+            
+
+        }
+        }
+      
+
+        return redirect()->back()->with('message', 'Quiz Category Berhasil Ditambahkan');
+    }
+
+
+    
     public function store(Request $request)
     {
         //
         SubCategory::create(["sub" => $request->sub,"main_category_id" => $request->main_id,'waktu_pengerjaan'=>$request->waktu_pengerjaan]);
-        return redirect()->back()->with('message', 'Main Category Berhasil Ditambahkan');
+        return redirect()->back()->with('message', 'Sub Category Berhasil Ditambahkan');
     }
 
     /**
@@ -58,7 +98,7 @@ class SubCategoryController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        SubCategory::where('id', '=', $id)->update(["sub" => $request->sub,"main_category_id" => $request->main_category_id,'waktu_pengerjaan'=>$request->waktu_pengerjaan]);
+        SubCategory::where('id', '=', $id)->update(["sub" => $request->sub,'waktu_pengerjaan'=>$request->waktu_pengerjaan]);
         return redirect()->back()->with('message', 'Sub Category Berhasil Diubah');
     }
 

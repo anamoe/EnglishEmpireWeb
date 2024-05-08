@@ -68,6 +68,7 @@ class StudentScheduleController extends Controller
         //
         StudentSchedule::where('id',$id)->update([
             'note' => $request->note,
+            'skor' => $request->skor,
             'homework' => $request->homework,
    
         ]);

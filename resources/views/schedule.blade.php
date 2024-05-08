@@ -131,6 +131,17 @@
 
                                         </div>
                                         </div>
+                                        <div class="col-sm-12">
+                                        <div class="form-group form-group-default">
+                                            <label for="inlineinput" class="col-md col-form-label">Skor</label>
+                                            <div class="form-group form-group-default">
+                                                 
+                                                    <input id="skor" type="number" name="skor" required class="form-control" placeholder="">
+                                                </div>        
+                                           
+
+                                        </div>
+                                        </div>
 
                                         <div class="col-sm-12">
                                         <div class="form-group form-group-default">
@@ -188,6 +199,7 @@
                                                         <th style="color:#000000;">Date</th>
                                                         <th style="color:#000000;">Note</th>
                                                         <th style="color:#000000;">Homework</th>
+                                                        <th style="color:#000000;">Skor</th>
                                                         <th style="width: 10% ;color:#000000;">Action</th>
                                                     </tr>
                                                 </thead>
@@ -201,6 +213,7 @@
                                                         <td>{{$user->date}}</td>
                                                         <td>{{$user->note}}</td>
                                                         <td>{{$user->homework}}</td>
+                                                        <td>{{$user->skor}}</td>
                                                         <td>
                                                             <div class="form-button-action">
                                                                 <button type="button" class="btn btn-sm" onclick="edit({{$user->id}})" data-toggle="modal" data-target="#editUsers" title="" data-original-title="Edit User">
@@ -344,6 +357,7 @@
             .then(function(response) {
                 $("#note_input").val(response.data.note)
                 $("#homework").val(response.data.homework)
+                $("#skor").val(response.data.skor)
 
           
                 $("#updateuser").attr("action", "{{url('schedule-student-update')}}" + "/" + response.data.id)
