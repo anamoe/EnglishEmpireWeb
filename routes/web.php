@@ -56,7 +56,8 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
 
 
     Route::resource('quizcategory',QuizCategoryController::class);
-    Route::get('class_quiz_category/{class_id}',[QuizCategoryController::class,'index_class']);
+    // Route::get('class_quiz_category/{class_id}',[QuizCategoryController::class,'index_class']);
+    Route::get('program_quiz_category/{program_id}',[QuizCategoryController::class,'index_program']);
 
 
     Route::get('quizcategory/maincategory/{id_category}',[MainCategoryController::class,'index']);

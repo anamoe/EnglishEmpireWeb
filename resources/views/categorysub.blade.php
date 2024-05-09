@@ -18,12 +18,12 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4">
+                    <div class="col-md-8">
                         <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Tambah Sub Category</button>
                     </div>
-                    <div class="col-md-4">
+                    <!-- <div class="col-md-4">
                         <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addCopyQuest">Copy Add Question Sub Category</button>
-                    </div>
+                    </div> -->
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -221,6 +221,18 @@
                                     <div class="numbers">
                                         <p class="card-category">{{$v->sub}}</p>
                                         <p class="card-category">{{$v->waktu_pengerjaan}} Menit</p>
+                                    </div>
+                                </div>
+                            </a>
+                            <a href="{{url('program_quiz_category',$v->id)}}"  class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-large">
+                                    <i class="fa-solid fa-gamepad-modern"></i>
+                                    </div>
+                                </div>
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="card-category">Class</p>
                                     </div>
                                 </div>
                             </a>

@@ -151,7 +151,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="{{url('class_quiz_category',$v->id)}}"  class="row align-items-center">
+                            <!-- <a href="{{url('class_quiz_category',$v->id)}}"  class="row align-items-center">
                                 <div class="col-icon">
                                     <div class="icon-big text-center icon-info bubble-shadow-large">
                                     <i class="fa-solid fa-gamepad-modern"></i>
@@ -162,7 +162,7 @@
                                         <p class="card-category">Quiz Category</p>
                                     </div>
                                 </div>
-                            </a>
+                            </a> -->
 
                             <a href="{{url('class_exam',$v->id)}}"  class="row align-items-center">
                                 <div class="col-icon">

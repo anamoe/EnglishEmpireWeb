@@ -21,15 +21,15 @@ class QuizCategoryController extends Controller
     //     return view('categoryquiz',compact('categoryquiz'));
     // }
 
-    public function index_class($class_id)
+    public function index_program($program_id)
     {
         // return $program_id;
         //
-        $class = ClassCourse::where('id',$class_id)->first();
-        $coursePrograms = CourseProgram::where('id',$class->course_program_id )->first();
-        $categoryquiz = QuizCategory::where('class_id',$class_id)->get();
+        // $class = ClassCourse::where('id',$class_id)->first();
+        $coursePrograms = CourseProgram::where('id',$program_id )->first();
+        $categoryquiz = QuizCategory::where('program_id',$program_id)->get();
         
-        return view('categoryquiz',compact('categoryquiz','coursePrograms','class'));
+        return view('categoryquiz',compact('categoryquiz','coursePrograms'));
     }
 
     /**
@@ -46,7 +46,7 @@ class QuizCategoryController extends Controller
     public function store(Request $request)
     {
         //
-        QuizCategory::create(["category" => $request->category,"class_id"=>$request->class_id]);
+        QuizCategory::create(["category" => $request->category,"program_id"=>$request->program_id]);
         return redirect()->back()->with('message', 'Quiz Category Berhasil Ditambahkan');
     }
 
