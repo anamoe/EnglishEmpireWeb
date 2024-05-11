@@ -304,7 +304,7 @@ class InfoApiController extends Controller
 
     public function studen_report($user_id)
     {
-        $session = StudentSchedule::where('user_id', $user_id)->count();
+        $session = StudentSchedule::where('user_id', $user_id)->whereNot('note','None')->count();
         $presence = StudentSchedule::where('note', 'Present')->where('user_id', $user_id)->count();
         $alpha = StudentSchedule::where('note', 'Alpha')->where('user_id', $user_id)->count();
         $permit = StudentSchedule::where('note', "Permit")->where('user_id', $user_id)->count();
