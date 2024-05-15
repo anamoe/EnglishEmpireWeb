@@ -117,6 +117,8 @@ class QuizApiController extends Controller
 
       
         $pertanyaan = Question::find($request->id);
+        $jawaban_string = Answer::where('id',$pertanyaan->answer_key)->first();
+        // return strip_tags($jawaban_string->answer);
         $multiplechoice= Answer::where('question_id',$request->id)->get();
         $poin = $pertanyaan->answer_key == $request->answer ? 1 : 0;
         // return $poin;
@@ -137,6 +139,7 @@ class QuizApiController extends Controller
         return response()->json([
             'status'=> $pertanyaan->answer_key == $request->answer ? 'benar' : 'salah',
             'jawaban_benar'=> $pertanyaan->answer_key,
+            'jawaban_benar_teks'=> strip_tags($jawaban_string->answer), 
             'next_quiz'=> $next_quiz ? true : false,
             'answer_student'=> PoinStudent::where('question_id',$request->id)->first()->answer_student,
             'status_create_quiz'=>$status,
