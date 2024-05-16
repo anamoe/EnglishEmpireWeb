@@ -232,18 +232,18 @@
 
                         <div class="form-group">
                             <label>Soal:</label>
-                            <textarea class="dessription" name="soal" id="isi_materi"></textarea>
+                            <textarea class="form-control" name="soal" id="isi_materi"></textarea>
                         </div>
 
                         <div class="form-group">
                             <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Jawaban (Benar):</label>
-                            <textarea class="summernote_dess" required name="jawbenar" id="isi_jawab"></textarea>
+                            <textarea class="form-control" required name="jawbenar" id="isi_jawab"></textarea>
                         </div>
 
                         <div class="list-jawaban">
                             <div class="form-group">
                                 <label class="badge badge-primary text-white py-2 w-100" style="font-size: 15px;">Jawaban Lain:</label>
-                                <textarea class="summernote_jaw mb-3" required name="jaw[]"></textarea>
+                                <textarea class="form-control" required name="jaw[]"></textarea>
                             </div>
                         </div>
 
@@ -286,24 +286,24 @@
     function tambahjawaban() {
         $('.list-jawaban').append(`
 <div class="mb-3 jwbn">
- <textarea class="summernote_jaw" required name="jaw[]"></textarea>
+ <textarea class="form-control" required name="jaw[]"></textarea>
 </div>
         `)
 
 
-        $('.summernote_jaw').summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link', 'picture', 'video', 'audio']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
+        // $('.summernote_jaw').summernote({
+        //     toolbar: [
+        //         ['style', ['style']],
+        //         ['font', ['bold', 'underline', 'clear']],
+        //         ['fontname', ['fontname']],
+        //         ['color', ['color']],
+        //         ['para', ['ul', 'ol', 'paragraph']],
+        //         ['table', ['table']],
+        //         ['insert', ['link', 'picture', 'video', 'audio']],
+        //         ['view', ['fullscreen', 'codeview', 'help']],
+        //     ],
 
-        })
+        // })
         jumjawaban++
 
         addlastsum()
@@ -352,23 +352,23 @@
 
     })
 
-    $(document).ready(function() {
-        $('textarea').summernote({
-            toolbar: [
-                // ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                // ['para', ['ul', 'ol', 'paragraph']],
-                // ['table', ['table']],
-                // ['insert', ['link', 'picture', 'video', 'audio']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
+    // $(document).ready(function() {
+    //     $('textarea').summernote({
+    //         toolbar: [
+    //             // ['style', ['style']],
+    //             ['font', ['bold', 'underline', 'clear']],
+    //             ['fontname', ['fontname']],
+    //             ['color', ['color']],
+    //             // ['para', ['ul', 'ol', 'paragraph']],
+    //             // ['table', ['table']],
+    //             // ['insert', ['link', 'picture', 'video', 'audio']],
+    //             ['view', ['fullscreen', 'codeview', 'help']],
+    //         ],
 
-        })
+    //     })
 
 
-    })
+    // })
 
 
 
