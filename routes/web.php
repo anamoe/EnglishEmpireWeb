@@ -8,6 +8,7 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\InfoUpdateController;
 use App\Http\Controllers\MainCategoryController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\OrtuController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\QuestionExamController;
 use App\Http\Controllers\QuizCategoryController;
@@ -46,10 +47,13 @@ Route::get('/', [AuthController::class, 'loginview']);
 Route::middleware(['middleware' => 'admin'])->group(function () {
     // Route::get('/user', [UserController::class, 'index'])->name('user');
     Route::resource('user',UserController::class);
+    Route::resource('ortu',OrtuController::class);
+    Route::post('ortuupdate/{id}',[OrtuController::class,'updated']);
 
 
     Route::get('class/{id_course}',[UserController::class,'getclass']);
     Route::post('userupdate/{id}',[UserController::class,'updated']);
+    Route::get('hapususer/{id}',[UserController::class,'destroy']);
 
     Route::resource('class_user',ClasUserController::class);
     Route::get('class_peruser/{class_id}',[ClasUserController::class,'index_class']);

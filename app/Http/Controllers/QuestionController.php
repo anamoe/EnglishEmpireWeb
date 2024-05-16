@@ -306,14 +306,26 @@ class QuestionController extends Controller
     public function destroy($id)
     {
         //
+        $q= Question::where('id',$id)->first();
         $tujuan_upload_audio = public_path('question/audio');
-        File::delete($tujuan_upload_audio . '/' . Question::find($id)->audio);
-
         $tujuan_upload_audio = public_path('question/image');
-        File::delete($tujuan_upload_audio . '/' . Question::find($id)->image);
+        if($q){
 
-         Answer::where('question_id',$id)->delete();
-        Question::where('id',$id)->delete();
+           
+            File::delete($tujuan_upload_audio . '/' . Question::find($id)->audio);
+    
+           
+            File::delete($tujuan_upload_audio . '/' . Question::find($id)->image);
+            foreach($q as $v){
+                Answer::where('question_id',$v->question_id)->delete();
+            }
+            Question::where('id',$id)->delete();
+        }
+
+     
+            
+        
+     
 
         return redirect()->back()->with("message","Soal berhasil dihapus");
 

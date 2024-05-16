@@ -1,5 +1,5 @@
 @extends('template.master')
-@section('judul','Account Student')
+@section('judul','Account Parents')
 @section('css')
 
 
@@ -42,7 +42,7 @@
                                         <span class="fw-mediumbold">
                                             Add</span>
                                         <span class="fw-light">
-                                            Student
+                                            Parents
                                         </span>
                                     </h5>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -51,7 +51,7 @@
                                 </div>
 
                                 <div class="modal-body">
-                                    <form action="{{url('user')}}" method="post" id="addUsers" onsubmit="return validateForm()">
+                                    <form action="{{url('ortu')}}" method="post" id="addUsers" onsubmit="return validateForm()">
                                         @csrf
 
                                         <div class="row">
@@ -83,85 +83,10 @@
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label>School</label>
-                                                    <input id="addschool" type="text" name="school" required class="form-control" placeholder="">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label>Date Birth</label>
-                                                    <input id="addbirth" type="date" name="date_birth" required class="form-control" placeholder="">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label>No. Telp</label>
-                                                    <input id="addtelp" type="text" name="no_hp" required class="form-control" placeholder="">
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label>Activate Date</label>
-                                                    <input id="activate_date" type="date" name="activate_date" required class="form-control" placeholder="">
-                                                </div>
-                                            </div>
+                                         
+                                         
 
-                                            <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label>Status Account</label>
-                                                    <select name="status_account" class="form-control">
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                                       
-                                                </div>
-                                            </div>
-
-                                           
-                                            <div class="col-sm-12">
-                                                    <div class="form-group form-group-default">
-                                                        <label>Program Course</label>
-                                                        <select id="courseProgram" name="course_program_id" required class="form-control" onchange="getClasses()">
-                                                            <option value="" disabled>Choose</option>
-                                                            <!-- Loop through your list of course programs and generate options -->
-                                                            @foreach($coursePrograms as $course)
-                                                                <option value="{{ $course->id }}">{{ $course->program }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label>Class</label>
-                                                    <select id="class" name="class_id" required class="form-control">
-                                                        <option value="">Choose</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                              
-                                            <div class="col-sm-12">
-                                                    <div class="form-group form-group-default">
-                                                        <label>Pilih OrangTua</label>
-                                                        <select id="parent" name="parent_id" required class="form-control" >
-                                                            <option value="" disabled>Choose</option>
-                                                            <!-- Loop through your list of course programs and generate options -->
-                                                            @foreach($parent as $v)
-                                                                <option value="{{ $v->id }}">{{ $v->full_name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                            
-                                            <!-- <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Image</label>
-                                                    <input type="file" class="form-control input-full w-100" required name="gambar" id="isi_jawab"></textarea>
-                                                </div>
-                                            </div> -->
+                                          
 
                                         </div>
                                         <div class="modal-footer no-bd">
@@ -224,91 +149,7 @@
                                         </div>
 
                         
-                                        <div class="col-sm-12">
-                                        <div class="form-group form-group-default">
-                                            <label for="inlineinput" class="col-md col-form-label">School</label>
-                                           
-                                                <input type="text" class="form-control input-full email" name="school" id="schoolinput" placeholder="">
-                                        </div>
-                                        </div>
-
-                                        <div class="col-sm-12">
-                                        <div class="form-group form-group-default">
-                                            <label for="inlineinput" class="col-md col-form-label">Number Phone</label>
-                                            
-                                                <input type="text" class="form-control" name="no_hp" id="noinput" placeholder="">
-                                        </div>
-                                        </div>
-
-                                        <div class="col-sm-12">
-                                        <div class="form-group form-group-default">
-                                            <label for="inlineinput" class="col-md col-form-label">Date Birth</label>
-                                          
-                                                <input type="date" class="form-control " name="date_birth" id="birthinput" placeholder="">
-                                           
-
-                                        </div>
-                                        </div>
-
-                                        <div class="col-sm-12">
-                                        <div class="form-group form-group-default">
-                                            <label for="inlineinput" class="col-md col-form-label">Activate Date</label>
-                                          
-                                                <input type="date" class="form-control " name="activate_date" id="active_input" placeholder="">
-                                           
-
-                                        </div>
-                                        </div>
-
-                                        <div class="col-sm-12">
-                                        <div class="form-group form-group-default">
-                                            <label for="inlineinput" class="col-md col-form-label">Status Account</label>
-
-                                            <select name="status_account"  id="status_account_input"class="form-control">
-                                                <option value="active">Active</option>
-                                                <option value="inactive">Inactive</option>
-                                            </select>
-                                                                                
-                                           
-
-                                        </div>
-                                        </div>
- 
-                                        <div class="col-sm-12">
-                                                <div class="form-group form-group-default"> 
-                                                   <label class="badge badge-success text-white py-2 w-100" style="font-size: 15px;">Image</label>
-                                                    <input type="file" class="form-control input-full w-100" required name="gambar" id="isi_jawab2"></textarea>
-                                                </div>
-                                            </div>
-
-                                            <div  iv class="text-center">
-                                                        <img class="img" id="loadfotoadd" src="" alt="Foto Thumbnail"
-                                                            style=" height:30%; width:30%;">                            
-                                            </div>
-
-
-                                        <!-- <div class="col-sm-12">
-                                                    <div class="form-group form-group-default">
-                                                        <label for="inlineinput" class="col-md col-form-label">Program Course</label>
-                                                        <select id="coursePrograms" name="course_program_id" required class="form-control" onchange="getClasses_edit()">
-                                                            <option value="" disabled>Choose</option>
-                                                      
-                                                            @foreach($coursePrograms as $course)
-                                                                <option value="{{ $course->id }}">{{ $course->program }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                          
-                                            <div class="col-sm-12">
-                                                <div class="form-group form-group-default">
-                                                    <label>Class</label>
-                                                    <select id="class_edit" name="class_id" required class="form-control">
-                                                        <option value="">Choose</option>
-                                                    </select>
-                                                </div>
-                                            </div> -->
+                                    
 
                                     </form>
                                 </div>
@@ -344,8 +185,7 @@
                                                     <tr>
                                                         <th style="color:#000000;">Name</th>
                                                         <th style="color:#000000;">ID Number</th>
-                                                        <th style="color:#000000;">Program</th>
-                                                        <th style="color:#000000;">Class</th>
+                                                    
                                                         <th style="width: 10% ;color:#000000;">Action</th>
                                                     </tr>
                                                 </thead>
@@ -357,17 +197,16 @@
                                                     <tr>
                                                         <td>{{$user->full_name}}</td>
                                                         <td>{{$user->id_number}}</td>
-                                                        <td>{{$user->program}}</td>
-                                                        <td>{{$user->class}}</td>
+                                                        
                                                         <td>
                                                             <div style="display: flex; justify-content: space-between;">
-                                                            <a href="{{url('student-schedules',$user->id)}}"><button class="btn btn-primary" style="font-size: 12px; width: fit-content;">Student Schedule</button></a>
+                                                            <!-- <a href="{{url('student-schedules',$user->id)}}"><button class="btn btn-primary" style="font-size: 12px; width: fit-content;">Student Schedule</button></a> -->
                                                             
                                                                 <div class="form-button-action" style="margin-left: 8px;">
                                                                     <button type="button" class="btn btn-sm" onclick="edit({{$user->id}})" data-toggle="modal" data-target="#editUsers" title="Edit User">
                                                                         <i class="fe fe-edit"></i>
                                                                     </button>
-                                                                    <a href="{{url('user'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="Hapus User">
+                                                                    <a href="{{url('ortu'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="Hapus User">
                                                                         <i class="fe fe-trash"></i>
                                                                     </a>
                                                                 </div>
@@ -549,7 +388,7 @@ function getClasses() {
     function edit(id) {
         $('.input-full').removeClass('is-invalid')
         $('.invalidtoken').removeClass('d-block').removeClass('d-none').addClass('d-none')
-        axios.get("{{url('user')}}" + "/" + id)
+        axios.get("{{url('ortu')}}" + "/" + id)
             .then(function(response) {
                 $("#namainput").val(response.data.full_name)
                 $("#idinput").val(response.data.id_number)
@@ -569,7 +408,7 @@ function getClasses() {
            
                 $("#class_edit").val(classId);
           
-                $("#updateuser").attr("action", "{{url('userupdate')}}" + "/" + response.data.id)
+                $("#updateuser").attr("action", "{{url('ortuupdate')}}" + "/" + response.data.id)
             })
     }
 

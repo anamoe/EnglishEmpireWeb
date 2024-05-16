@@ -368,7 +368,7 @@ class InfoApiController extends Controller
             return response()->json([
                 'code' => '200',
                 'data' => $skor,
-                'skor_total'=>$skor_total
+                'skor_total'=>str($skor_total)
             ]);
             
 
@@ -423,7 +423,7 @@ class InfoApiController extends Controller
             return response()->json([
                 'code' => '200',
                 'data' => $skor,
-                'skor_total'=>$skor_total
+                'skor_total'=>str($skor_total)
             ]);
             
 

@@ -2,39 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ClassCourse;
-use App\Models\CourseProgram;
-use App\Models\Student;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 
-class UserController extends Controller
+class OrtuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-
-     public function getclass($id_course){
-        $class = ClassCourse::where('course_program_id',$id_course)->get();
-        return $class;
-     }
     public function index()
     {
         //
-        $coursePrograms = CourseProgram::all();
-        $class = ClassCourse::all();
-        $parent = User::where('role','parent')->get();
-
-        $users = DB::table('students')
-        ->leftjoin('users','students.user_id','users.id')
-        ->leftjoin('class_courses','students.class_id','class_courses.id')
-        ->leftjoin('course_programs','students.course_program_id','course_programs.id')
-        ->select('students.*','course_programs.program','class_courses.class','users.*')->get();
+ 
+        $users = User::where('role','parent')->get();
         // return $users;
-        return view('user',compact('users','coursePrograms','class','parent'));
+        return view('ortu',compact('users'));
     }
 
     /**
@@ -53,28 +34,14 @@ class UserController extends Controller
                 'password' => bcrypt($request->password),
                 'full_name' => $request->full_name,
                 'nick_name' => $request->nick_name,
-                'status_account' => $request->status_account,
-                'activate_date' => $request->activate_date,
-                'role' => 'student',
+                'status_account' => 'active',
+                'role' => 'parent',
                 'foto_profil' => 'profil.jpg',
             ]);
-            $user = User::create($request->except(['_token']));
-
-           $s= Student::create([
-                'user_id'=>$user->id,
-                'school' => $request->school,
-                'date_birth' => $request->date_birth,
-                'no_hp' => $request->no_hp,
-                'course_program_id'=>$request->course_program_id,
-                'class_id'=>$request->class_id,
-                'parent_id'=>$request->parent_id,
-                
-
-            ]);
-            // return $s;
+       User::create($request->except(['_token']));
 
 
-            return redirect()->back()->with('message', 'Berhasil Menambah User');
+            return redirect()->back()->with('message', 'Berhasil Menambah Orangtua');
         } else {
             return redirect()->back()->with('error', 'ID Number sudah terdaftar');
         }
@@ -90,10 +57,8 @@ class UserController extends Controller
     {
         //
 
-        $user = DB::table('students')
-        ->leftjoin('users','students.user_id','users.id')
-        ->select('students.*','users.*')
-        ->where('users.id',$id)
+        $user = User::
+        where('id',$id)
         ->first();
         $user->foto_profil = asset('public/profil/'.$user->foto_profil);
         return response()->json($user);
@@ -154,19 +119,8 @@ class UserController extends Controller
                 'nick_name' => $request->nick_name,
                 'id_number'=>$request->id_number,
                 'foto_profil'=>$namaFiles,
-                'status_account' => $request->status_account,
-                'activate_date' => $request->activate_date,
             ]);
 
-            Student::where('user_id',$id)->update([
-                'school' => $request->school,
-                'date_birth' => $request->date_birth,
-                'no_hp' => $request->no_hp,
-                // 'course_program_id'=>$request->course_program_id,
-                // 'class_id'=>$request->class_id
-                
-
-            ]);
 
         }else{
             
@@ -175,19 +129,8 @@ class UserController extends Controller
                 'nick_name' => $request->nick_name,
                 'id_number'=>$request->id_number,
                 'foto_profil'=>$namaFiles,
-                'status_account' => $request->status_account,
-                'activate_date' => $request->activate_date,
             ]);
 
-            Student::where('user_id',$id)->update([
-                'school' => $request->school,
-                'date_birth' => $request->date_birth,
-                'no_hp' => $request->no_hp,
-                // 'course_program_id'=>$request->course_program_id,
-                // 'class_id'=>$request->class_id
-                
-
-            ]);
 
         }
 
@@ -201,19 +144,10 @@ class UserController extends Controller
                 'full_name' => $request->full_name,
                 'nick_name' => $request->nick_name,
                 'id_number'=>$request->id_number,
-                'status_account' => $request->status_account,
-                'activate_date' => $request->activate_date,
-            ]);
-
-            Student::where('user_id',$id)->update([
-                'school' => $request->school,
-                'date_birth' => $request->date_birth,
-                'no_hp' => $request->no_hp,
-                // 'course_program_id'=>$request->course_program_id,
-                // 'class_id'=>$request->class_id
-                
 
             ]);
+
+  
 
         }else{
             
@@ -221,19 +155,8 @@ class UserController extends Controller
                 'full_name' => $request->full_name,
                 'nick_name' => $request->nick_name,
                 'id_number'=>$request->id_number,
-                'status_account' => $request->status_account,
-                'activate_date' => $request->activate_date,
             ]);
 
-            Student::where('user_id',$id)->update([
-                'school' => $request->school,
-                'date_birth' => $request->date_birth,
-                'no_hp' => $request->no_hp,
-                // 'course_program_id'=>$request->course_program_id,
-                // 'class_id'=>$request->class_id
-                
-
-            ]);
 
         }
 
@@ -243,7 +166,7 @@ class UserController extends Controller
         // return $u;
       
 
-        return redirect()->back()->with('message', 'User Berhasil Diperbaharui');
+        return redirect()->back()->with('message', 'User Orangtua Berhasil Diperbaharui');
     }
 
     /**
@@ -252,7 +175,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroys($id)
     {
         //
         $tujuan_upload = public_path('profil');
@@ -263,8 +186,6 @@ class UserController extends Controller
             File::delete($tujuan_upload . '/' . $s->foto_profil);
             User::destroy($id);
         }
-        // Student::where('user_id',$id)->delete();
-        // User::destroy($id);
         return redirect()->back()->with('message', 'User Berhasil Dihapus');
     }
 }
