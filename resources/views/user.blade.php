@@ -286,6 +286,20 @@
                                                             style=" height:30%; width:30%;">                            
                                             </div>
 
+                                            <div class="col-sm-12">
+                                                    <div class="form-group form-group-default">
+                                                        <label>Pilih OrangTua</label>
+                                                        <select id="parent" name="parent_id" required class="form-control" >
+                                                            <option value="" disabled>Choose</option>
+                                                            <!-- Loop through your list of course programs and generate options -->
+                                                            @foreach($parent as $v)
+                                                                <option value="{{ $v->id }}">{{ $v->full_name }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+
 
                                         <!-- <div class="col-sm-12">
                                                     <div class="form-group form-group-default">
@@ -346,6 +360,7 @@
                                                         <th style="color:#000000;">ID Number</th>
                                                         <th style="color:#000000;">Program</th>
                                                         <th style="color:#000000;">Class</th>
+                                                        <th style="color:#000000;">Parent</th>
                                                         <th style="width: 10% ;color:#000000;">Action</th>
                                                     </tr>
                                                 </thead>
@@ -359,6 +374,7 @@
                                                         <td>{{$user->id_number}}</td>
                                                         <td>{{$user->program}}</td>
                                                         <td>{{$user->class}}</td>
+                                                        <td>{{$user->parent_name}}</td>
                                                         <td>
                                                             <div style="display: flex; justify-content: space-between;">
                                                             <a href="{{url('student-schedules',$user->id)}}"><button class="btn btn-primary" style="font-size: 12px; width: fit-content;">Student Schedule</button></a>
@@ -367,7 +383,7 @@
                                                                     <button type="button" class="btn btn-sm" onclick="edit({{$user->id}})" data-toggle="modal" data-target="#editUsers" title="Edit User">
                                                                         <i class="fe fe-edit"></i>
                                                                     </button>
-                                                                    <a href="{{url('user'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="Hapus User">
+                                                                    <a href="{{url('hapususer'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="Hapus User">
                                                                         <i class="fe fe-trash"></i>
                                                                     </a>
                                                                 </div>
@@ -561,7 +577,7 @@ function getClasses() {
                 $("#active_input").val(response.data.activate_date);
                 $("#status_account_input").val(response.data.status_account);
                 $("#loadfotoadd").attr("src", response.data.foto_profil);
-                // $("#classs").val(response.data.class_id);
+                $("#parent").val(response.data.parent_id);
                
                 var classId = response.data.class_id;
                 console.log(classId)

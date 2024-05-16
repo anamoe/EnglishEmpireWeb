@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -184,6 +185,7 @@ class OrtuController extends Controller
         if ($s) {
 
             File::delete($tujuan_upload . '/' . $s->foto_profil);
+         
             User::destroy($id);
         }
         return redirect()->back()->with('message', 'User Berhasil Dihapus');

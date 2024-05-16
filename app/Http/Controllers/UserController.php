@@ -30,9 +30,10 @@ class UserController extends Controller
 
         $users = DB::table('students')
         ->leftjoin('users','students.user_id','users.id')
+        ->leftjoin('users as ortu','students.parent_id','ortu.id')
         ->leftjoin('class_courses','students.class_id','class_courses.id')
         ->leftjoin('course_programs','students.course_program_id','course_programs.id')
-        ->select('students.*','course_programs.program','class_courses.class','users.*')->get();
+        ->select('students.*','ortu.full_name as parent_name','course_programs.program','class_courses.class','users.*')->get();
         // return $users;
         return view('user',compact('users','coursePrograms','class','parent'));
     }
@@ -162,6 +163,8 @@ class UserController extends Controller
                 'school' => $request->school,
                 'date_birth' => $request->date_birth,
                 'no_hp' => $request->no_hp,
+                'parent_id'=>$request->parent_id,
+
                 // 'course_program_id'=>$request->course_program_id,
                 // 'class_id'=>$request->class_id
                 
@@ -182,6 +185,7 @@ class UserController extends Controller
             Student::where('user_id',$id)->update([
                 'school' => $request->school,
                 'date_birth' => $request->date_birth,
+                'parent_id'=>$request->parent_id,
                 'no_hp' => $request->no_hp,
                 // 'course_program_id'=>$request->course_program_id,
                 // 'class_id'=>$request->class_id
@@ -208,6 +212,7 @@ class UserController extends Controller
             Student::where('user_id',$id)->update([
                 'school' => $request->school,
                 'date_birth' => $request->date_birth,
+                'parent_id'=>$request->parent_id,
                 'no_hp' => $request->no_hp,
                 // 'course_program_id'=>$request->course_program_id,
                 // 'class_id'=>$request->class_id
@@ -228,6 +233,7 @@ class UserController extends Controller
             Student::where('user_id',$id)->update([
                 'school' => $request->school,
                 'date_birth' => $request->date_birth,
+                'parent_id'=>$request->parent_id,
                 'no_hp' => $request->no_hp,
                 // 'course_program_id'=>$request->course_program_id,
                 // 'class_id'=>$request->class_id
@@ -252,7 +258,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroys($id)
     {
         //
         $tujuan_upload = public_path('profil');
@@ -261,7 +267,8 @@ class UserController extends Controller
         if ($s) {
 
             File::delete($tujuan_upload . '/' . $s->foto_profil);
-            User::destroy($id);
+            Student::where('user_id',$id)->delete();
+            $s->delete();
         }
         // Student::where('user_id',$id)->delete();
         // User::destroy($id);

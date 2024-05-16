@@ -21,9 +21,9 @@
                     <div class="col-md-8">
                         <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#exampleModalCenter">Tambah Sub Category</button>
                     </div>
-                    <!-- <div class="col-md-4">
+                    <div class="col-md-4">
                         <button class="btn btn-sm btn-primary float-right" data-toggle="modal" data-target="#addCopyQuest">Copy Add Question Sub Category</button>
-                    </div> -->
+                    </div>
 
                     <!-- Modal -->
                     <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

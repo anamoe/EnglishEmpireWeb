@@ -184,6 +184,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="color:#000000;">Name</th>
+                                                        <th style="color:#000000;">Nick</th>
                                                         <th style="color:#000000;">ID Number</th>
                                                     
                                                         <th style="width: 10% ;color:#000000;">Action</th>
@@ -196,6 +197,7 @@
 
                                                     <tr>
                                                         <td>{{$user->full_name}}</td>
+                                                        <td>{{$user->nick_name}}</td>
                                                         <td>{{$user->id_number}}</td>
                                                         
                                                         <td>
@@ -206,7 +208,7 @@
                                                                     <button type="button" class="btn btn-sm" onclick="edit({{$user->id}})" data-toggle="modal" data-target="#editUsers" title="Edit User">
                                                                         <i class="fe fe-edit"></i>
                                                                     </button>
-                                                                    <a href="{{url('ortu'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="Hapus User">
+                                                                    <a href="{{url('hapusortu'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="Hapus User">
                                                                         <i class="fe fe-trash"></i>
                                                                     </a>
                                                                 </div>

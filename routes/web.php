@@ -49,11 +49,13 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
     Route::resource('user',UserController::class);
     Route::resource('ortu',OrtuController::class);
     Route::post('ortuupdate/{id}',[OrtuController::class,'updated']);
+    Route::get('hapusortu/{id}',[OrtuController::class,'destroys']);
+
 
 
     Route::get('class/{id_course}',[UserController::class,'getclass']);
     Route::post('userupdate/{id}',[UserController::class,'updated']);
-    Route::get('hapususer/{id}',[UserController::class,'destroy']);
+    Route::get('hapususer/{id}',[UserController::class,'destroys']);
 
     Route::resource('class_user',ClasUserController::class);
     Route::get('class_peruser/{class_id}',[ClasUserController::class,'index_class']);
