@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerStudentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassCourseController;
 use App\Http\Controllers\ClasUserController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\SlideInfoController;
 use App\Http\Controllers\StudentScheduleController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
+use App\Models\Answer;
 use App\Models\CourseProgram;
 use App\Models\MainCategory;
 use App\Models\Question;
@@ -114,6 +116,12 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
 
     Route::resource('kelolasoal_exam',QuestionExamController::class);
 
+    Route::resource('answer_student',AnswerStudentController::class);
+    Route::get('answer_students/{sub_id}',[AnswerStudentController::class,'index_answer']);
+    Route::get('kelolaanswerdelete/{id}',[AnswerStudentController::class,'destroy']);
+    Route::post('hapus-answer-all',[AnswerStudentController::class,'hapus_select']);
+
+    
 
 
 

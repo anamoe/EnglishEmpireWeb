@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\PoinStudent;
 use App\Models\Question;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
@@ -33,8 +34,14 @@ class SubCategoryController extends Controller
      */
     public function store_copy(Request $request)
     {
+        // return $request;
         //
         $dataquest =Question::where('sub_id',$request->sub_id_copy)->get();
+        foreach($dataquest as $v){
+            $answer_key= Answer::where('id',$v->answer_key)->first();
+            $v->answerkey = $answer_key->answer;
+
+        }
 
         // return $dataquest;
         $s  =SubCategory::create(["sub" => $request->sub,"main_category_id" => $request->main_id,'waktu_pengerjaan'=>$request->waktu_pengerjaan]);
@@ -50,17 +57,37 @@ class SubCategoryController extends Controller
             ]);
 
             $answer =Answer::where('question_id',$d->id)->get();
+            $newAnswerKeyId = null;
         
             foreach ($answer as $answere) {
            
-                Answer::create([
+               $newAnswer= Answer::create([
                     'question_id' => $newQuestion->id, 
                     'answer' => $answere->answer, 
                 
                 ]);
-            
+
+                if ($answere->answer == $d->answerkey) {
+                    $newAnswerKeyId = $newAnswer->id;
+                }
+                
+
+                // $a = Answer::where('answer',$d->answerkey)->orderBy('id','desc')->get();
+
+                // foreach($a as $v){
+                //     Question::where('id',$newQuestion->id)->first()->update([
+                //         'answer_key'=>$v->id
+                //     ]);
+                // }
+
+               
+           
 
         }
+        if ($newAnswerKeyId !== null) {
+            $newQuestion->update(['answer_key' => $newAnswerKeyId]);
+        }
+ 
         }
       
 
@@ -108,7 +135,23 @@ class SubCategoryController extends Controller
     public function destroy(string $id)
     {
         //
-        SubCategory::where('id',$id)->delete();
+        $s=SubCategory::where('id',$id)->first();
+        if($s){
+
+            $q=Question::where('sub_id',$s->id)->get();
+            foreach ($q as $v){
+            Answer::whereIn('question_id',[$v->id])->delete();
+            $v->delete();
+
+            }
+
+            // PoinStudent::whereIn('question_id',[$q->id] )->delete();
+         
+            $s->delete();
+
+        }
+
+     
 
         return redirect()->back()->with("message"," berhasil dihapus");
     }

@@ -236,6 +236,19 @@
                                     </div>
                                 </div>
                             </a>
+
+                            <a href="{{url('answer_students',$v->id)}}"  class="row align-items-center">
+                                <div class="col-icon">
+                                    <div class="icon-big text-center icon-info bubble-shadow-large">
+                                    <i class="fa-solid fa-gamepad-modern"></i>
+                                    </div>
+                                </div>
+                                <div class="col col-stats ml-3 ml-sm-0">
+                                    <div class="numbers">
+                                        <p class="card-category">Jawaban Siswa</p>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
 

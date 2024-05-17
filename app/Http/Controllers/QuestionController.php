@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Answer;
+use App\Models\PoinStudent;
 use App\Models\Question;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -316,9 +317,10 @@ class QuestionController extends Controller
     
            
             File::delete($tujuan_upload_audio . '/' . Question::find($id)->image);
-            foreach($q as $v){
-                Answer::where('question_id',$v->question_id)->delete();
-            }
+            // foreach($q as $v){
+                Answer::whereIn('question_id',[$q->question_id])->delete();
+                // PoinStudent::whereIn('question_id',$q->question_id)->delete();
+            // }
             Question::where('id',$id)->delete();
         }
 

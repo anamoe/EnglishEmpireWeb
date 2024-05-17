@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AnswerExam;
 use App\Models\ClassCourse;
 use App\Models\CourseProgram;
 use App\Models\Exam;
+use App\Models\PoinStudentExam;
+use App\Models\QuestionExam;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -93,7 +96,18 @@ class ExamController extends Controller
     public function destroy(string $id)
     {
         //
-        Exam::where('id', $id)->delete();
+        $s=Exam::where('id',$id)->first();
+        if($s){
+
+            $q=QuestionExam::where('exam_id',$s->id)->first();
+            AnswerExam::whereIn('question_id',[$q->id])->delete();
+            // PoinStudentExam::whereIn('question_id',[$q->id] )->delete();
+            $q->delete();
+            $s->delete();
+
+        }
+
+     
 
         return redirect()->back()->with("message", " berhasil dihapus");
     }
