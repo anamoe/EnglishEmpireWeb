@@ -176,7 +176,7 @@ class ExamApiController extends Controller
     {
         $status='';
         // $cek = SubCategory::where('id',$sub_id)->first();
-        $cek = QuizExam::where('exam_id',$request->exam_id)->first();
+        $cek = QuizExam::where('exam_id',$request->exam_id)->where('user_id',$request->user_id)->first();
        if($cek){
       
         $status = 'finish';
@@ -249,7 +249,7 @@ class ExamApiController extends Controller
         }else{
             return response()->json([
                 'code' => '404',
-                'message' => "Not Found",
+                'message' => "Exam has been Submit",
             ]);
         }
 
