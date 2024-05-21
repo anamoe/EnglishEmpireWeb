@@ -2,31 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Answer;
-use App\Models\PoinStudent;
-use App\Models\Question;
-use App\Models\Quiz;
+use App\Models\PoinStudentExam;
+use App\Models\QuestionExam;
+use App\Models\QuizExam;
 use Illuminate\Http\Request;
 
-class AnswerStudentController extends Controller
+class AnswerExamStudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index_answer($sub_id)
+    public function index_answer($exam_id)
     {
         //
-        $answer =PoinStudent::
-        join('questions','poin_students.question_id','questions.id')
-        ->join('sub_categories','questions.sub_id','sub_categories.id')
-        ->join('users','poin_students.user_id','users.id')
-        ->select('questions.*','sub_categories.*','users.full_name','poin_students.*')
-        ->where('questions.sub_id',$sub_id)
+        $answer =PoinStudentExam::
+        join('question_exams','poin_student_exams.question_id','question_exams.id')
+        ->join('exams','question_exams.exam_id','exams.id')
+        ->join('users','poin_student_exams.user_id','users.id')
+        ->select('question_exams.*','exams.*','users.full_name','poin_student_exams.*')
+        ->where('question_exams.exam_id',$exam_id)
         ->get();
         // ->groupBy(function($item) {
         //     return $item->sub_id . '-' . $item->user_id;
         // });
-        return view('answer_student',compact('answer'));
+        return view('answer_exam_student',compact('answer'));
         return $answer;
     }
 
@@ -76,10 +72,9 @@ class AnswerStudentController extends Controller
     public function destroy(string $id)
     {
         //
-        $p=PoinStudent::where('id',$id)->first();
-        $question = Question::where('id',$p->question_id)->first();
-        $quiz = Quiz::where('sub_categories_id',$question->sub_id)->where('user_id',$p->user_id)
-        ->where('status','finish')->first();
+        $p=PoinStudentExam::where('id',$id)->first();
+        $question = QuestionExam::where('id',$p->question_id)->first();
+        $quiz = QuizExam::where('exam',$question->exam_id)->where('user_id',$p->user_id)->first();
         $quiz->delete();
         
         $p->delete();
@@ -91,21 +86,14 @@ class AnswerStudentController extends Controller
     public function hapus_select(Request $request){
         // return $request->ceklist;
         if($request->ceklist){
-            // $p= PoinStudent::whereIn('id',$request->ceklist)->get();
-            // foreach($p as $v){
-            //     $question = Question::whereIn('id',[$v->question_id])->get();
-            //     $quiz = Quiz::where('sub_categories_id',[$question->sub_id])->where('user_id',[$question->user_id])->get();
-            //     $quiz->delete();
-            // }
-
-            $p = PoinStudent::whereIn('id', $request->ceklist)->get();
+            $p = PoinStudentExam::whereIn('id', $request->ceklist)->get();
             foreach ($p as $v) {
-                $question = Question::where('id',$v->question_id)->get();  // Fetch single question instance
+                $question = QuestionExam::where('id',$v->question_id)->get();  // Fetch single question instance
                 // return $question;
                 if ($question) {
                     foreach($question as $v){
                         // return $v;
-                        $quiz = Quiz::where('sub_categories_id',$v->sub_id) // Access single instance properties
+                        $quiz = QuizExam::where('exam_id',$v->exam_id) // Access single instance properties
                         ->where('status_test','finish')
                         ->get();
                         // return $quiz;
@@ -118,11 +106,8 @@ class AnswerStudentController extends Controller
                  
                 }
             }
-           
-           
-
       
-        PoinStudent::whereIn('id',$request->ceklist)->delete();
+        PoinStudentExam::whereIn('id',$request->ceklist)->delete();
             return redirect()->back()->with('message','Data Jawaban Siswa Berhasil di Hapus');
         }else{
             //jika tidak ada hanya redirect kosongan

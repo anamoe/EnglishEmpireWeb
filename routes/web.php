@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerExamStudentController;
 use App\Http\Controllers\AnswerStudentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClassCourseController;
@@ -120,6 +121,11 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
     Route::get('answer_students/{sub_id}',[AnswerStudentController::class,'index_answer']);
     Route::get('kelolaanswerdelete/{id}',[AnswerStudentController::class,'destroy']);
     Route::post('hapus-answer-all',[AnswerStudentController::class,'hapus_select']);
+
+    Route::resource('answer_exam_student',AnswerExamStudentController::class);
+    Route::get('answer_exam_students/{exam_id}',[AnswerExamStudentController::class,'index_answer']);
+    Route::get('kelolaexamanswerdelete/{id}',[AnswerExamStudentController::class,'destroy']);
+    Route::post('hapus-answer-exam-all',[AnswerExamStudentController::class,'hapus_select']);
 
     
 //
