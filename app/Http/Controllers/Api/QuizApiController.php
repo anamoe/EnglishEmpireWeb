@@ -100,7 +100,7 @@ class QuizApiController extends Controller
     {
         $status='';
         // $cek = SubCategory::where('id',$sub_id)->first();
-        $cek = Quiz::where('sub_categories_id',$request->sub_id)->first();
+        $cek = Quiz::where('sub_categories_id',$request->sub_id)->where('user_id',$request->user_id)->first();
        if($cek){
       
         $status = 'finish';
@@ -182,7 +182,7 @@ class QuizApiController extends Controller
         }else{
             return response()->json([
                 'code' => '404',
-                'message' => "Not Found",
+                'message' => "QUiz has been submit",
             ]);
         }
         
