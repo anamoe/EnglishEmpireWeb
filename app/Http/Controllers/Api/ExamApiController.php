@@ -98,13 +98,13 @@ class ExamApiController extends Controller
             if($q->image==''){
                 $q->image ='';
             }else{
-                $q->image = asset('public/question/image/'.$q->image);
+                $q->image = asset('public/question_exam/image/'.$q->image);
 
             }
             if($q->audio==''){
                 $q->audio ='';
             }else{
-                $q->audio = asset('public/question/audio/'.$q->audio);
+                $q->audio = asset('public/question_exam/audio/'.$q->audio);
 
             }
 

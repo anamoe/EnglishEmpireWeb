@@ -65,7 +65,7 @@
                         </div>
                     <div class="form-group">
                        <label>Soal :</label>
-                       <textarea class="summernote_dessription" name="soal" id="isi_materi">{{$s->quest}}</textarea>
+                       <textarea class="form-control"  name="soal" id="isi_materi">{{$s->quest}}</textarea>
                     </div>
 
                     @foreach($s->ganda as $n=>$g)
@@ -74,7 +74,7 @@
                        <label class="badge badge-success text-white py-2 w-100"
                        style="font-size: 15px;" 
                        >Jawaban (Benar):</label>
-                       <textarea class="summernote_dess" required name="jawbenar" id="isi_jawab">{{$g->answer}}</textarea>
+                       <textarea class="form-control"  required name="jawbenar" id="isi_jawab">{{$g->answer}}</textarea>
                     </div>
                     
                     @endif
@@ -88,7 +88,7 @@
                     @foreach($s->ganda as $nq=>$gq)
                     @if($nq > 0)
                     <div class="mb-3">
-                    <textarea class="summernote_jaw mb-3" required name="jaw[{{$gq->id}}]">{{$gq->answer}}</textarea>
+                    <textarea class="form-control" required name="jaw[{{$gq->id}}]">{{$gq->answer}}</textarea>
                     </div>
                     @endif
                     @endforeach
@@ -129,40 +129,7 @@ function pauseAudio() {
 
 <script>
 
-var jumjawaban = 0
 
-function hapusjawaban() {
-    $('.list-jawaban .jwbn:last-child').remove()
-    jumjawaban--
-}
-
-function tambahjawaban() {
-    $('.list-jawaban').append(`
-<div class="mb-3 jwbn">
- <textarea class="summernote_jaw" required name="jaw[]"></textarea>
-</div>
-        `)
-
-
-      $('.summernote_jaw').summernote({
-        toolbar: [
-        //   ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['fontname', ['fontname']],
-          ['color', ['color']],
-        //   ['para', ['ul', 'ol', 'paragraph']],
-        //   ['table', ['table']],
-        //   ['insert', ['link', 'picture', 'video','audio']],
-          ['view', ['fullscreen', 'codeview', 'help']],
-        ],
-
-})
-      jumjawaban++ 
-
-      addlastsum()
-
-
-}
 
 $(document).ready(function() {
 
@@ -193,25 +160,6 @@ $('.searchbox-input').keyup( function () {
 
 
 
-
-
-$(document).ready(function() {
-    $('textarea').summernote({
-        toolbar: [
-        //   ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['fontname', ['fontname']],
-          ['color', ['color']],
-        //   ['para', ['ul', 'ol', 'paragraph']],
-        //   ['table', ['table']],
-        //   ['insert', ['link', 'picture', 'video','audio']],
-          ['view', ['fullscreen', 'codeview', 'help']],
-        ],
-
-})
-
-
-})  
 
 
 

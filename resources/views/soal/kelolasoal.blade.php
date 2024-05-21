@@ -135,7 +135,7 @@
                                                 <a href="{{url('kelolasoaldelete',$v->id)}}" class="btn btn-danger" data-target="confirmation-modal">
                                                     <i class="fe fe-trash"></i>
                                                 </a>
-                                                <a href="{{url('soal',$v->id)}}" class="btn btn-success text-white">
+                                                <a href="{{url('viewsoal',$v->id)}}" class="btn btn-success text-white">
                                                     <i class="fe fe-eye"></i>
                                                 </a>
 

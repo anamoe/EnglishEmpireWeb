@@ -35,7 +35,7 @@ class QuestionExamController extends Controller
            
         
         //    return $s;
-            return view('soal.viewsoal',compact('s'));
+            return view('exam.viewsoal_exam',compact('s'));
         }
         /**
          * Display a listing of the resource.
@@ -138,7 +138,7 @@ class QuestionExamController extends Controller
             // return $s;
     
     
-            return view('soal.editsoal',compact('s'));
+            return view('exam.editsoal_exam',compact('s'));
            
         }
     
@@ -295,7 +295,7 @@ class QuestionExamController extends Controller
             //
           
     
-            return redirect("quizcategory/maincategory/subcategory/quiz/".$p->sub_id)->with("message","Soal berhasil diedit");
+            return redirect("soal_exam_list/".$p->exam_id)->with("message","Exam berhasil diedit");
         }
     
         /**
