@@ -37,7 +37,7 @@ class OrtuController extends Controller
                 'nick_name' => $request->nick_name,
                 'status_account' => 'active',
                 'role' => 'parent',
-                'foto_profil' => 'profil.jpg',
+                'foto_profil' => 'profil-parent.jpg',
             ]);
        User::create($request->except(['_token']));
 

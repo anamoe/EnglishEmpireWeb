@@ -15,7 +15,7 @@ class AuthApiController extends Controller
 
     public function login(Request $request){
 
-        $user = User::where('id_number', $request->id_number)->where('role','student')->first();
+        $user = User::where('id_number', $request->id_number)->whereIn('role',['student','parent'])->first();
       
         
         if ($user) {
@@ -27,15 +27,28 @@ class AuthApiController extends Controller
                     ]);
                  }
 
-                $users = DB::table('students')
-                ->leftjoin('users','students.user_id','users.id')
-                ->leftjoin('course_programs','students.course_program_id','course_programs.id')
-                ->leftjoin('class_courses','students.class_id','class_courses.id')
-                ->select('students.*','class_courses.class','course_programs.program',
-                'users.full_name','users.nick_name','users.foto_profil as profil_picture','users.token_fcm',
-                'users.activate_date','users.status_account',
-                'users.id_number','users.role')->where('users.id',$user->id)->first();
-                $users->profil_picture = asset('public/profil/'.$user->foto_profil);
+                 if($user->role=='student'){
+                    $users = DB::table('students')
+                    ->leftjoin('users','students.user_id','users.id')
+                    ->leftjoin('course_programs','students.course_program_id','course_programs.id')
+                    ->leftjoin('class_courses','students.class_id','class_courses.id')
+                    ->select('students.*','class_courses.class','course_programs.program',
+                    'users.full_name','users.nick_name','users.foto_profil as profil_picture','users.token_fcm',
+                    'users.activate_date','users.status_account',
+                    'users.id_number','users.role')->where('users.id',$user->id)->first();
+                    $users->profil_picture = asset('public/profil/'.$user->foto_profil);
+
+                 }else{
+                    $users = DB::table('users')
+                    ->select(
+                    'users.full_name','users.nick_name','users.foto_profil as profil_picture','users.token_fcm',
+                    'users.activate_date','users.status_account',
+                    'users.id_number','users.role')->where('users.id',$user->id)->first();
+                    $users->profil_picture = asset('public/profil/'.$user->foto_profil);
+
+                 }
+
+        
 
             
 

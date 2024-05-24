@@ -100,7 +100,7 @@ class ExamController extends Controller
         if($s){
 
             $q=QuestionExam::where('exam_id',$s->id)->first();
-            AnswerExam::whereIn('question_id',[$q->id])->delete();
+            AnswerExam::whereIn('quest_exam_id',[$q->id])->delete();
             // PoinStudentExam::whereIn('question_id',[$q->id] )->delete();
             $q->delete();
             $s->delete();
