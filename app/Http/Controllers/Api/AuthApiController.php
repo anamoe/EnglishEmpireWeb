@@ -39,12 +39,29 @@ class AuthApiController extends Controller
                     $users->profil_picture = asset('public/profil/'.$user->foto_profil);
 
                  }else{
-                    $users = DB::table('users')
+                    $user_parent = DB::table('users')
                     ->select(
-                    'users.full_name','users.nick_name','users.foto_profil as profil_picture','users.token_fcm',
+                    'users.full_name as full_name_parent','users.nick_name as nick_name_parent','users.foto_profil as profil_picture','users.token_fcm',
+                    'users.id as id_parent',
+                    'users.id_number as id_number_parent','users.role as role_parent')->where('users.id',$user->id)->first();
+                    $user_parent->profil_picture = asset('public/profil/'.$user_parent->profil_picture);
+// return $user_parent;
+                    $users = DB::table('students')
+                    ->leftjoin('users','students.user_id','users.id')
+                    ->leftjoin('course_programs','students.course_program_id','course_programs.id')
+                    ->leftjoin('class_courses','students.class_id','class_courses.id')
+                    ->select('students.*','class_courses.class','course_programs.program',
+                    'users.full_name','users.nick_name','users.foto_profil as profil_picture',
                     'users.activate_date','users.status_account',
-                    'users.id_number','users.role')->where('users.id',$user->id)->first();
-                    $users->profil_picture = asset('public/profil/'.$user->foto_profil);
+                    'users.id_number','users.role')->where('users.id_number',$request->id_number_student)->first();
+
+                    $users->full_name_parent =$user_parent->full_name_parent;
+                    $users->nick_name_parent =$user_parent->nick_name_parent;
+                    $users->id_number_parent =$user_parent->id_number_parent;
+                    $users->role_parent =$user_parent->role_parent;
+                    $users->profil_picture =$user_parent->profil_picture;
+                    
+                    // $users->profil_picture = asset('public/profil/'.$user->foto_profil);
 
                  }
 
