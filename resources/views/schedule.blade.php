@@ -159,6 +159,14 @@
 
                                         </div>
                                         </div>
+
+                                            
+                                        <div class="col-sm-12">
+                                                <div class="form-group form-group-default">
+                                                    <label>Date</label>
+                                                    <input id="date" type="date" name="date" required class="form-control" placeholder="">
+                                                </div>
+                                            </div>
  
  
                                      
@@ -308,7 +316,7 @@
         $('#basic-datatables').DataTable({});
 
         $('#multi-filter-select').DataTable({
-            "pageLength": 5,
+            "pageLength": 20,
             initComplete: function() {
                 this.api().columns().every(function() {
                     var column = this;
@@ -358,6 +366,7 @@
                 $("#note_input").val(response.data.note)
                 $("#homework").val(response.data.homework)
                 $("#skor").val(response.data.skor)
+                $("#date").val(response.data.date)
 
           
                 $("#updateuser").attr("action", "{{url('schedule-student-update')}}" + "/" + response.data.id)

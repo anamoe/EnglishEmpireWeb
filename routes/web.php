@@ -105,6 +105,8 @@ Route::middleware(['middleware' => 'admin'])->group(function () {
 
     
     Route::resource('message',MessageController::class);
+    Route::get('message-delete/{id}',[MessageController::class,'destroys']);
+
 
     Route::resource('exam',ExamController::class);
     Route::get('class_exam/{class_id}',[ExamController::class,'index_class']);

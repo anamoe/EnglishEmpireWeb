@@ -90,7 +90,7 @@ class MessageController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroys(string $id)
     {
         //
         Message::where('id',$id)->delete();

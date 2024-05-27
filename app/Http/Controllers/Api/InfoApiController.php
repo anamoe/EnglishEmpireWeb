@@ -28,7 +28,9 @@ class InfoApiController extends Controller
     {
 
 
-        $slideinfo = StudentSchedule::where('user_id', $user_id)->orderBy('session', 'asc')->get();
+        $slideinfo = StudentSchedule::where('user_id', $user_id)
+        ->orderByRaw('CAST(session AS UNSIGNED) ASC')
+        ->get();
 
 
         if ($slideinfo) {

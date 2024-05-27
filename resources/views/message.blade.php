@@ -204,17 +204,17 @@
                                                         <td>{{$user->type_message}}</td>
                                                 
                                                         <td>
-                                                            <!-- <div class="form-button-action">
-                                                                <button type="button" class="btn btn-sm" onclick="edit({{$user->id}})" data-toggle="modal" data-target="#editUsers" title="" data-original-title="Edit User">
+                                                            <div class="form-button-action">
+                                                                <!-- <button type="button" class="btn btn-sm" onclick="edit({{$user->id}})" data-toggle="modal" data-target="#editUsers" title="" data-original-title="Edit User">
                                                                     <i class="fe fe-edit "></i>
-                                                                </button>
+                                                                </button> -->
 
-                                                                <a href="{{url('schedule-student-delete'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="" data-original-title="Hapus User">
+                                                                <a href="{{url('message-delete'.'/'.$user->id)}}" data-toggle="modal" onClick="hapus(this)" data-target="#confirmation-modal" title="" data-original-title="Hapus User">
                                                                     <i class="fe fe-trash"></i>
                                                                 </a>
 
 
-                                                            </div> -->
+                                                            </div>
                                                         </td>
                                                     </tr>
 
@@ -297,7 +297,7 @@
         $('#basic-datatables').DataTable({});
 
         $('#multi-filter-select').DataTable({
-            "pageLength": 5,
+            "pageLength": 20,
             initComplete: function() {
                 this.api().columns().every(function() {
                     var column = this;

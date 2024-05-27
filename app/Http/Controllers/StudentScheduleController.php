@@ -70,6 +70,7 @@ class StudentScheduleController extends Controller
             'note' => $request->note,
             'skor' => $request->skor,
             'homework' => $request->homework,
+            'date' => $request->date,
    
         ]);
         return redirect()->back()->with('message', 'Note Schedule Student Berhasil Diperbaharui');
