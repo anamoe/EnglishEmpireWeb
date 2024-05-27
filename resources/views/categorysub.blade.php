@@ -224,7 +224,7 @@
                                     </div>
                                 </div>
                             </a>
-                            <a href="{{url('program_quiz_category',$v->id)}}"  class="row align-items-center">
+                            <!-- <a href="{{url('program_quiz_category',$v->id)}}"  class="row align-items-center">
                                 <div class="col-icon">
                                     <div class="icon-big text-center icon-info bubble-shadow-large">
                                     <i class="fa-solid fa-gamepad-modern"></i>
@@ -235,7 +235,7 @@
                                         <p class="card-category">Class</p>
                                     </div>
                                 </div>
-                            </a>
+                            </a> -->
 
                             <a href="{{url('answer_students',$v->id)}}"  class="row align-items-center">
                                 <div class="col-icon">
