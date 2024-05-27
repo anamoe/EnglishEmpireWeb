@@ -59,6 +59,7 @@ class AuthApiController extends Controller
                     $users->nick_name_parent =$user_parent->nick_name_parent;
                     $users->id_number_parent =$user_parent->id_number_parent;
                     $users->role_parent =$user_parent->role_parent;
+                    $users->role =$user_parent->role_parent;
                     $users->profil_picture =$user_parent->profil_picture;
                     
                     // $users->profil_picture = asset('public/profil/'.$user->foto_profil);
